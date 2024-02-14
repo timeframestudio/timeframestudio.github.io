@@ -5,6 +5,7 @@
         <title>Mockup Home Version 3 | Khan Lab Studios</title>
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/font.css">
+        <script src="/scripts/home.js" type="module"></script>
     </head>
     <body>
         <div id="navigationBar" class="column-layout navigation-bar">
@@ -46,16 +47,6 @@
         </div>
         
         <script>
-            document.addEventListener('scroll', () => {
-                const navBar = document.getElementById('navigationBar');
-
-                if (window.scrollY > 0) {
-                    navBar.classList.add('navigation-bar-shadowed');
-                } else {
-                    navBar.classList.remove('navigation-bar-shadowed');
-                }
-            });
-
             function addRows(items) {
                 const rowContainer = document.getElementById("rowContainer");
 
