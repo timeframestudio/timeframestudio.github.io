@@ -1,0 +1,127 @@
+.project-blank {
+    flex: 1;
+    margin: 8px;
+    margin-bottom: 16px;
+}
+
+.project-item {
+    flex: 1;
+    margin: 8px;
+    margin-bottom: 16px;
+    transition: background-color 0.3s, border-color 0.3s;
+    padding: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.project-item:hover {
+    background-color: #f8f8f8;
+}
+
+.project-item:active {
+    background-color: #f0f0f0;
+    border-color: #e0e0e0;
+}
+
+.navigation-bar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background: white;
+    padding: 16px;
+    display: flex;
+    transition: box-shadow 0.3s;
+}
+
+.navigation-bar-shadowed {
+    box-shadow: 0px 0px 5px #00000033;
+}
+
+.column-layout {
+    display: flex;
+}
+
+.column-side {
+    flex: 1;
+}
+
+.column-center {
+    flex: 4;
+}
+
+.navigation-margin {
+    height: 50.5px;
+}
+
+body {
+    color: #444444;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+
+.world-map {
+    width: 100%;
+    background: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 32px;
+}
+
+.heading {
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    margin: 32px auto 32px auto;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.navigation-link {
+    margin-left: 32px;
+    color: #666666;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.3s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+
+.navigation-link:hover {
+    color: #444444;
+}
+
+.navigation-link.navigation-link-selected {
+    color: #444444;
+    border-bottom-color: #444444;
+}
+
+.navigation-title {
+    color: #444444;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+.header-background {
+    background-image: url(/assets/mountains.jpeg);
+    background-size: cover;
+    background-position: top center;
+    background-blend-mode: lighten;
+    background-color: #ffffff66;
+    text-align: center;
+    padding: 128px;
+    margin-bottom: 32px;
+}
+
+.header-title {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    color: #333333;
+}
+
+.header-description {
+    padding: 32px 0px;
+    color: #333333;
+}
