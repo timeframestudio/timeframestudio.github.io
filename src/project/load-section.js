@@ -1,5 +1,6 @@
 import { DescriptionSection } from "./description-section.js";
 import { HeaderSection } from "./header-section.js";
+import { ImageSection } from "./image-section.js";
 import { RowSection } from "./row-section.js";
 
 export async function loadSection(sectionData, project) {
@@ -11,6 +12,8 @@ export async function loadSection(sectionData, project) {
         section = new DescriptionSection();
     } else if (sectionData.type == 'row') {
         section = new RowSection();
+    } else if (sectionData.type == 'image') {
+        section = new ImageSection();
     } else {
         console.warn(`Unknown section type '${data.type}'`);
         return;

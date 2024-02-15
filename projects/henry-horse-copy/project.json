@@ -1,0 +1,18 @@
+{
+    "title": "Why Henry is Legally a Horse (Copy)",
+    "description": "A summary of the legal implication of Henry's horse-like behavior.",
+    "author": "Greg",
+    "sections": [
+        {
+            "type": "header"
+        },
+        {
+            "type": "description"
+        }
+    ],
+    "position": {
+        "x": 1000,
+        "y": 300
+    },
+    "$schema": "../../schema/project.json"
+}

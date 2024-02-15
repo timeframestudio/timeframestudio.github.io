@@ -103,7 +103,43 @@
                                 }
                             }
                         },
-                        "required": [ "type" ]
+                        "required": [ "type", "subsections" ]
+                    },
+                    {
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "const": "image",
+                                "description": "The type of the section."
+                            },
+                            "url": {
+                                "type": "string",
+                                "description": "The url of the image, relative to the project folder. Use a slash at the beginning to make it relative to the dist folder."
+                            },
+                            "dimensions": {
+                                "type": "object",
+                                "description": "The dimensions of the image.",
+                                "properties": {
+                                    "width": {
+                                        "type": "number",
+                                        "description": "The width of the image, in pixels."
+                                    },
+                                    "height": {
+                                        "type": "number",
+                                        "description": "The height of the image, in pixels."
+                                    }
+                                }
+                            },
+                            "caption": {
+                                "type": "string",
+                                "description": "The caption that will be displayed under the image."
+                            },
+                            "alt": {
+                                "type": "string",
+                                "description": "The alt text of the image."
+                            }
+                        },
+                        "required": [ "type", "url" ]
                     }
                 ]
             }

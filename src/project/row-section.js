@@ -6,6 +6,16 @@ import { loadSection } from "./load-section.js";
 export class RowSection extends ProjectSection {
     *getStylesheets() {
         yield '/css/row.css';
+
+        for (const subsection of this.subsections) {
+            yield* subsection.section.getStylesheets();
+        }
+    }
+
+    *getScripts() {
+        for (const subsection of this.subsections) {
+            yield* subsection.section.getScripts();
+        }
     }
 
     async setup(data, project) {
