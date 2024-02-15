@@ -8,7 +8,7 @@
             "image": {
                 "url": "/assets/mountains.jpeg",
                 "position": "top center",
-                "color": "#ffffff66"
+                "tint": "#ffffff66"
             }
         }
     ]
