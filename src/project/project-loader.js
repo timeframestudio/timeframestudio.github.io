@@ -3,17 +3,21 @@ import { Project } from './project.js';
 import { HeaderSection } from './header-section.js';
 import { JSDOM } from 'jsdom';
 import { DescriptionSection } from './description-section.js';
+import { SummaryInjector } from '../home/summary-injector.js';
 
 export class ProjectLoader {
     constructor() {
         this.projects = new Map();
         this.summaries = [];
+        this.summaryInjector = null;
     }
 
     async setup() {
         const projectTemplate = await fs.readFile('./dist/project.html');
 
         const projectFiles = await fs.readdir('./projects');
+
+        let projects = new Map();
 
         for (const projectFile of projectFiles) {
             let data;
@@ -34,13 +38,21 @@ export class ProjectLoader {
 
             const project = await this.loadProject(data, projectFile);
 
+            this.summaries.push(project.getSummary());
+
+            projects.set(projectFile, project);
+        }
+
+        this.summaryInjector = new SummaryInjector(this.summaries);
+
+        for (const [ id, project ] of projects) {
             const jsdom = new JSDOM(projectTemplate);
             const document = jsdom.window.document;
+
             project.addProjectSections(document);
+            this.summaryInjector.injectSummaries(document);
 
-            this.projects.set(projectFile, jsdom.serialize());
-
-            this.summaries.push(project.getSummary());
+            this.projects.set(id, jsdom.serialize());
         }
     }
 
@@ -109,7 +121,7 @@ export class ProjectLoader {
         return this.projects.get(id);
     }
 
-    getProjectSummaries() {
-        return this.summaries;
+    getSummaryInjector() {
+        return this.summaryInjector;
     }
 }

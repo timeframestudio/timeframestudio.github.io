@@ -2,9 +2,9 @@ import { JSDOM } from "jsdom";
 import fs from "fs/promises";
 
 export class HomeLoader {
-    constructor(summaries) {
+    constructor(summaryInjector) {
         this.home = null;
-        this.summaries = summaries;
+        this.summaryInjector = summaryInjector;
     }
 
     async setup() {
@@ -12,9 +12,7 @@ export class HomeLoader {
 
         const dom = new JSDOM(homeTemplate);
 
-        const script = dom.window.document.createElement('script');
-        script.innerHTML = `window._projectSummaryData = ${JSON.stringify(this.summaries)};`;
-        dom.window.document.head.appendChild(script);
+        this.summaryInjector.injectSummaries(dom.window.document);
 
         this.home = dom.serialize();
     }

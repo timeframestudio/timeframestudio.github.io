@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/font.css">
         <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/search.css">
         <script src="/scripts/project.js" type="module"></script>
     </head>
     <body>
@@ -13,11 +14,26 @@
             <div class="column-side"></div>
             <div class="column-center column-layout">
                 <a class="navigation-title" href="/">Khan Lab Studios</a>
-                <a class="navigation-link" href="/search">Search</a>
+                <a class="navigation-link search-link" href="#search">Search</a>
                 <a class="navigation-link" href="/about">About</a>
             </div>
             <div class="column-side"></div>
         </div>
         <div class="navigation-margin"></div>
+        <div class="search-popup-background">
+            <div class="search-popup-padding-top"></div>
+            <div class="search-popup-wrapper">
+                <div class="search-popup-padding-side"></div>
+                <div class="search-popup">
+                    <div class="search-header">
+                        <input type="text" class="search-bar" placeholder="Search projects...">
+                        <img src="/assets/close.svg" class="search-close-button">
+                    </div>
+                    <div class="search-results"></div>
+                </div>
+                <div class="search-popup-padding-side"></div>
+            </div>
+            <div class="search-popup-padding-bottom"></div>
+        </div>
     </body>
 </html>

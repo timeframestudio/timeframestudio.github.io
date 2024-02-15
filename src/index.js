@@ -11,7 +11,7 @@ const app = express();
 const projectLoader = new ProjectLoader();
 await projectLoader.setup();
 
-const homeLoader = new HomeLoader(projectLoader.getProjectSummaries());
+const homeLoader = new HomeLoader(projectLoader.getSummaryInjector());
 await homeLoader.setup();
 
 app.get('/prototypes', (req, res) => {
