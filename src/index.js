@@ -54,6 +54,31 @@ app.get('/projects/:projectId', (req, res) => {
     }
 });
 
+
+app.get('/assets/project/:projectId/:path', async (req, res) => {
+    if (!isSafePath(req.params.projectId)) {
+        res.status(400).send('Error 400: Invalid project path');
+        return;
+    }
+
+    let filePath = `./projects/${req.params.projectId}/${req.params.path}`;
+
+    if (req.params.path == 'project.json' || req.params.path == 'project.js') {
+        res.status(403).send('Error 403: Forbidden');
+
+        return;
+    }
+
+    try {
+        await fs.access(filePath);
+    } catch (err) {
+        res.status(404).send('Error 404: Project asset does not exist');
+        return;
+    }
+
+    res.sendFile(filePath, { root });
+});
+
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });

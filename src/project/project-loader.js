@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import { Project } from './project.js';
 import { HeaderSection } from './header-section.js';
 import { JSDOM } from 'jsdom';
+import { DescriptionSection } from './description-section.js';
 
 export class ProjectLoader {
     constructor() {
@@ -30,7 +31,7 @@ export class ProjectLoader {
                 continue;
             }
 
-            const project = await this.loadProject(data);
+            const project = await this.loadProject(data, projectFile);
 
             const jsdom = new JSDOM(projectTemplate);
             const document = jsdom.window.document;
@@ -40,7 +41,7 @@ export class ProjectLoader {
         }
     }
 
-    async loadProject(data) {
+    async loadProject(data, id) {
         if (!data.title) {
             console.warn('Project title is required');
             return;
@@ -66,6 +67,7 @@ export class ProjectLoader {
         project.title = data.title;
         project.author = data.author;
         project.description = data.description;
+        project.id = id;
 
         for (const sectionData of data.sections) {
             if (typeof sectionData != 'object') {
@@ -81,7 +83,9 @@ export class ProjectLoader {
             let section;
             
             if (sectionData.type == 'header') {
-                section = new HeaderSection(project, sectionData);
+                section = new HeaderSection(project, sectionData, id);
+            } else if (sectionData.type == 'description') {
+                section = new DescriptionSection(project);
             } else {
                 console.warn(`Unknown section type '${data.type}'`);
                 continue;

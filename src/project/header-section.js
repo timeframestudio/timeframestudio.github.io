@@ -1,11 +1,13 @@
 import { ProjectSection } from "./project-section.js";
 import { JSDOM } from 'jsdom';
+import path from 'path';
 
 export class HeaderSection extends ProjectSection {
-    constructor(project, data = null) {
+    constructor(project, data = null, projectId = null) {
         super();
 
         this.project = project;
+        this.projectId = projectId;
         this.loadFromData(data);
     }
 
@@ -22,11 +24,6 @@ export class HeaderSection extends ProjectSection {
             return;
         }
 
-        if (data.image.alt && typeof data.image.alt != 'string') {
-            console.warn('Header image alt text must be a string if present');
-            return;
-        }
-
         if (data.image.tint && typeof data.image.tint != 'string') {
             console.warn('Header image tint value must be a string (css color) if present');
             return;
@@ -34,6 +31,11 @@ export class HeaderSection extends ProjectSection {
 
         if (data.image.position && typeof data.image.position != 'string') {
             console.warn('If present, image.position must be a string that is a valid value for the css property background-position');
+            return;
+        }
+
+        if (typeof this.projectId != 'string' && !data.image.url.startsWith('/')) {
+            console.warn('Cannot find relative image urls without project id');
             return;
         }
 
@@ -61,7 +63,10 @@ export class HeaderSection extends ProjectSection {
 
         if (this.image) {
             const header = fragment.querySelector('.header');
-            header.style.backgroundImage = `url(${this.image.url})`;
+
+            const imageUrl = path.resolve('/assets/project/' + this.projectId + '/', this.image.url);
+            header.style.backgroundImage = `url(${imageUrl})`;
+            
             header.style.backgroundSize = 'cover';
             header.style.backgroundPosition = this.image.position || 'top center';
             header.style.backgroundBlendMode = 'lighten';

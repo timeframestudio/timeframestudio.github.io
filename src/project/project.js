@@ -5,6 +5,7 @@ export class Project {
     author = 'Project Author';
     description = 'Project Description';
     sections = [];
+    id = null;
 
     addProjectSections(document) {
         document.title = this.title + " | Khan Lab Studios";

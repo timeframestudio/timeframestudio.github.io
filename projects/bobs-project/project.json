@@ -1,15 +1,19 @@
 {
     "title": "The Big Cat",
-    "description": "The cat was big",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui. Nullam vel eros sit amet arcu vestibulum accumsan in in leo. Fusce malesuada auctor interdum. Maecenas nec ultrices dui. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
     "author": "Bob Bobson",
     "sections": [
         {
             "type": "header",
             "image": {
-                "url": "/assets/mountains.jpeg",
-                "position": "top center",
+                "url": "big-cat.jpeg",
+                "position": "center",
                 "tint": "#ffffff66"
             }
+        },
+        {
+            "type": "description"
         }
-    ]
+    ],
+    "$schema": "../../schema/project.json"
 }
