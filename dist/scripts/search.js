@@ -20,9 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
         showSearchPopup();
     });
 
+    document.addEventListener('keydown', event => {
+        if (event.key == 'Escape') {
+            event.preventDefault();
+            
+            hideSearchPopup();
+        } else if (event.key == '/') {
+            event.preventDefault();
+
+            showSearchPopup();
+        }
+    });
+
     let hideTimeout = null;
 
     function showSearchPopup() {
+        if (searchBackground.classList.contains('visible') && !hideTimeout) {
+            return;
+        }
+
         if (hideTimeout) {
             clearTimeout(hideTimeout);
 
@@ -38,6 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function hideSearchPopup() {
+        if (!searchBackground.classList.contains('visible') || hideTimeout) {
+            return;
+        }
+
         searchBackground.classList.remove('visible');
         searchBar.blur();
         searchBar.value = '';
@@ -102,14 +122,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultElement.classList.add('search-result');
                 resultElement.href = result.url;
 
+                const header = document.createElement('div');
+                header.classList.add('search-result-header');
+
                 const title = document.createElement('div');
                 title.classList.add('search-result-title');
                 title.textContent = result.title;
-                resultElement.appendChild(title);
+                header.appendChild(title);
+
+                const author = document.createElement('div');
+                author.classList.add('search-result-author');
+                author.textContent = result.author;
+                header.appendChild(author);
+
+                resultElement.appendChild(header);
+
+                let shortenedDescription = result.description;
+
+                if (shortenedDescription.length > 200) {
+                    shortenedDescription = shortenedDescription.substring(0, 200).trimEnd() + '...';
+                }
 
                 const description = document.createElement('div');
                 description.classList.add('search-result-description');
-                description.textContent = result.description;
+                description.textContent = shortenedDescription;
                 resultElement.appendChild(description);
 
                 searchResults.appendChild(resultElement);

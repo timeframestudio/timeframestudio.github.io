@@ -56,6 +56,10 @@
     padding: 16px;
 }
 
+.search-result-header {
+    display: flex;
+}
+
 .search-bar {
     padding: 12px;
     border: none;
@@ -117,10 +121,16 @@
     font-weight: bold;
     color: #333333;
     margin-bottom: 8px; 
+    flex: 1;
+}
+
+.search-result-author {
+    color: #888888;
+    margin-bottom: 8px;
 }
 
 .search-result-description {
-    color: #666666;
+    color: #555555;
 }
 
 .search-result:hover {
