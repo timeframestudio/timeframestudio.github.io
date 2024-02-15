@@ -1,5 +1,4 @@
 import './world-map.js';
-import './main.js';
 import { getProjectSummaries } from './projects.js';
 
 function addListItems(items) {

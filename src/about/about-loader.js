@@ -3,15 +3,15 @@ import { JSDOM } from "jsdom";
 import { StandardLayout } from "../elements/standard-layout.js";
 import { ProjectSummaries } from "../elements/project-summaries.js";
 
-export class HomeLoader {
+export class AboutLoader {
     constructor() {
-        this.home = null;
+        this.html = null;
     }
 
     async setup() {
-        const homeTemplate = await fs.readFile('./dist/home.html');
+        const template = await fs.readFile('./dist/about.html');
 
-        const dom = new JSDOM(homeTemplate);
+        const dom = new JSDOM(template);
 
         const layout = new StandardLayout();
         layout.add(dom.window.document);
@@ -19,10 +19,10 @@ export class HomeLoader {
         const summaries = new ProjectSummaries();
         summaries.add(dom.window.document);
 
-        this.home = dom.serialize();
+        this.html = dom.serialize();
     }
 
-    getHomeHTML() {
-        return this.home;
+    getAboutHTML() {
+        return this.html;
     }
 }

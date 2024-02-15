@@ -1,29 +1,44 @@
-import { JSDOM } from 'jsdom';
-import { StandardLayout } from '../elements/standard-layout.js';
+import fs from 'fs/promises';
 import { loadSection } from './load-section.js';
 import { Project } from './project.js';
-import { ProjectSummaries } from '../elements/project-summaries.js';
-import { ProjectDatabase } from './project-database.js';
 
-export class ProjectLoader {
+export class ProjectDatabase {
+    static instance = null;
+
     constructor() {
-        this.generatedProjects = new Map();
+        this.projects = new Map();
+        this.summaries = [];
+
+        ProjectDatabase.instance = this;
     }
 
     async setup() {
-        for (const [ id, project ] of ProjectDatabase.instance.getProjects()) {
-            const jsdom = new JSDOM();
-            const document = jsdom.window.document;
+        const projectIds = await fs.readdir('./projects');
 
-            project.addProjectSections(document);
-            
-            const summaries = new ProjectSummaries();
-            summaries.add(document);
+        this.projects = new Map();
 
-            const layout = new StandardLayout();
-            layout.add(document);
+        for (const id of projectIds) {
+            let data;
 
-            this.generatedProjects.set(id, jsdom.serialize());
+            try {
+                data = await fs.readFile(`./projects/${id}/project.json`);
+            } catch (err) {
+                console.warn(`Failed to read project file './projects/${id}/projectjson'`);
+                continue;
+            }
+
+            try {
+                data = JSON.parse(data.toString());
+            } catch (err) {
+                console.warn(`Failed to parse project file './projects/${id}/project.json'`);
+                continue;
+            }
+
+            const project = await this.loadProject(data, id);
+
+            this.summaries.push(project.getSummary());
+
+            this.projects.set(id, project);
         }
     }
 
@@ -74,8 +89,16 @@ export class ProjectLoader {
 
         return project;
     }
+    
+    getProjects() {
+        return this.projects;
+    }
 
-    getProjectHTML(id) {
-        return this.generatedProjects.get(id);
+    getProject(id) {
+        return this.projects.get(id);
+    }
+
+    getProjectSummaries() {
+        return this.summaries;
     }
 }
