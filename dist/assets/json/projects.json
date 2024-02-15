@@ -1,0 +1,10 @@
+{
+    "testProject": {
+        "title": "The Sheep of Afghanistan",
+        "author": "Brian Lehman",
+        "pos": {
+            "x": 50,
+            "y": 100
+        }
+    }
+}

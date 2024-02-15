@@ -33,7 +33,8 @@
         <div class="column-layout">
             <div class="column-side"></div>
             <div class="column-center" style="color: #666666;">
-                <img src="/assets/world-map.png" class="world-map">
+                <canvas id="worldMap" style="width: 100%; background: #f8f8f8; border-radius: 8px; margin-bottom: 32px;"></canvas>
+                <!-- <img src="/assets/world-map.png" style="width: 100%; background: #f8f8f8; border-radius: 8px; margin-bottom: 32px;"> -->
             </div>
             <div class="column-side"></div>
         </div>
@@ -46,7 +47,7 @@
             </div>
             <div class="column-side"></div>
         </div>
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             function addRows(items) {
                 const rowContainer = document.getElementById("rowContainer");
