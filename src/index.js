@@ -39,15 +39,13 @@ app.get('/', (req, res) => {
     res.redirect('/prototypes');
 });
 
-app.get('/projects/*', (req, res) => {
-    let projectId = req.path.substring('/projects/'.length);
-
-    if (!isSafePath(projectId)) {
+app.get('/projects/:projectId', (req, res) => {
+    if (!isSafePath(req.params.projectId)) {
         res.status(400).send('Error 400: Invalid project path');
         return;
     }
 
-    let html = projectLoader.projects.get(projectId);
+    let html = projectLoader.projects.get(req.params.projectId);
 
     if (html) {
         res.send(html);
