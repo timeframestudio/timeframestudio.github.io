@@ -1,8 +1,8 @@
 import MapPoint from './map-point.js'
 import { getProjectSummaries } from './projects.js';
 
-const canvas = document.getElementById("worldMap");
-const ctx = canvas.getContext('2d');
+export const canvas = document.getElementById("worldMap");
+export const ctx = canvas.getContext('2d');
 
 const worldMapImg = await loadImage("/assets/world-map.png");
 
@@ -42,3 +42,10 @@ async function loadImage(src) {
         img.src = src;
     });
 }
+
+export const mouse = { x: 0, y: 0 };
+
+canvas.addEventListener('mousemove', (event) => {
+    mouse.x = event.offsetX;
+    mouse.y = event.offsetY;
+});
