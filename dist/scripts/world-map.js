@@ -1,52 +1,44 @@
 import MapPoint from './map-point.js'
+import { getProjectSummaries } from './projects.js';
 
 const canvas = document.getElementById("worldMap");
 const ctx = canvas.getContext('2d');
 
-const worldMapImg = new Image();
+const worldMapImg = await loadImage("/assets/world-map.png");
 
-worldMapImg.onload = event => {
+canvas.width = worldMapImg.width;
+canvas.height = worldMapImg.height;
 
-    canvas.width = worldMapImg.width;
-    canvas.height = worldMapImg.height;
-    ctx.drawImage(worldMapImg, 0, 0);
-};
+ctx.drawImage(worldMapImg, 0, 0);
 
-worldMapImg.src = "/assets/world-map.png";
+const projects = await getProjectSummaries();
 
-let projects;
-
-
-// Some get functions that may be useful
-function getProjectByTitle(title) {
-    for (const project in projects) {
-        if (projects[project].title == title) {
-            return projects[project];
-        }
-    }
-
-    console.log(`No project found with title '${title}'!`);
-}
-
-function getProjectByAuthor(author) {
-    for (const project in projects) {
-        if (projects[project].author == author) {
-            return projects[project];
-        }
-    }
-
-    console.log(`No project found with author ${author}!`);
-}
-
-$.get("/assets/json/projects.json", function(res) {
-    projects = res;
-    loadMapPoints();
-});
+loadMapPoints();
 
 function loadMapPoints() {
-    for (let i in projects) {
-        const proj = projects[i];
-        const newMapPoint = new MapPoint(getProjectByTitle(proj.title));
-        newMapPoint.draw(ctx);
+    for (const project of projects) {
+        if (!project.position) {
+            continue;
+        }
+
+        const point = new MapPoint(project);
+
+        point.draw(ctx);
     }
+}
+
+async function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.onload = () => {
+            resolve(img);
+        };
+
+        img.onerror = () => {
+            reject(new Error(`Failed to load image: ${src}`));
+        };
+
+        img.src = src;
+    });
 }

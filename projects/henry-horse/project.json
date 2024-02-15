@@ -1,0 +1,18 @@
+{
+    "title": "Why Henry is Legally a Horse",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui. Nullam vel eros sit amet arcu vestibulum accumsan in in leo. Fusce malesuada auctor interdum. Maecenas nec ultrices dui. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
+    "author": "Greg",
+    "sections": [
+        {
+            "type": "header"
+        },
+        {
+            "type": "description"
+        }
+    ],
+    "position": {
+        "x": 1000,
+        "y": 300
+    },
+    "$schema": "../../schema/project.json"
+}

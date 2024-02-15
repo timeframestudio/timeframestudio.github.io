@@ -7,6 +7,7 @@ import { DescriptionSection } from './description-section.js';
 export class ProjectLoader {
     constructor() {
         this.projects = new Map();
+        this.summaries = [];
     }
 
     async setup() {
@@ -38,6 +39,8 @@ export class ProjectLoader {
             project.addProjectSections(document);
 
             this.projects.set(projectFile, jsdom.serialize());
+
+            this.summaries.push(project.getSummary());
         }
     }
 
@@ -68,6 +71,7 @@ export class ProjectLoader {
         project.author = data.author;
         project.description = data.description;
         project.id = id;
+        project.position = data.position;
 
         for (const sectionData of data.sections) {
             if (typeof sectionData != 'object') {
@@ -100,5 +104,9 @@ export class ProjectLoader {
 
     getProjectHTML(id) {
         return this.projects.get(id);
+    }
+
+    getProjectSummaries() {
+        return this.summaries;
     }
 }

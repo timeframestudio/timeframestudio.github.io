@@ -3,6 +3,21 @@
     "type": "object",
     "description": "A project.json file, describing a project page.",
     "properties": {
+        "position": {
+            "type": "object",
+            "description": "The position the project is located at on the world map.",
+            "properties": {
+                "x": {
+                    "type": "number",
+                    "description": "The x position of the location on the world map, in pixels."
+                },
+                "y": {
+                    "type": "number",
+                    "description": "The y position of the location on the world map, in pixels."
+                }
+            },
+            "required": [ "x", "y" ]
+        },
         "title": {
             "type": "string",
             "description": "The title of the project, shown in the header of the page and tab bar."
@@ -48,7 +63,8 @@
                                 },
                                 "required": [ "url" ]
                             }
-                        }
+                        },
+                        "required": [ "type" ]
                     },
                     {
                         "description": "A description section shows the project description under the heading \"Project Overview\".",
@@ -58,7 +74,8 @@
                                 "const": "description",
                                 "description": "The type of the section, which can be \"header\" or \"description\" (more coming soon)."
                             }
-                        }
+                        },
+                        "required": [ "type" ]
                     }
                 ]
             }

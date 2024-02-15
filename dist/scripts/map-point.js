@@ -2,8 +2,8 @@ export default class MapPoint {
     static ALL = [];
     constructor(project) {
         this.project = project;
-        this.x = project.pos.x;
-        this.y = project.pos.y;
+        this.x = project.position.x;
+        this.y = project.position.y;
 
         MapPoint.ALL.push(this);
     }

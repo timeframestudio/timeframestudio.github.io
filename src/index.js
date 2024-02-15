@@ -36,7 +36,7 @@ app.use('/css', express.static('./dist/css'));
 app.use('/scripts', express.static('./dist/scripts'));
 
 app.get('/', (req, res) => {
-    res.redirect('/prototypes');
+    res.sendFile('./dist/home.html', { root });
 });
 
 app.get('/projects/:projectId', (req, res) => {
@@ -54,6 +54,9 @@ app.get('/projects/:projectId', (req, res) => {
     }
 });
 
+app.get('/api/projects', (req, res) => {
+    res.send(projectLoader.getProjectSummaries());
+});
 
 app.get('/assets/project/:projectId/:path', async (req, res) => {
     if (!isSafePath(req.params.projectId)) {

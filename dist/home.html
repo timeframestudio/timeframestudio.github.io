@@ -1,0 +1,128 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Khan Lab Studios</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/font.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <script src="/scripts/home.js" type="module"></script>
+    </head>
+    <body>
+        <div id="navigationBar" class="column-layout navigation-bar">
+            <div class="column-side"></div>
+            <div class="column-center column-layout">
+                <a class="navigation-title" href="/">Khan Lab Studios</a>
+                <a class="navigation-link" href="/search">Search</a>
+                <a class="navigation-link" href="/about">About</a>
+            </div>
+            <div class="column-side"></div>
+        </div>
+        <div class="navigation-margin"></div>
+        <div class="header header-with-background">
+            <div class="header-title">Khan Lab Studios</div>
+            <div class="column-layout">
+                <div class="column-side"></div>
+                <div class="column-center header-description">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero earum, harum qui delectus unde laborum minus laudantium totam sapiente. Reiciendis provident quas ratione doloribus eius corporis odio eum quos ab!
+                </div>
+                <div class="column-side"></div>
+            </div>
+        </div>
+
+        <div class="column-layout">
+            <div class="column-side"></div>
+            <div class="column-center" style="color: #666666;">
+                <canvas id="worldMap" class="world-map"></canvas>
+            </div>
+            <div class="column-side"></div>
+        </div>
+
+        <div class="column-layout alt-background">
+            <div class="column-side"></div>
+            <div class="column-center" style="color: #666666;">
+                <div class="heading">Pitches</div>
+                <div id="rowContainer" style="display: flex; flex-wrap: wrap; padding: 8px;"></div>
+            </div>
+            <div class="column-side"></div>
+        </div>
+        <script>
+            function addRows(items) {
+                const rowContainer = document.getElementById("rowContainer");
+
+                for (let rowNumber = 0; rowNumber < Math.ceil(items.length / 3); rowNumber++) {
+                    const row = document.createElement('div');
+                    row.style.display = 'flex';
+                    row.style.flexWrap = 'wrap';
+                    row.style.padding = '8px';
+                    row.style.width = '100%';
+
+                    for (let i = 0; i < 3; i++) {
+                        const item = document.createElement('div');
+
+                        if (items[i + rowNumber * 3] !== undefined) {
+                            item.style.padding = '16px';
+
+                            const title = document.createElement('div');
+                            title.style.fontWeight = 'bold';
+                            title.style.marginBottom = '8px';
+                            title.innerText = items[i + rowNumber * 3].title;
+
+                            item.appendChild(title);
+
+                            const author = document.createElement('div');
+                            author.style.color = '#666666';
+                            author.style.marginBottom = '8px';
+                            author.style.fontStyle = 'italic';
+                            author.innerText = items[i + rowNumber * 3].author;
+
+                            item.appendChild(author);
+
+                            const description = document.createElement('div');  
+                            description.style.color = '#666666';
+                            description.innerText = items[i + rowNumber * 3].description;
+
+                            item.appendChild(description);
+
+                            item.classList.add('project-item');
+                        } else {
+                            item.classList.add('project-blank');
+                        }
+
+                        row.appendChild(item);
+                    }
+
+                    rowContainer.appendChild(row);
+                }
+            }
+            
+            addRows([
+                {
+                    "title": "The Bob Plague",
+                    "author": "Bob Bobson",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio."
+                },
+                {
+                    "title": "Ancient Greece",
+                    "author": "Alice Alison",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio."
+                },
+                {
+                    "title": "The Great War",
+                    "author": "Charlie Charles",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio."
+                },
+                {
+                    "title": "Renaissance Art",
+                    "author": "David Davidson",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio."
+                },
+                {
+                    "title": "The Industrial Revolution",
+                    "author": "Eve Everson",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio."
+                }
+            ])
+        </script>
+    </body>
+</html>

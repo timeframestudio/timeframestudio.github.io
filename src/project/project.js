@@ -1,11 +1,10 @@
-import { HeaderSection } from "./header-section.js";
-
 export class Project {
     title = 'Project Title';
     author = 'Project Author';
     description = 'Project Description';
     sections = [];
     id = null;
+    position = null;
 
     addProjectSections(document) {
         document.title = this.title + " | Khan Lab Studios";
@@ -47,5 +46,14 @@ export class Project {
 
             document.body.appendChild(scriptElement);
         }
+    }
+
+    getSummary() {
+        return {
+            title: this.title,
+            author: this.author,
+            description: this.description,
+            position: this.position || null
+        };
     }
 }
