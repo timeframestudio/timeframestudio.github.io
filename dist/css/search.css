@@ -9,6 +9,12 @@
     display: flex;
     background: #f8f8f8;
     flex-direction: column;
+    transition: transform 0.3s;
+    transform: scale(97%, 97%);
+}
+
+.search-popup-background.visible .search-popup {
+    transform: none;
 }
 
 .search-popup-background {
