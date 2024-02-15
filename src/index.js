@@ -1,9 +1,14 @@
 import express from 'express';
 import url from 'url';
 import fs from 'fs/promises';
+import { ProjectLoader } from './project/project-loader.js';
 
-const root = url.fileURLToPath(new URL('.', import.meta.url));
+const root = url.fileURLToPath(new URL('..', import.meta.url));
+
 const app = express();
+
+const projectLoader = new ProjectLoader();
+projectLoader.setup();
 
 app.get('/prototypes', (req, res) => {
     res.sendFile('./dist/prototypes/index.html', { root }); 
@@ -32,6 +37,23 @@ app.use('/scripts', express.static('./dist/scripts'));
 
 app.get('/', (req, res) => {
     res.redirect('/prototypes');
+});
+
+app.get('/projects/*', (req, res) => {
+    let projectId = req.path.substring('/projects/'.length);
+
+    if (!isSafePath(projectId)) {
+        res.status(400).send('Error 400: Invalid project path');
+        return;
+    }
+
+    let html = projectLoader.projects.get(projectId);
+
+    if (html) {
+        res.send(html);
+    } else {
+        res.status(404).send('Error 404: Project not found');
+    }
 });
 
 app.listen(3000, () => {

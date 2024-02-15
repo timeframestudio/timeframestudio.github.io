@@ -1,0 +1,15 @@
+{
+    "title": "The Big Cat",
+    "description": "The cat was big",
+    "author": "Bob Bobson",
+    "sections": [
+        {
+            "type": "header",
+            "image": {
+                "url": "/assets/mountains.jpeg",
+                "position": "top center",
+                "color": "#ffffff66"
+            }
+        }
+    ]
+}

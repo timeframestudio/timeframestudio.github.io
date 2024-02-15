@@ -103,15 +103,12 @@ body {
     margin-right: auto;
 }
 
-.header-background {
+.header-with-background {
     background-image: url(/assets/mountains.jpeg);
     background-size: cover;
     background-position: top center;
     background-blend-mode: lighten;
     background-color: #ffffff66;
-    text-align: center;
-    padding: 128px;
-    margin-bottom: 32px;
 }
 
 .header-title {
