@@ -39,6 +39,14 @@
     display: flex;
 }
 
+.padded-bottom {
+    padding-bottom: 32px;
+}
+
+.margin-bottom {
+    margin-bottom: 32px;
+}
+
 .column-side {
     flex: 1;
 }
@@ -55,6 +63,9 @@ body {
     color: #444444;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .world-map {

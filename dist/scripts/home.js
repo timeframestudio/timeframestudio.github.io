@@ -1,6 +1,5 @@
 import './world-map.js';
-import './search.js';
-import './navigation.js';
+import './main.js';
 import { getProjectSummaries } from './projects.js';
 
 function addListItems(items) {
@@ -12,8 +11,8 @@ function addListItems(items) {
         row.style.flexWrap = 'wrap';
         row.style.width = '100%';
 
-        if (row != 0) row.style.marginTop = '16px';
-        if (row != Math.ceil(items.length / 3) - 1) row.style.marginBottom = '16px';
+        if (rowNumber != 0) row.style.marginTop = '16px';
+        if (rowNumber != Math.ceil(items.length / 3) - 1) row.style.marginBottom = '16px';
 
         for (let i = 0; i < 3; i++) {
             const item = document.createElement('a');

@@ -1,2 +1,1 @@
-import './navigation.js';
-import './search.js';
+import './main.js';

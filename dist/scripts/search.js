@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.querySelector('.search-bar');
     const searchResults = document.querySelector('.search-results');
     const searchLink = document.querySelector('.search-link');
+    const searchHeader = document.querySelector('.search-header');
 
     searchBackground.addEventListener('click', event => {
         if (!searchPopup.contains(event.target) || event.target == searchClose) {
@@ -18,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         showSearchPopup();
+        updateScroll();
+    });
+
+    searchResults.addEventListener('scroll', event => {
+        updateScroll();
     });
 
     document.addEventListener('keydown', event => {
@@ -110,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showResults(results) {
         searchResults.innerHTML = '';
+        searchResults.scrollTop = 0;
 
         if (results.length == 0) {
             const noResults = document.createElement('div');
@@ -121,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const resultElement = document.createElement('a');
                 resultElement.classList.add('search-result');
                 resultElement.href = `/projects/${result.id}`;
+                resultElement.style.opacity = '0';
 
                 const header = document.createElement('div');
                 header.classList.add('search-result-header');
@@ -150,6 +158,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 searchResults.appendChild(resultElement);
             }
+        }
+
+        updateScroll();
+    }
+
+    function updateScroll() {
+        if (searchResults.scrollTop > 0) {
+            searchHeader.style.boxShadow = '0px 0px 5px #00000033';
+        } else {
+            searchHeader.style.boxShadow = '0px 0px 0px #00000000';
+        }
+
+        const borderRect = searchResults.getBoundingClientRect();
+
+        for (const result of searchResults.children) {
+            const resultRect = result.getBoundingClientRect();
+
+            let topFraction = Math.max(0, Math.min(1, (resultRect.bottom - borderRect.top) / resultRect.height));
+            let bottomFraction = Math.max(0, Math.min(1, (borderRect.bottom - resultRect.top) / resultRect.height));
+
+            result.style.opacity = Math.min(topFraction, bottomFraction).toString();
         }
     }
 });

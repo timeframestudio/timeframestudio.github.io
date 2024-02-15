@@ -1,5 +1,8 @@
 import { JSDOM } from "jsdom";
 import fs from "fs/promises";
+import { addNavigationBar } from "../elements/navigation.js";
+import { addSearch } from "../elements/search.js";
+import { addFooter } from "../elements/footer.js";
 
 export class HomeLoader {
     constructor(summaryInjector) {
@@ -13,6 +16,9 @@ export class HomeLoader {
         const dom = new JSDOM(homeTemplate);
 
         this.summaryInjector.injectSummaries(dom.window.document);
+        addNavigationBar(dom.window.document);
+        addSearch(dom.window.document);
+        addFooter(dom.window.document);
 
         this.home = dom.serialize();
     }

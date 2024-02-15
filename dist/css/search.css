@@ -7,6 +7,7 @@
     flex: 2;
     max-height: 100%;
     display: flex;
+    background: #f8f8f8;
     flex-direction: column;
 }
 
@@ -54,6 +55,10 @@
 .search-header {
     display: flex;
     padding: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    transition: box-shadow 0.3s;
+    z-index: 1;
 }
 
 .search-result-header {
@@ -88,13 +93,12 @@
 }
 
 .search-results {
-    border-top: 1px solid #eeeeee;
     overflow-y: scroll;
     padding: 0px 16px 16px 16px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: #f8f8f8;
+    z-index: 0;
 }
 
 .search-result {
@@ -105,7 +109,7 @@
     padding: 16px;
     cursor: pointer;
     background-color: #ffffff;
-    transition: box-shadow 0.3s, margin 0.3s;
+    transition: box-shadow 0.3s, margin 0.3s, opacity 0.3s;
     display: block;
     text-decoration: none;
     color: #333333;

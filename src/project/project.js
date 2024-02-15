@@ -20,7 +20,11 @@ export class Project {
         for (const section of this.sections) {
             const sectionElement = section.createElement(document);
 
-            if (sectionElement) document.body.appendChild(sectionElement);
+            if (sectionElement) {
+                document.body.appendChild(sectionElement);
+                
+                sectionElement.classList.add('margin-bottom');
+            }
 
             for (const stylesheet of section.getStylesheets()) {
                 stylesheets.add(stylesheet);

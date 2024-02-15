@@ -3,6 +3,9 @@ import { Project } from './project.js';
 import { JSDOM } from 'jsdom';
 import { SummaryInjector } from '../home/summary-injector.js';
 import { loadSection } from './load-section.js';
+import { addNavigationBar } from '../elements/navigation.js';
+import { addSearch } from '../elements/search.js';
+import { addFooter } from '../elements/footer.js';
 
 export class ProjectLoader {
     constructor() {
@@ -50,6 +53,9 @@ export class ProjectLoader {
 
             project.addProjectSections(document);
             this.summaryInjector.injectSummaries(document);
+            addNavigationBar(document);
+            addSearch(document);
+            addFooter(document);
 
             this.projects.set(id, jsdom.serialize());
         }
