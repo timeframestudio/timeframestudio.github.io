@@ -53,7 +53,8 @@ export class Project {
             title: this.title,
             author: this.author,
             description: this.description,
-            position: this.position || null
+            position: this.position || null,
+            id: this.id
         };
     }
 }
