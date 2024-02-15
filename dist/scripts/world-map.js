@@ -46,7 +46,7 @@ $.get("/assets/json/projects.json", function(res) {
 function loadMapPoints() {
     for (let i in projects) {
         const proj = projects[i];
-        const newMapPoint = new MapPoint(getProjectByTitle("The Sheep of Afghanistan"));
+        const newMapPoint = new MapPoint(getProjectByTitle(proj.title));
         newMapPoint.draw(ctx);
     }
 }
