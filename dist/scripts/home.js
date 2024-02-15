@@ -15,9 +15,6 @@ function addListItems(items) {
 
         for (let i = 0; i < 3; i++) {
             const item = document.createElement('a');
-            item.style.textDecoration = 'none';
-            item.style.color = '#444444';
-            item.style.display = 'block';
             
             if (items[i + rowNumber * 3] !== undefined) {
                 item.style.padding = '16px';

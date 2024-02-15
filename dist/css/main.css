@@ -13,6 +13,8 @@
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: 8px;
+    text-decoration: none;
+    color: #444444;
 }
 
 .project-item:hover {

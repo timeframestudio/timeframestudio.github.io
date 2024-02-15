@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', event => {
         if (event.key == 'Escape') {
             event.preventDefault();
-            
+
             hideSearchPopup();
         } else if (event.key == '/') {
             event.preventDefault();
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (const result of results) {
                 const resultElement = document.createElement('a');
                 resultElement.classList.add('search-result');
-                resultElement.href = result.url;
+                resultElement.href = `/projects/${result.id}`;
 
                 const header = document.createElement('div');
                 header.classList.add('search-result-header');
