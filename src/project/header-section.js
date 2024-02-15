@@ -5,6 +5,11 @@ import path from 'path';
 export class HeaderSection extends ProjectSection {
     image = null;
 
+    async setup(data, project) {
+        this.project = project;
+        this.loadFromData(data);
+    }
+
     loadFromData(data) {
         if (!data.image) return;
 
@@ -40,9 +45,11 @@ export class HeaderSection extends ProjectSection {
         yield '/css/header.css';
     }
 
-    createElement(document) {
-        if (!this.image) {
-            this.loadFromData(this.data);
+    createElement(document, isSubsection) {
+        if (isSubsection) {
+            console.warn("Header section cannot be a subsection");
+
+            return null;
         }
 
         const fragment = JSDOM.fragment(`
@@ -72,6 +79,6 @@ export class HeaderSection extends ProjectSection {
             header.style.backgroundColor = this.image.tint || 'transparent';
         }
 
-        return fragment.querySelector('.header');
+        return fragment.children[0];
     }
 }

@@ -1,9 +1,8 @@
 import fs from 'fs/promises';
 import { Project } from './project.js';
-import { HeaderSection } from './header-section.js';
 import { JSDOM } from 'jsdom';
-import { DescriptionSection } from './description-section.js';
 import { SummaryInjector } from '../home/summary-injector.js';
+import { loadSection } from './load-section.js';
 
 export class ProjectLoader {
     constructor() {
@@ -96,22 +95,9 @@ export class ProjectLoader {
                 continue;
             }
 
-            let section;
-            
-            if (sectionData.type == 'header') {
-                section = new HeaderSection();
-            } else if (sectionData.type == 'description') {
-                section = new DescriptionSection();
-            } else {
-                console.warn(`Unknown section type '${data.type}'`);
-                continue;
-            }
+            const section = await loadSection(sectionData, project);
 
-            section.project = project;
-            section.data = sectionData;
-
-            await section.setup();
-            project.sections.push(section);
+            if (section) project.sections.push(section);
         }
 
         return project;

@@ -1,7 +1,4 @@
 export class ProjectSection {
-    project = null;
-    data = null;
-    
     /**
      * Returns a list of stylesheets to add to the page
      * @returns {Iterable<string>}
@@ -19,14 +16,17 @@ export class ProjectSection {
     /**
      * Returns the element to add to the page
      * @param {Document} document
+     * @param {boolean} isSubsection
      * @returns {HTMLElement}
      */
-    createElement(document) {
+    createElement(document, isSubsection) {
     }
 
     /**
      * Sets up the section asynchronusly
+     * @param {Object} sectionData
+     * @param {Project} project
      */
-    async setup() {
+    async setup(sectionData, project) {
     }
 }

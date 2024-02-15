@@ -1,22 +1,21 @@
 import { ProjectSection } from "./project-section.js";
 import { JSDOM } from 'jsdom';
+import { wrapColumnLayout } from "./wrap-column-layout.js";
 
 export class DescriptionSection extends ProjectSection {
     constructor() {
         super();
     }
 
-    createElement() {
+    async setup(data, project) {
+        this.project = project;
+    }
+
+    createElement(document, isSubsection) {
         const fragment = JSDOM.fragment(`
             <div class="project-description">
-                <div class="column-layout">
-                    <div class="column-side"></div>
-                    <div class="column-center">
-                        <div class="heading">Project Overview</div>
-                        <div class="target-description"></div>
-                    </div>
-                    <div class="column-side"></div>
-                </div>
+                <div class="heading">Project Overview</div>
+                <div class="target-description"></div>
             </div>
         `);
 
@@ -24,6 +23,6 @@ export class DescriptionSection extends ProjectSection {
         target.textContent = this.project.description;
         target.classList.remove('target-description');
 
-        return fragment.children[0];
+        return wrapColumnLayout(fragment.children[0], document, isSubsection);
     }
 }

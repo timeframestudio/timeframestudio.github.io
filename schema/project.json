@@ -41,7 +41,7 @@
                             "type": {
                                 "type": "string",
                                 "const": "header",
-                                "description": "The type of the section, which can be \"header\" or \"description\" (more coming soon)."
+                                "description": "The type of the section."
                             },
                             "image": {
                                 "type": "object",
@@ -72,7 +72,35 @@
                             "type": {
                                 "type": "string",
                                 "const": "description",
-                                "description": "The type of the section, which can be \"header\" or \"description\" (more coming soon)."
+                                "description": "The type of the section."
+                            }
+                        },
+                        "required": [ "type" ]
+                    },
+                    {
+                        "description": "A row section arranges multiple subsections horizontally.",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "const": "row",
+                                "description": "The type of the section."
+                            },
+                            "subsections": {
+                                "type": "array",
+                                "description": "The subsections, ordered right to left.",
+                                "items": {
+                                    "allOf": [
+                                        { "$ref": "#/properties/sections/items" },
+                                        {
+                                            "properties": {
+                                                "flex": {
+                                                    "type": "boolean",
+                                                    "description": "If the subsection should flex (see the CSS flex property)."
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
                             }
                         },
                         "required": [ "type" ]

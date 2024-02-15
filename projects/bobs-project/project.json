@@ -13,7 +13,22 @@
         },
         {
             "type": "description"
+        },
+        {
+            "type": "row",
+            "subsections": [
+                {
+                    "type": "description"
+                },
+                {
+                    "type": "description"
+                }
+            ]
         }
     ],
+    "position": {
+        "x": 1500,
+        "y": 600
+    },
     "$schema": "../../schema/project.json"
 }
