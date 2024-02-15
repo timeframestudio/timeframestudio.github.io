@@ -101,7 +101,7 @@ body {
     margin-right: auto;
 }
 
-.header-with-background {
+.header-with-home-background {
     background-image: url(/assets/mountains.jpeg);
     background-size: cover;
     background-position: top center;

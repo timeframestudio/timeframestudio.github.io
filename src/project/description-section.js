@@ -2,10 +2,8 @@ import { ProjectSection } from "./project-section.js";
 import { JSDOM } from 'jsdom';
 
 export class DescriptionSection extends ProjectSection {
-    constructor(project) {
+    constructor() {
         super();
-
-        this.project = project;
     }
 
     createElement() {

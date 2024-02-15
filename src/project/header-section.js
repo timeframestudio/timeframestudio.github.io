@@ -3,13 +3,7 @@ import { JSDOM } from 'jsdom';
 import path from 'path';
 
 export class HeaderSection extends ProjectSection {
-    constructor(project, data = null, projectId = null) {
-        super();
-
-        this.project = project;
-        this.projectId = projectId;
-        this.loadFromData(data);
-    }
+    image = null;
 
     loadFromData(data) {
         if (!data.image) return;
@@ -34,7 +28,7 @@ export class HeaderSection extends ProjectSection {
             return;
         }
 
-        if (typeof this.projectId != 'string' && !data.image.url.startsWith('/')) {
+        if (typeof this.project.id != 'string' && !data.image.url.startsWith('/')) {
             console.warn('Cannot find relative image urls without project id');
             return;
         }
@@ -47,6 +41,10 @@ export class HeaderSection extends ProjectSection {
     }
 
     createElement(document) {
+        if (!this.image) {
+            this.loadFromData(this.data);
+        }
+
         const fragment = JSDOM.fragment(`
             <div class="header">
                 <div class="header-title"></div>
@@ -64,8 +62,9 @@ export class HeaderSection extends ProjectSection {
         if (this.image) {
             const header = fragment.querySelector('.header');
 
-            const imageUrl = path.resolve('/assets/project/' + this.projectId + '/', this.image.url);
+            const imageUrl = path.resolve('/assets/project/' + this.project.id + '/', this.image.url);
             header.style.backgroundImage = `url(${imageUrl})`;
+            header.classList.add('header-with-image');
             
             header.style.backgroundSize = 'cover';
             header.style.backgroundPosition = this.image.position || 'top center';

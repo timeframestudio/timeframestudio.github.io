@@ -1,6 +1,7 @@
-import { JSDOM } from 'jsdom';
-
 export class ProjectSection {
+    project = null;
+    data = null;
+    
     /**
      * Returns a list of stylesheets to add to the page
      * @returns {Iterable<string>}

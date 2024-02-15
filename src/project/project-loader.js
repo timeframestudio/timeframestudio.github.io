@@ -87,13 +87,16 @@ export class ProjectLoader {
             let section;
             
             if (sectionData.type == 'header') {
-                section = new HeaderSection(project, sectionData, id);
+                section = new HeaderSection();
             } else if (sectionData.type == 'description') {
-                section = new DescriptionSection(project);
+                section = new DescriptionSection();
             } else {
                 console.warn(`Unknown section type '${data.type}'`);
                 continue;
             }
+
+            section.project = project;
+            section.data = sectionData;
 
             await section.setup();
             project.sections.push(section);

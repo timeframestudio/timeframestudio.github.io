@@ -1,15 +1,8 @@
-let projectSummaries = null;
-
-export async function loadProjectSummaries() {
-    const response = await fetch('/api/projects');
-    const data = await response.json();
-
-    projectSummaries = data;
-}
+let projectSummaries = window['_projectSummaryData'];
 
 export async function getProjectSummaries() {
     if (!projectSummaries) {
-        await loadProjectSummaries();
+        throw new Error("Project summaries not injected properly");
     }
 
     return projectSummaries;

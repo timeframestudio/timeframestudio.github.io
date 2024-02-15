@@ -1,6 +1,6 @@
 .header {
     text-align: center;
-    padding: 128px;
+    padding: 64px 128px 0px 128px;
     margin-bottom: 32px;
 }
 
@@ -14,4 +14,9 @@
 .header-description {
     padding: 32px 0px;
     color: #333333;
+}
+
+.header-with-image {
+    padding: 128px;
+    margin-bottom: 32px;
 }
