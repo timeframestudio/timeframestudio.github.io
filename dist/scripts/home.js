@@ -1,4 +1,5 @@
 import './world-map.js';
+import './search.js';
 import './navigation.js';
 import { getProjectSummaries } from './projects.js';
 

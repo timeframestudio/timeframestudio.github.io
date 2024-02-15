@@ -1,0 +1,121 @@
+.search-popup {
+    margin: 0px auto;
+    background: #ffffff;
+    box-shadow: 0px 1px 5px #00000033;
+    border-radius: 8px;
+    overflow: hidden;
+    flex: 2;
+    max-height: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-popup-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #00000066;
+    display: flex;
+    flex-direction: column;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.search-popup-background.visible {
+    opacity: 1;
+}
+
+.search-popup-wrapper {
+    display: flex;
+    max-height: 75%;
+}
+
+.search-popup-padding-top {
+    flex: 1;
+    margin-top: -64px;
+    transition: margin-top 0.3s;
+}
+
+.search-popup-background.visible .search-popup-padding-top {
+    margin-top: 0px;
+}
+
+.search-popup-padding-bottom {
+    flex: 1;
+}
+
+.search-popup-padding-side {
+    flex: 1;
+}
+
+.search-header {
+    display: flex;
+    padding: 16px;
+}
+
+.search-bar {
+    padding: 12px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #666666;
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+.search-close-button {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    background-color: #f8f8f800;
+    height: 43px;
+    margin-left: 16px;
+    box-sizing: border-box;
+}
+
+.search-close-button:active {
+    background-color: #eeeeee;
+}
+
+.search-results {
+    border-top: 1px solid #eeeeee;
+    overflow-y: scroll;
+    padding: 0px 16px 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f8f8f8;
+}
+
+.search-result {
+    border-radius: 8px;
+    box-shadow: 0px 1px 5px #00000022;
+    margin-top: 16px;
+    margin-bottom: 0px;
+    padding: 16px;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s, margin 0.3s;
+}
+
+.search-result-title {
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.search-result-description {
+    color: #666666;
+}
+
+.search-result:hover {
+    box-shadow: 0px 1px 5px #00000033;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
