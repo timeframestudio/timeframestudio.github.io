@@ -54,26 +54,25 @@ canvas.addEventListener('mousemove', event => {
     canvas.style.cursor = 'default';
 
     for (const point of MapPoint.ALL) {
-        point._shouldShowHover = false;
+        point._isActivePoint = false;
     }
 
-    for (const point of MapPoint.ALL) {
-        if (point.mouseOver()) {
-            canvas.style.cursor = 'pointer';
-            point._shouldShowHover = true;
+    let points = MapPoint.ALL.filter(point => point.isInMouseRange());
 
-            break;
+    if (points.length > 0) {
+        canvas.style.cursor = 'pointer';
+
+        points = points.sort((a, b) => a.getMouseDistance() - b.getMouseDistance());
+
+        if (points.length > 0) {
+            points[0]._isActivePoint = true;
         }
     }
 });
 
 canvas.addEventListener('click', event => {
     for (const point of MapPoint.ALL) {
-        if (point.mouseOver()) {
-            point.onClick();
-
-            break;
-        }
+        if (point.isActivePoint()) point.onClick();
     }
 });
 
