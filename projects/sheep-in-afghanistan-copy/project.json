@@ -11,7 +11,7 @@
         }
     ],
     "position": {
-        "x": 50,
+        "x": 250,
         "y": 100
     },
     "$schema": "../../schema/project.json"

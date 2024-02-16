@@ -1,6 +1,8 @@
 import MapPoint from './map-point.js'
 import { getProjectSummaries } from './projects.js';
 
+export const mouse = { x: 0, y: 0 };
+
 export const canvas = document.getElementById("worldMap");
 export const ctx = canvas.getContext('2d');
 
@@ -14,6 +16,8 @@ ctx.drawImage(worldMapImg, 0, 0);
 const projects = await getProjectSummaries();
 
 loadMapPoints();
+
+render();
 
 function loadMapPoints() {
     for (const project of projects) {
@@ -43,9 +47,44 @@ async function loadImage(src) {
     });
 }
 
-export const mouse = { x: 0, y: 0 };
+canvas.addEventListener('mousemove', event => {
+    mouse.x = event.offsetX / canvas.clientWidth * canvas.width;
+    mouse.y = event.offsetY / canvas.clientHeight * canvas.height;
 
-canvas.addEventListener('mousemove', (event) => {
-    mouse.x = event.offsetX;
-    mouse.y = event.offsetY;
+    canvas.style.cursor = 'default';
+
+    for (const point of MapPoint.ALL) {
+        point._shouldShowHover = false;
+    }
+
+    for (const point of MapPoint.ALL) {
+        if (point.mouseOver()) {
+            canvas.style.cursor = 'pointer';
+            point._shouldShowHover = true;
+
+            break;
+        }
+    }
 });
+
+canvas.addEventListener('click', event => {
+    for (const point of MapPoint.ALL) {
+        if (point.mouseOver()) {
+            point.onClick();
+
+            break;
+        }
+    }
+});
+
+function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(worldMapImg, 0, 0);
+
+    for (const point of MapPoint.ALL) {
+        point.draw();
+    }
+
+    requestAnimationFrame(render);
+}

@@ -26,8 +26,8 @@
         }
     ],
     "position": {
-        "x": 1500,
-        "y": 600
+        "x": 1520,
+        "y": 640
     },
     "$schema": "../../schema/project.json"
 }
