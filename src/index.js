@@ -5,6 +5,12 @@ import { ProjectLoader } from './project/project-loader.js';
 import { HomeLoader } from './home/home-loader.js';
 import { AboutLoader } from './about/about-loader.js';
 import { ProjectDatabase } from './project/project-database.js';
+import jsdom from 'jsdom';
+
+jsdom.defaultDocumentFeatures = {
+    FetchExternalResources: false,
+    ProcessExternalResources: false
+};
 
 const root = url.fileURLToPath(new URL('..', import.meta.url));
 

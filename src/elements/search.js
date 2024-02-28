@@ -3,8 +3,12 @@ import { WebpageElement } from "./webpage-element.js";
 import { Stylesheet } from "./stylesheet.js";
 import { Script } from "./script.js";
 
+/**
+ * The `Search` class represents a search popup that can be added to the page,
+ */
 export class Search extends WebpageElement {
     add(document) {
+        // The HTML code for the search popup is defined here:
         const fragment = JSDOM.fragment(`
             <div class="search-popup-background">
                 <div class="search-popup-padding-top"></div>
@@ -25,9 +29,11 @@ export class Search extends WebpageElement {
 
         document.body.prepend(fragment.children[0]);
 
+        // Add the stylesheet (css/search.css)
         const stylesheet = new Stylesheet({ url: '/css/search.css' });
         stylesheet.add(document);
 
+        // Add the script (scripts/search.js)
         const script = new Script({ url: '/scripts/search.js' });
         script.add(document);
     }

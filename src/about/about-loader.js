@@ -20,6 +20,8 @@ export class AboutLoader {
         summaries.add(dom.window.document);
 
         this.html = dom.serialize();
+
+        dom.window.close();
     }
 
     getAboutHTML() {

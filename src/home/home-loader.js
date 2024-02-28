@@ -20,6 +20,8 @@ export class HomeLoader {
         summaries.add(dom.window.document);
 
         this.home = dom.serialize();
+
+        dom.window.close();
     }
 
     getHomeHTML() {

@@ -1,5 +1,9 @@
 import { WebpageElement } from "./webpage-element.js";
 
+/**
+ * The `Stylesheet` class represents a stylesheet that can be added to a webpage.
+ * An instance can be created with either a URL or raw CSS code.
+ */
 export class Stylesheet extends WebpageElement {
     constructor({ url = null, raw = null } = {}) {
         super();
