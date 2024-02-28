@@ -23,6 +23,10 @@
                     "caption": "Proof of the big cat eating my shoe."
                 }
             ]
+        },
+        {
+            "type": "paragraph",
+            "file": "paragraph-contents.txt"
         }
     ],
     "position": {
