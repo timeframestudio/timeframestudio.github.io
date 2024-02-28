@@ -4,6 +4,11 @@ import { Search } from "./search.js";
 import { Footer } from "./footer.js";
 import { Stylesheet } from "./stylesheet.js";
 
+/**
+ * The `StandardLayout` class represents the standard layout of a webpage, with a navigation
+ * bar at the top, a search bar, and a footer at the bottom. It also includes the main, header,
+ * and font stylesheets.
+ */
 export class StandardLayout extends WebpageElement {
     add(document) {
         const navigation = new Navigation();

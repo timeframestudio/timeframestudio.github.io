@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             showSearchPopup();
+        } else if (event.key == 'Enter' && event.target == searchBar) {
+            event.preventDefault();
+
+            let firstResult = searchResults.querySelector('.search-result');
+
+            if (firstResult) {
+                window.location.href = firstResult.href;
+            }
         }
     });
 

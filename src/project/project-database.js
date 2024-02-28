@@ -2,9 +2,19 @@ import fs from 'fs/promises';
 import { loadSection } from './load-section.js';
 import { Project } from './project.js';
 
+/**
+ * The `ProjectDatabase` class represents a database of projects, which can be loaded from
+ * the file system and accessed by other parts of the application.
+ */
 export class ProjectDatabase {
+    /**
+     * The singleton instance of the `ProjectDatabase` class.
+     */
     static instance = null;
 
+    /**
+     * Creates a new `ProjectDatabase` instance.
+     */
     constructor() {
         this.projects = new Map();
         this.summaries = [];
@@ -12,6 +22,9 @@ export class ProjectDatabase {
         ProjectDatabase.instance = this;
     }
 
+    /**
+     * Sets up the project database by loading the projects from the file system.
+     */
     async setup() {
         const projectIds = await fs.readdir('./projects');
 
@@ -90,14 +103,27 @@ export class ProjectDatabase {
         return project;
     }
     
+    /**
+     * Gets the projects in the database.
+     * @returns {Map<string, Project>} The projects in the database.
+     */
     getProjects() {
         return this.projects;
     }
 
+    /**
+     * Gets a project from the database by its ID.
+     * @param {string} id The ID of the project to get.
+     * @returns {Project} The project with the given ID, or `undefined` if no project is found.
+     */
     getProject(id) {
         return this.projects.get(id);
     }
 
+    /**
+     * Gets the project summaries in the database.
+     * @returns {Object[]} The project summaries in the database.
+     */
     getProjectSummaries() {
         return this.summaries;
     }

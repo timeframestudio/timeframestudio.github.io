@@ -5,11 +5,21 @@ import { Project } from './project.js';
 import { ProjectSummaries } from '../elements/project-summaries.js';
 import { ProjectDatabase } from './project-database.js';
 
+/**
+ * The `ProjectLoader` class is responsible for generating the HTML for each project,
+ * loaded by the `ProjectDatabase` class.
+ */
 export class ProjectLoader {
+    /**
+     * Creates a new `ProjectLoader` instance.
+     */
     constructor() {
         this.generatedProjects = new Map();
     }
 
+    /**
+     * Sets up the project loader by generating the HTML for each project.
+     */
     async setup() {
         for (const [ id, project ] of ProjectDatabase.instance.getProjects()) {
             const jsdom = new JSDOM();
@@ -24,6 +34,8 @@ export class ProjectLoader {
             layout.add(document);
 
             this.generatedProjects.set(id, jsdom.serialize());
+
+            jsdom.window.close();
         }
     }
 
@@ -75,6 +87,9 @@ export class ProjectLoader {
         return project;
     }
 
+    /**
+     * Get the HTML for a project by its ID.
+     */
     getProjectHTML(id) {
         return this.generatedProjects.get(id);
     }
