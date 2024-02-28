@@ -25,7 +25,7 @@ function loadMapPoints() {
             continue;
         }
 
-        const point = new MapPoint(project);
+        const point = new MapPoint(project, "/projects/" + project.id);
 
         point.draw(ctx);
     }

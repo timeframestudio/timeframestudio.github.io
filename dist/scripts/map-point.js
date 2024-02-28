@@ -7,12 +7,13 @@ export default class MapPoint {
     static ALL = [];
     static PIN_SIZE = 40;
 
-    constructor(project) {
+    constructor(project, projectPath) {
         this.project = project;
         this.x = project.position.x;
         this.y = project.position.y;
         this._hoverEffect = 0;
         this._isActivePoint = false;
+        this.projectPath = projectPath;
 
         MapPoint.ALL.push(this);
     }
@@ -51,6 +52,6 @@ export default class MapPoint {
     }
     
     onClick() {
-        
+        window.location.pathname = this.projectPath;
     }
 }
