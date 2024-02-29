@@ -14,6 +14,8 @@ export class AboutLoader {
         const dom = new JSDOM(template);
 
         const layout = new StandardLayout();
+        layout.useHeader();
+        layout.useTint();
         layout.add(dom.window.document);
 
         const summaries = new ProjectSummaries();

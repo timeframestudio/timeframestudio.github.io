@@ -1,7 +1,6 @@
 .header {
     text-align: center;
     padding: 64px 128px 0px 128px;
-    margin-bottom: 32px;
 }
 
 .header-title {
@@ -13,5 +12,4 @@
 
 .header-with-image {
     padding: 128px;
-    margin-bottom: 32px;
 }

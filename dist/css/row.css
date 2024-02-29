@@ -1,10 +1,9 @@
 .row-section {
     display: flex;
-    padding: 16px 0px;
 }
 
 .row-item {
-    margin: 16px;
+    margin: 0px 16px;
 }
 
 .row-item:first-child {

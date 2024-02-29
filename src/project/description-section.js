@@ -14,7 +14,7 @@ export class DescriptionSection extends ProjectSection {
     createElement(document, isSubsection) {
         const fragment = JSDOM.fragment(`
             <div class="project-description">
-                <div class="heading">Project Overview</div>
+                <div class="heading heading-size-1">Project Overview</div>
                 <div class="target-description"></div>
             </div>
         `);

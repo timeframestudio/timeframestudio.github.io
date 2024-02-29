@@ -10,6 +10,14 @@ import { Stylesheet } from "./stylesheet.js";
  * and font stylesheets.
  */
 export class StandardLayout extends WebpageElement {
+    useHeader() {
+        this.header = true;
+    }
+
+    useTint() {
+        this.tint = true;
+    }
+
     add(document) {
         const navigation = new Navigation();
         navigation.add(document);
@@ -26,7 +34,14 @@ export class StandardLayout extends WebpageElement {
         const font = new Stylesheet({ url: '/css/font.css' });
         font.add(document);
 
-        const header = new Stylesheet({ url: '/css/header.css' });
-        header.add(document);
+        if (this.header) {
+            const header = new Stylesheet({ url: '/css/header.css' });
+            header.add(document);
+        }
+
+        if (this.tint) {
+            const tint = new Stylesheet({ url: '/css/tint.css' });
+            tint.add(document);
+        }
     }
 }

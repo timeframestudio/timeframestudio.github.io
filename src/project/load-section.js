@@ -1,8 +1,11 @@
 import { DescriptionSection } from "./description-section.js";
 import { HeaderSection } from "./header-section.js";
+import { HeadingSection } from "./heading-section.js";
 import { ImageSection } from "./image-section.js";
+import { MarginSection } from "./margin-section.js";
 import { PargraphSection } from "./paragraph-section.js";
 import { RowSection } from "./row-section.js";
+import { TintedSection } from "./tinted-section.js";
 
 export async function loadSection(sectionData, project) {
     let section;
@@ -17,8 +20,14 @@ export async function loadSection(sectionData, project) {
         section = new ImageSection();
     } else if (sectionData.type == 'paragraph') {
         section = new PargraphSection();
+    } else if (sectionData.type == 'heading') {
+        section = new HeadingSection();
+    } else if (sectionData.type == 'margin') {
+        section = new MarginSection();
+    } else if (sectionData.type == 'tint') {
+        section = new TintedSection();
     } else {
-        console.warn(`Unknown section type '${data.type}'`);
+        console.warn(`Unknown section type '${sectionData.type}'`);
         return;
     }
 

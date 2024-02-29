@@ -78,6 +78,21 @@
                         "required": [ "type" ]
                     },
                     {
+                        "description": "A heading section shows a heading of size 1 (largest) to 6 (smallest).",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "const": "heading",
+                                "description": "The type of the section."
+                            },
+                            "size": {
+                                "type": "number",
+                                "description": "The heading size, where one is the largest and six is smallest."
+                            }
+                        },
+                        "required": [ "type", "size" ]
+                    },
+                    {
                         "allOf": [
                             {
                                 "description": "A paragraph section shows a paragraph of text.",
@@ -141,6 +156,33 @@
                             }
                         },
                         "required": [ "type", "subsections" ]
+                    },
+                    {
+                        "description": "A tint section has a slightly darker background.",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "const": "tint",
+                                "description": "The type of the section."
+                            },
+                            "subsections": {
+                                "type": "array",
+                                "description": "The tinted subsections, from top to bottom.",
+                                "items": { "$ref": "#/properties/sections/items" }
+                            }
+                        },
+                        "required": [ "type", "subsections" ]
+                    },
+                    {
+                        "description": "A margin section adds a 32px margin between sections.",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "const": "margin",
+                                "description": "The type of the section."
+                            }
+                        },
+                        "required": [ "type" ]
                     },
                     {
                         "properties": {
