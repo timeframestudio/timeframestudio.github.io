@@ -1,4 +1,4 @@
-import { ProjectSection } from "./project-section.js";
+import { ProjectSection } from "../project-section.js";
 import { JSDOM } from 'jsdom';
 import path from 'path';
 

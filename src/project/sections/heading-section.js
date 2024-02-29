@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
-import { ProjectSection } from "./project-section.js";
-import { wrapColumnLayout } from "./wrap-column-layout.js";
+import { ProjectSection } from "../project-section.js";
+import { wrapColumnLayout } from "../wrap-column-layout.js";
 
 export class HeadingSection extends ProjectSection {
     constructor() {

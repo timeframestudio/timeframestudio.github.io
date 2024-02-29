@@ -1,11 +1,11 @@
-import { DescriptionSection } from "./description-section.js";
-import { HeaderSection } from "./header-section.js";
-import { HeadingSection } from "./heading-section.js";
-import { ImageSection } from "./image-section.js";
-import { MarginSection } from "./margin-section.js";
-import { PargraphSection } from "./paragraph-section.js";
-import { RowSection } from "./row-section.js";
-import { TintedSection } from "./tinted-section.js";
+import { DescriptionSection } from "./sections/description-section.js";
+import { HeaderSection } from "./sections/header-section.js";
+import { HeadingSection } from "./sections/heading-section.js";
+import { ImageSection } from "./sections/image-section.js";
+import { MarginSection } from "./sections/margin-section.js";
+import { PargraphSection } from "./sections/paragraph-section.js";
+import { RowSection } from "./sections/row-section.js";
+import { TintedSection } from "./sections/tinted-section.js";
 
 export async function loadSection(sectionData, project) {
     let section;

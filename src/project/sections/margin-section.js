@@ -1,5 +1,4 @@
-import { ProjectSection } from "./project-section.js";
-import { wrapColumnLayout } from "./wrap-column-layout.js";
+import { ProjectSection } from "../project-section.js";
 
 export class MarginSection extends ProjectSection {
     *getStylesheets() {

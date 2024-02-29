@@ -1,10 +1,11 @@
-import { loadSection } from "./load-section.js";
-import { ProjectSection } from "./project-section.js";
-import { wrapColumnLayout } from "./wrap-column-layout.js";
+import { ProjectSection } from "../project-section.js";
+import { JSDOM } from 'jsdom';
+import { wrapColumnLayout } from "../wrap-column-layout.js";
+import { loadSection } from "../load-section.js";
 
-export class TintedSection extends ProjectSection {
+export class RowSection extends ProjectSection {
     *getStylesheets() {
-        yield '/css/tint.css';
+        yield '/css/row.css';
 
         for (const subsection of this.subsections) {
             yield* subsection.section.getStylesheets();
@@ -25,7 +26,7 @@ export class TintedSection extends ProjectSection {
         this.subsections = [];
 
         if (!data.subsections) {
-            console.warn('Tinted sections must have subsections');
+            console.warn('Row sections must have subsections');
             
             return;
         }
@@ -37,19 +38,24 @@ export class TintedSection extends ProjectSection {
     }
 
     createElement(document, isSubsection) {
-        const section = document.createElement('div');
+        const fragment = JSDOM.fragment(`
+            <div class="row-section"></div>
+        `);
+
+        const row = fragment.querySelector('.row-section');
 
         for (const entry of this.subsections) {
             const element = entry.section.createElement(document, true);
             
             if (element) {
-                section.appendChild(element);
+                element.classList.add('row-item');
+
+                if (entry.data.flex) element.classList.add('row-item-flex');
+
+                row.appendChild(element);
             }
         }
 
-        const wrapper = wrapColumnLayout(section, document, isSubsection);
-        wrapper.classList.add('tinted-section');
-
-        return wrapper;
+        return wrapColumnLayout(fragment.children[0], document, isSubsection);
     }
 }
