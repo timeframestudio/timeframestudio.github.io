@@ -56,13 +56,6 @@ body {
     margin-bottom: 32px;
 }
 
-.heading-size-1 {
-    letter-spacing: 0.05em;
-    font-weight: bold;
-    margin: 32px auto 32px auto;
-    font-size: 1.5em;
-    color: #666666;
-}
 
 .plain-link {
     color: inherit;

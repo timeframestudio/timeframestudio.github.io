@@ -14,8 +14,16 @@ export class StandardLayout extends WebpageElement {
         this.header = true;
     }
 
+    useMargins() {
+        this.margins = true;
+    }
+
     useTint() {
         this.tint = true;
+    }
+
+    useHeadings() {
+        this.headings = true;
     }
 
     add(document) {
@@ -42,6 +50,16 @@ export class StandardLayout extends WebpageElement {
         if (this.tint) {
             const tint = new Stylesheet({ url: '/css/tint.css' });
             tint.add(document);
+        }
+
+        if (this.margins) {
+            const margins = new Stylesheet({ url: '/css/margin.css' });
+            margins.add(document);
+        }
+
+        if (this.headings) {
+            const headings = new Stylesheet({ url: '/css/heading.css' });
+            headings.add(document);
         }
     }
 }

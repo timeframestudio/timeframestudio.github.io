@@ -34,7 +34,7 @@ export class Search extends WebpageElement {
         stylesheet.add(document);
 
         // Add the script (scripts/search.js)
-        const script = new Script({ url: '/scripts/search.js' });
+        const script = new Script({ url: '/scripts/search.js', location: 'body' });
         script.add(document);
     }
 }

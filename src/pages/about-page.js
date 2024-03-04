@@ -1,14 +1,14 @@
 import fs from "fs/promises";
 import { JSDOM } from "jsdom";
 import { StandardLayout } from "../elements/standard-layout.js";
-import { ProjectSummaries } from "../elements/project-summaries.js";
+import { prettyPrint } from "../utils/pretty-print.js";
 
-export class AboutLoader {
+export class AboutPage {
     constructor() {
         this.html = null;
     }
 
-    async setup() {
+    async setupWebpage() {
         const template = await fs.readFile('./dist/about.html');
 
         const dom = new JSDOM(template);
@@ -16,17 +16,16 @@ export class AboutLoader {
         const layout = new StandardLayout();
         layout.useHeader();
         layout.useTint();
+        layout.useMargins();
+        layout.useHeadings();
         layout.add(dom.window.document);
 
-        const summaries = new ProjectSummaries();
-        summaries.add(dom.window.document);
-
-        this.html = dom.serialize();
+        this.html = prettyPrint(dom.serialize());
 
         dom.window.close();
     }
 
-    getAboutHTML() {
+    getPageHTML() {
         return this.html;
     }
 }

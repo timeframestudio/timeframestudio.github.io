@@ -2,55 +2,6 @@
     "title": "Bob's Story of Cats",
     "description": "Based on a definitely true story — Bob's Story of Cats is a heartwarming tale of cats doing different things.\n\nWhy cats? Because they are the most important animal on the planet and we should all be more like them. This film is a celebration of cats and their many talents. It's a must-watch for anyone who loves cats, or anyone who doesn't love cats but should.",
     "author": "Bob Bobson",
-    "sections": [
-        {
-            "type": "header",
-            "image": {
-                "url": "header-background.jpeg",
-                "position": "center",
-                "tint": "#ffffff66"
-            }
-        },
-        { "type": "description" },
-        { "type": "margin" },
-        {
-            "type": "tint",
-            "subsections": [
-                {
-                    "type": "heading",
-                    "size": 1,
-                    "text": "Storyboard"
-                },
-                {
-                    "type": "row",
-                    "subsections": [
-                        {
-                            "type": "image",
-                            "url": "hungry-cat.jpeg",
-                            "caption": "Cat eats shoe",
-                            "flex": true
-                        },
-                        {
-                            "type": "image",
-                            "url": "cool-cat.jpeg",
-                            "caption": "Cat relaxes on beach",
-                            "flex": true
-                        },
-                        {
-                            "type": "image",
-                            "url": "wizard-cat.jpeg",
-                            "caption": "Cat learns magic",
-                            "flex": true
-                        }
-                    ]
-                },
-                { "type": "margin" }
-            ]
-        }
-    ],
-    "position": {
-        "x": 1500,
-        "y": 600
-    },
-    "$schema": "../../schema/project.json"
+    "pages": {},
+    "location": [ 1500, 600 ]
 }

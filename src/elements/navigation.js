@@ -8,6 +8,27 @@ import { Script } from "./script.js";
  * also adds the navigation stylesheet and script.
  */
 export class Navigation extends WebpageElement {
+    /**
+     * Whether to show the navigation links.
+     * @type {boolean}
+     * @private
+     */
+    showLinks;
+
+    /**
+     * Create a new `Navigation` element.
+     * @param {boolean} showLinks Whether to show the navigation links.
+     */
+    constructor(showLinks = true) {
+        super();
+
+        this.showLinks = showLinks;
+    }
+
+    /**
+     * Add the navigation bar to the document.
+     * @param {Document} document 
+     */
     add(document) {
         // The navigation bar is fixed, so we need to add a margin to the top of
         // the page to prevent a bit of the content from being hidden behind the
@@ -17,17 +38,21 @@ export class Navigation extends WebpageElement {
         document.body.prepend(margin);
 
         // The HTML code for the navigation bar is defined here:
-        const fragment = JSDOM.fragment(`
-            <div class="column-layout navigation-bar">
-                <div class="column-side"></div>
-                <div class="column-center column-layout">
-                    <a class="navigation-title" href="/">Khan Lab Studios</a>
-                    <a class="navigation-link search-link" href="#search">Search</a>
-                    <a class="navigation-link" href="/about">About</a>
+        const fragment = this.showLinks ? JSDOM.fragment(`
+                <div class="column-layout navigation-bar">
+                    <div class="column-side"></div>
+                    <div class="column-center column-layout">
+                        <a class="navigation-title" href="/">Khan Lab Studios</a>
+                        <a class="navigation-link search-link" href="#search">Search</a>
+                        <a class="navigation-link" href="/about">About</a>
+                    </div>
+                    <div class="column-side"></div>
                 </div>
-                <div class="column-side"></div>
-            </div>
-        `);
+            `) : JSDOM.fragment(`
+                <div class="column-layout navigation-bar">
+                    <div class="column-side"></div>
+                </div>
+            `);
 
         document.body.prepend(fragment.children[0]);
 
@@ -35,8 +60,10 @@ export class Navigation extends WebpageElement {
         const stylesheet = new Stylesheet({ url: '/css/navigation.css' });
         stylesheet.add(document);
 
-        // Add the script (scripts/navigation.js)
-        const script = new Script({ url: '/scripts/navigation.js' });
-        script.add(document);
+        if (this.showLinks) {
+            // Add the script (scripts/navigation.js)
+            const script = new Script({ url: '/scripts/navigation.js', location: 'body' });
+            script.add(document);
+        }
     }
 }

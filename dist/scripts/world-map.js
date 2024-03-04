@@ -3,7 +3,7 @@ import { getProjectSummaries } from './projects.js';
 
 export const mouse = { x: 0, y: 0 };
 
-export const canvas = document.getElementById("worldMap");
+export const canvas = getCanvasElement();
 export const ctx = canvas.getContext('2d');
 
 const worldMapImg = await loadImage("/assets/world-map.png");
@@ -27,7 +27,7 @@ function loadMapPoints() {
 
         const point = new MapPoint(project, "/projects/" + project.id);
 
-        point.draw(ctx);
+        point.draw();
     }
 }
 
@@ -86,4 +86,15 @@ function render() {
     }
 
     requestAnimationFrame(render);
+}
+
+/** @returns {HTMLCanvasElement} */
+function getCanvasElement() {
+    const canvas = document.getElementById("worldMap");
+
+    if (!(canvas instanceof HTMLCanvasElement)) {
+        throw new Error("Missing world map canvas");
+    }
+
+    return canvas;
 }

@@ -1,57 +1,72 @@
-import { ProjectSection } from "../project-section.js";
 import { JSDOM } from 'jsdom';
 import path from 'path';
+import { WebpageSection } from '../webpage-section.js';
+import { ProjectPage } from '../project-page.js';
+import { WebpageComponent } from '../components/webpage-component.js';
+import { WebpageElement } from '../../elements/webpage-element.js';
+import { Stylesheet } from '../../elements/stylesheet.js';
 
-export class HeaderSection extends ProjectSection {
-    image = null;
+export class HeaderSection extends WebpageSection {
+    /**
+     * @type {ProjectPage}
+     */
+    projectPage = null;
 
-    async setup(data, project) {
-        this.project = project;
-        this.loadFromData(data);
+    /**
+     * @param {WebpageComponent | null} parentComponent 
+     * @param {ProjectPage} projectPage 
+     */
+    async setupComponent(parentComponent, projectPage) {
+        this.projectPage = projectPage;
     }
 
-    loadFromData(data) {
-        if (!data.image) return;
-
-        if (typeof data.image != 'object') {
-            console.warn('Header image options must be an object');
-            return;
-        }
-
-        if (!data.image.url || typeof data.image.url != 'string') {
-            console.warn('Header image URL is required and must be a string');
-            return;
-        }
-
-        if (data.image.tint && typeof data.image.tint != 'string') {
-            console.warn('Header image tint value must be a string (css color) if present');
-            return;
-        }
-
-        if (data.image.position && typeof data.image.position != 'string') {
-            console.warn('If present, image.position must be a string that is a valid value for the css property background-position');
-            return;
-        }
-
-        if (typeof this.project.id != 'string' && !data.image.url.startsWith('/')) {
-            console.warn('Cannot find relative image urls without project id');
-            return;
-        }
-
-        this.image = data.image;
+    /**
+     * Gets the `WebpageElement`s used by the header section.
+     * @returns {Iterable<WebpageElement>}
+     */
+    *getWebpageElements() {
+        yield new Stylesheet({ url: '/css/header.css' });
     }
 
-    *getStylesheets() {
-        yield '/css/header.css';
+    /**
+     * The background image URL of the header
+     * @private
+     * @type {string}
+     */
+    backgroundImage = null;
+
+    /**
+     * The CSS 'background-position' of the header
+     * @private
+     * @type {string}
+     */
+    backgroundPosition = null;
+
+    /**
+     * The CSS color background tint of the header
+     * @private
+     * @type {string}
+     */
+    backgroundTint = null;
+
+    /**
+     * Set the background image of the header
+     * @param {string} url
+     * @param {object} options
+     * @param {string} [options.backgroundPosition]
+     * @param {string} [options.backgroundTint]
+     */
+    setBackgroundImage(url, { backgroundPosition = 'top center', backgroundTint = '#00000000' } = {}) {
+        this.backgroundImage = url;
+        this.backgroundPosition = backgroundPosition;
+        this.backgroundTint = backgroundTint;
     }
 
-    createElement(document, isSubsection) {
-        if (isSubsection) {
-            console.warn("Header section cannot be a subsection");
-
-            return null;
-        }
-
+    /**
+     * @param {Document} document
+     * @returns {HTMLElement}
+     */
+    createElement(document) {
         const fragment = JSDOM.fragment(`
             <div class="header">
                 <div class="header-title"></div>
@@ -63,22 +78,25 @@ export class HeaderSection extends ProjectSection {
             </div>
         `);
 
-        fragment.querySelector('.header-title').textContent = this.project.title;
-        fragment.querySelector('.header-description').textContent = this.project.author;
+        const projectOutline = this.projectPage.getProjectOutline();
 
-        if (this.image) {
-            const header = fragment.querySelector('.header');
+        fragment.querySelector('.header-title').textContent = projectOutline.getTitle();
+        fragment.querySelector('.header-description').textContent = projectOutline.getAuthor();
 
-            const imageUrl = path.resolve('/assets/project/' + this.project.id + '/', this.image.url);
+        /** @type {HTMLDivElement} */
+        const header = fragment.querySelector('.header');
+
+        if (this.backgroundImage) {
+            const imageUrl = path.resolve(projectOutline.getAssetURL(), this.backgroundImage);
             header.style.backgroundImage = `url(${imageUrl})`;
             header.classList.add('header-with-image');
             
             header.style.backgroundSize = 'cover';
-            header.style.backgroundPosition = this.image.position || 'top center';
+            header.style.backgroundPosition = this.backgroundPosition;
             header.style.backgroundBlendMode = 'lighten';
-            header.style.backgroundColor = this.image.tint || 'transparent';
+            header.style.backgroundColor = this.backgroundTint || 'transparent';
         }
 
-        return fragment.children[0];
+        return header;
     }
 }

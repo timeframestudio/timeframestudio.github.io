@@ -1,62 +1,81 @@
+import express from "express";
+import { ProjectOutline } from "./project-outline.js";
+import { ProjectPage } from "./project-page.js";
+import path from "path";
+
 export class Project {
-    title = 'Project Title';
-    author = 'Project Author';
-    description = 'Project Description';
-    sections = [];
-    id = null;
-    position = null;
+    /**
+     * The outline of the project.
+     * @type {ProjectOutline}
+     * @private
+     * @readonly
+     */
+    outline;
 
-    addProjectSections(document) {
-        document.title = this.title + " | Khan Lab Studios";
+    /**
+     * The HTML of the project pages.
+     * @type {Map<string, string>}
+     * @private
+     */
+    pages = new Map();
 
-        let stylesheets = new Set([
-            '/css/main.css'
-        ]);
+    /**
+     * Create a new `Project`.
+     * @param {ProjectOutline} outline The outline of the project.
+     */
+    constructor(outline) {
+        this.outline = outline;
+    }
 
-        let scripts = new Set([
-            '/scripts/navigation.js'
-        ]);
+    /**
+     * Set up the project.
+     */
+    async setupProject() {
+        const pageScripts = this.outline.getPageScripts();
 
-        for (const section of this.sections) {
-            const sectionElement = section.createElement(document);
+        for (let [ routePath, scriptPath ] of pageScripts) {
+            /** @type {{ default: ProjectPage }} */
+            const { default: project } = await import(path.join(this.outline.getFilePath(), scriptPath));
 
-            if (sectionElement) {
-                document.body.appendChild(sectionElement);
-            }
+            project.bindProjectOutline(this.outline);
 
-            for (const stylesheet of section.getStylesheets()) {
-                stylesheets.add(stylesheet);
-            }
+            await project.setup();
 
-            for (const script of section.getScripts()) {
-                scripts.add(script);
-            }
-        }
+            const html = project.getPageHTML();
 
-        for (const stylesheet of stylesheets) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = stylesheet;
-
-            document.head.appendChild(link);
-        }
-
-        for (const script of scripts) {
-            const scriptElement = document.createElement('script');
-            scriptElement.src = script;
-            scriptElement.type = 'module';
-
-            document.body.appendChild(scriptElement);
+            this.pages.set(routePath, html);
         }
     }
 
-    getSummary() {
-        return {
-            title: this.title,
-            author: this.author,
-            description: this.description,
-            position: this.position || null,
-            id: this.id
-        };
+    /**
+     * Get the page router for the project.
+     * @returns {express.RequestHandler}
+     */
+    getPageRouter() {
+        const router = express.Router();
+
+        for (let [ routePath, html ] of this.pages) {
+            router.get(routePath, (req, res) => {
+                res.send(html);
+            });
+        }
+
+        return router;
+    }
+
+    /**
+     * Get the asset router for the project.
+     * @returns {express.RequestHandler}
+     */
+    getAssetRouter() {
+        return express.static(this.outline.getAssetURL());
+    }
+
+    /**
+     * Get the outline of the project.
+     * @returns {ProjectOutline}
+     */
+    getProjectOutline() {
+        return this.outline;
     }
 }

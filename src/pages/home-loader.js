@@ -1,32 +1,35 @@
 import fs from "fs/promises";
 import { JSDOM } from "jsdom";
 import { StandardLayout } from "../elements/standard-layout.js";
-import { ProjectSummaries } from "../elements/project-summaries.js";
+import { prettyPrint } from "../utils/pretty-print.js";
+import { Script } from "../elements/script.js";
 
-export class HomeLoader {
+export class HomePage {
     constructor() {
         this.home = null;
     }
 
-    async setup() {
+    async setupWebpage() {
         const homeTemplate = await fs.readFile('./dist/home.html');
 
         const dom = new JSDOM(homeTemplate);
-
+        
         const layout = new StandardLayout();
         layout.useHeader();
         layout.useTint();
+        layout.useMargins();
+        layout.useHeadings();
         layout.add(dom.window.document);
 
-        const summaries = new ProjectSummaries();
-        summaries.add(dom.window.document);
-
-        this.home = dom.serialize();
+        const worldMap = new Script({ url: '/scripts/world-map.js', location: 'body' });
+        worldMap.add(dom.window.document);
+        
+        this.home = prettyPrint(dom.serialize());
 
         dom.window.close();
     }
 
-    getHomeHTML() {
+    getPageHTML() {
         return this.home;
     }
 }

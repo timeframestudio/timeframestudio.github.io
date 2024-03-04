@@ -1,4 +1,4 @@
-let projectSummaries = window['_projectSummaryData'];
+let projectSummaries = await fetchProjectSummaries();
 
 export async function getProjectSummaries() {
     if (!projectSummaries) {
@@ -6,4 +6,11 @@ export async function getProjectSummaries() {
     }
 
     return projectSummaries;
+}
+
+async function fetchProjectSummaries() {
+    const response = await fetch("/api/projects");
+    const data = await response.json();
+
+    return data;
 }

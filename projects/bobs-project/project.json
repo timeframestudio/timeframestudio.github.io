@@ -2,36 +2,8 @@
     "title": "The Big Cat",
     "description": "The cat was very big and it ate my shoe. I didn't like the cat, but I liked my shoe. I was sad.",
     "author": "Bob Bobson",
-    "sections": [
-        {
-            "type": "header",
-            "image": {
-                "url": "big-cat.jpeg",
-                "position": "center",
-                "tint": "#ffffff66"
-            }
-        },
-        {
-            "type": "row",
-            "subsections": [
-                {
-                    "type": "description"
-                },
-                {
-                    "type": "image",
-                    "url": "cat-eating-shoe.jpeg",
-                    "caption": "Proof of the big cat eating my shoe."
-                }
-            ]
-        },
-        {
-            "type": "paragraph",
-            "file": "paragraph-contents.txt"
-        }
-    ],
-    "position": {
-        "x": 1500,
-        "y": 600
+    "pages": {
+        "/": "main.js"
     },
-    "$schema": "../../schema/project.json"
+    "location": [ 1500, 600 ]
 }

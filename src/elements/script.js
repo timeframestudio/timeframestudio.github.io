@@ -8,11 +8,11 @@ import { WebpageElement } from "./webpage-element.js";
 export class Script extends WebpageElement {
     /**
      * @param {Object} options The options for the script
-     * @param {string} options.url The URL of the script
-     * @param {string} options.raw The raw code of the script
-     * @param {string} options.type The type of the script (module or regular)
-     * @param {string} options.location The location of the script (head or body)
-     * @param {boolean} options.preferred Whether the script should be added before
+     * @param {string} [options.url] The URL of the script
+     * @param {string} [options.raw] The raw code of the script
+     * @param {string} [options.type] The type of the script (module or regular)
+     * @param {string} [options.location] The location of the script (head or body)
+     * @param {boolean} [options.preferred] Whether the script should be added before
      * others in the same location
      */
     constructor({ url = null, raw = null, type = 'module', location = 'head', preferred = false } = {}) {
