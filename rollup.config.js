@@ -1,6 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import fs from 'fs/promises';
-import path, { relative } from 'path';
+import path from 'path';
+import { cleandir } from "rollup-plugin-cleandir";
 
 let input = [];
 
@@ -32,7 +33,7 @@ export default {
         }
     },
     external: [ 'express', 'fs/promises', 'url', 'jsdom', 'path', 'pretty', 'process' ],
-    plugins: [ typescript() ]
+    plugins: [ typescript(), cleandir() ]
 };
 
 function getChunkName(id) {
