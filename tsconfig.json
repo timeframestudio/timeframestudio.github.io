@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "checkJs": true,
         "noEmit": true,
         "target": "ESNext",
         "allowSyntheticDefaultImports": true,
-        "module": "NodeNext"
+        "module": "NodeNext",
+        "strictNullChecks": true
     },
-    "exclude": [ "node_modules", "scripts" ]
+    "exclude": [ "node_modules", "public/scripts", "dist", "rollup.config.js" ]
 }
