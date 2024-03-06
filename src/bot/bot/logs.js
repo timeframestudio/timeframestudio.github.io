@@ -1,0 +1,19 @@
+
+import config from '../config.json' assert { type: 'json' }; 
+
+function getTime() {
+    var d = new Date();
+    return d.toLocaleTimeString();
+}
+
+export async function logLayoutChangeRequest(client, user) {
+    await client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nLayout change request:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}`);
+}
+
+export async function logPageContentChangeRequest(client, user) {
+    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\n Page content form filled:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}\n*Another log will be sent when the page is confirmed to have updated.*`);
+}
+
+export async function logPageContentChangeSuccessful(client, user) {
+
+}
