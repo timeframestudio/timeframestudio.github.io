@@ -1,8 +1,7 @@
-import { ProjectPage } from "../project-page.js";
-import { WebpageComponent } from "../components/webpage-component.js";
-import { WebpageSection } from "../webpage-section.js";
-import { WebpageElement } from "../../elements/webpage-element.js";
 import { Stylesheet } from "../../elements/stylesheet.js";
+import { WebpageComponent } from "../components/webpage-component.js";
+import { ProjectPage } from "../project-page.js";
+import { WebpageSection } from "../webpage-section.js";
 
 export class PaddedSection extends WebpageSection {
     private components: WebpageComponent[];
@@ -21,6 +20,10 @@ export class PaddedSection extends WebpageSection {
 
     *getWebpageElements() {
         yield new Stylesheet('/css/padded.css');
+
+        for (let component of this.components) {
+            yield* component.getWebpageElements();
+        }
     }
 
     createElement(document: Document) {

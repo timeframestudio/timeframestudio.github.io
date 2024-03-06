@@ -22,7 +22,7 @@ export class Project {
         } catch (err) {
             this.useInternalServerErrorRouter();
 
-            return;
+            throw new Error(`Failed to load project script: ${script}`);
         }
 
         try {

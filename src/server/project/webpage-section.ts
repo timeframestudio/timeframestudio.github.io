@@ -6,7 +6,7 @@ import { ProjectPage } from "./project-page.js";
  * The `WebpageSection` class represents a section of a webpage.
  */
 export abstract class WebpageSection implements WebpageComponent {
-    private theme: WebpageSection.Theme;
+    private theme: WebpageSection.Theme = WebpageSection.Theme.Light;
 
     setSectionTheme(sectionTheme: WebpageSection.Theme) {
         this.theme = sectionTheme;

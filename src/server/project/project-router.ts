@@ -28,6 +28,8 @@ export class ProjectRouter {
             try {
                 outlineText = await fs.readFile('projects/' + projectRoot + '/project.json', 'utf8');
             } catch (err) {
+                process.stdout.write(`\nFailed to read project.json`);
+
                 continue;
             }
 
@@ -36,8 +38,7 @@ export class ProjectRouter {
             try {
                 projectData = JSON.parse(outlineText);
             } catch (err) {
-                process.stdout.write("\n");
-                console.error(err);
+                process.stdout.write(`\nFailed to parse project.json`);
                 continue;
             }
 
@@ -47,7 +48,7 @@ export class ProjectRouter {
                 project = new Project(ProjectOutline.fromProjectData(projectData, projectRoot));
                 await project.setupProject();
             } catch (err) {
-                process.stdout.write("\n");
+                process.stdout.write(`\n`);
                 console.error(err);
                 continue;
             }
