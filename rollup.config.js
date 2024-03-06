@@ -18,6 +18,7 @@ for (const directory of projectDirectories) {
 }
 
 input.push('src/server/index.ts');
+input.push('src/bot/index.ts');
 
 export default {
     input,
@@ -43,11 +44,11 @@ function getChunkName(id) {
 
     if (splitPath[0] == 'projects') {
         return path.join('projects', splitPath[1]);
-    } else {
-        return 'server';
+    } else if (splitPath[0] == 'server') {
+        return splitPath[1].slice(0, splitPath[1].indexOf('.'));
     }
 }
-
+ 
 async function getSubdirectories(directory, _basePath = undefined) {
     _basePath = _basePath ?? directory;
 
