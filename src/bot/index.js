@@ -3,12 +3,24 @@
 import { ActivityType, Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import { loadCommands, registerCommands } from './bot/prelude.js';
 import { modalFinished } from './bot/handleForums.js';
-(await import('dotenv')).config();
+import fs from 'fs/promises';
+import path from 'path';
 
 // Load the bot's token
-const TOKEN = process.env.TOKEN;
-const GUILD = process.env.GUILD;
-const BOTID = process.env.BOTID;
+let TOKEN = process.env.TOKEN;
+let GUILD = process.env.GUILD;
+let BOTID = process.env.BOTID;
+
+if (!TOKEN || !GUILD || !BOTID) {
+    console.log("Missing environment variables, reading from file.");
+
+    const text = await fs.readFile(path.join(process.cwd(), 'secrets.json'));
+    const secrets = JSON.parse(text);
+
+    TOKEN = secrets.TOKEN;
+    GUILD = secrets.GUILD;
+    BOTID = secrets.BOTID;
+}
 
 // Create the client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });

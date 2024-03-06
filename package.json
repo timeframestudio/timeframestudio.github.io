@@ -6,6 +6,7 @@
     "build": "npx rollup --config --watch"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "discord.js": "^14.14.1",
