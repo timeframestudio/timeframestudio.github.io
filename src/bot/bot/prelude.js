@@ -1,11 +1,11 @@
 
 import path from 'path';
-import fs from 'node:fs';
-import url from 'node:url';
+import fs from 'fs/promises';
+import url from 'url';
 import { REST, Routes } from 'discord.js';
 
-const commandFolder = url.fileURLToPath(new URL("../bot/commands/", import.meta.url));
-const commandFolders = fs.readdirSync(commandFolder);
+const commandFolder = url.fileURLToPath(new URL("bot/commands/", import.meta.url));
+const commandFolders = await fs.readdir(commandFolder);
 
 async function loadOneCommand(client, moduleFolder, file) {
     const filePath = path.join(moduleFolder, file);
@@ -23,7 +23,7 @@ export async function loadCommands(client) {
     const commands = [];
     for (const folder of commandFolders) {
         const modulePath = path.join(commandFolder, folder);
-        const commandFiles = fs.readdirSync(modulePath).filter(file => file.endsWith('.js'));
+        const commandFiles = (await fs.readdir(modulePath)).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {
             commands.push(await loadOneCommand(client, modulePath, file));
         }
