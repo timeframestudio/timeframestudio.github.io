@@ -18,7 +18,7 @@ for (const directory of projectDirectories) {
 }
 
 input.push('src/server/index.ts');
-input.push('src/bot/index.ts');
+input.push('src/bot/index.js');
 
 export default {
     input,
