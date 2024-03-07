@@ -21,7 +21,7 @@ render();
 
 function loadMapPoints() {
     for (const project of projects) {
-        if (!project.position) {
+        if (!project.location) {
             continue;
         }
 
