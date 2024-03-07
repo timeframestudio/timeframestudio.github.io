@@ -2,44 +2,42 @@ import { ProjectRouter } from "../project/project-router.js";
 import fs from "fs/promises";
 import path from "path";
 
-export namespace PageContent {
-    let router: ProjectRouter;
+let router: ProjectRouter;
 
-    export function getProjectIds() {
-        return router.getProjects().keys();
+export function getProjectIds() {
+    return router.getProjects().keys();
+}
+
+export function getPageContent(projectId: string) {
+    const project = router.getProjects().get(projectId);
+
+    if (!project) {
+        return null;
     }
 
-    export function getPageContent(projectId: string) {
-        const project = router.getProjects().get(projectId);
+    return project.getProjectOutline().getPageContent();
+}
 
-        if (!project) {
-            return null;
-        }
+export async function setPageContent(projectId: string, content: { [key: string]: string }) {
+    const project = router.getProjects().get(projectId);
 
-        return project.getProjectOutline().getPageContent();
+    if (!project) {
+        return;
     }
 
-    export async function setPageContent(projectId: string, content: { [key: string]: string }) {
-        const project = router.getProjects().get(projectId);
+    const file = path.join(project.getProjectOutline().getFilePath(), 'content.json');
 
-        if (!project) {
-            return;
-        }
+    await fs.writeFile(file, JSON.stringify(content, null, 4));
 
-        const file = path.join(project.getProjectOutline().getFilePath(), 'content.json');
+    project.getProjectOutline().setPageContent(content);
 
-        await fs.writeFile(file, JSON.stringify(content, null, 4));
+    await project.clearCache();
+}
 
-        project.getProjectOutline().setPageContent(content);
-
-        await project.clearCache();
+export function setupInterface(projectRouter: ProjectRouter) {
+    if (router) {
+        throw new Error('Interface already set up');
     }
-    
-    export function setupInterface(projectRouter: ProjectRouter) {
-        if (router) {
-            throw new Error('Interface already set up');
-        }
 
-        router = projectRouter;
-    }
+    router = projectRouter;
 }
