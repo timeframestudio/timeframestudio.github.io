@@ -62,7 +62,7 @@ function getChunkName(id) {
         return path.join('bot', ...subpath);
     } else if (splitPath[0] == 'src') {
         return splitPath[1];
-    }å
+    }
 }
  
 async function getSubdirectories(directory, _basePath = undefined) {
