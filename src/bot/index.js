@@ -13,9 +13,16 @@ export async function startBot() {
     let BOTID = process.env.BOTID;
 
     if (!TOKEN || !GUILD || !BOTID) {
-        console.log("Missing environment variables, reading from file.");
+        let text;
+        
+        try {
+            text = await fs.readFile(path.join(process.cwd(), 'secrets.json'));;
+        } catch (err) {
+            console.log("Missing Discord bot token");
 
-        const text = await fs.readFile(path.join(process.cwd(), 'secrets.json'));
+            return;
+        }
+
         const secrets = JSON.parse(text);
 
         TOKEN = secrets.TOKEN;

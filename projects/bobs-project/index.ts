@@ -9,13 +9,13 @@ import { PaddedSection } from "../../src/server/project/sections/padded-section.
 
 class MainPage extends ProjectPage {
     async setupWebpage() {
+        const content = this.getProjectOutline().getPageContent();
+
         this.addPageSections(new HeaderSection());
         this.addPageSections(new PaddedSection(
-            new HeadingComponent("Welcome to Bob's Project", 1),
+            new HeadingComponent(content['Project Overview: Heading'], 1),
             new ParagraphComponent(
-                new PlainTextToken("This is a project that Bob made. It's pretty "),
-                new StyledTextToken("bold", new PlainTextToken("cool")),
-                new PlainTextToken(" if you ask me.")
+                new PlainTextToken(content['Project Overview: Content'])
             )
         ));
 
