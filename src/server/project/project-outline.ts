@@ -7,6 +7,7 @@ export class ProjectOutline {
     private description: string;
     private projectId: string;
     private mapLocation: [ number, number ];
+    private content: { [key: string]: string };
 
     getTitle() {
         return this.title;
@@ -48,6 +49,36 @@ export class ProjectOutline {
             id: this.getProjectId(),
             location: this.getMapLocation()
         };
+    }
+    
+    getPageContent() {
+        return this.content;
+    }
+
+    setPageContent(content: { [key: string]: string }) {
+        ProjectOutline.validateContent(content);
+
+        this.content = content;
+    }
+
+    private static validateContent(content: { [key: string]: string }) {
+        if (typeof content != 'object' || Array.isArray(content)) {
+            throw new Error("Root of content.json must be an object");
+        }
+
+        for (let key in content) {
+            if (typeof content[key] != 'string') {
+                throw new Error("Key value pairs in content.json must be of strings");
+            }
+        }
+    }
+
+    static addPageContent(outline: ProjectOutline, content: { [key: string]: string }) {
+        if (outline.content) throw new Error("Project outline already has page content.");
+
+        ProjectOutline.validateContent(content);
+
+        outline.content = content;
     }
 
     static fromProjectData(outlineData: ProjectOutline.OutlineData, id: string) {

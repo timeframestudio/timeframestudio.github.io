@@ -20,6 +20,12 @@ export class ProjectPageRouter {
         }
     }
 
+    async clearCache() {
+        for (let [ path, page ] of this.pages) {
+            await page.clearCache();
+        }
+    }
+
     async setup() {
         let router = express.Router();
 

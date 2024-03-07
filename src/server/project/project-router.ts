@@ -89,6 +89,10 @@ export class ProjectRouter {
 
         return data;
     }
+
+    getProjects() {
+        return this.projects;
+    }
 }
 
 async function getSubdirectories(directory: string, _basePath?: string): Promise<string[]> {

@@ -4,6 +4,7 @@ import url from 'url';
 import { ProjectRouter } from './project/project-router.js';
 import { HomePage } from './pages/home-loader.js';
 import { AboutPage } from './pages/about-page.js';
+import { PageContent } from './utils/page-content.js';
 
 export async function startServer() {
     const root = url.fileURLToPath(new URL('..', import.meta.url));
@@ -18,6 +19,8 @@ export async function startServer() {
 
     const aboutPage = new AboutPage();
     await aboutPage.setupWebpage();
+
+    PageContent.setupInterface(projectRouter);
 
     app.get('/prototypes', (req, res) => {
         res.sendFile('./public/prototypes/index.html', { root }); 
@@ -63,7 +66,7 @@ export async function startServer() {
         console.log('Server started on http://localhost:3000');
     });
 
-    function isSafePath(path) {
+    function isSafePath(path: string) {
         return typeof path == 'string' && /^[a-zA-Z0-9\-]+$/.test(path);
     }
 }

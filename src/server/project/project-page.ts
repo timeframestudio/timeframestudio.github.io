@@ -49,6 +49,13 @@ export class ProjectPage extends CachedWebpage {
         return html;
     }
 
+    async clearCache(): Promise<void> {
+        this.webpageElements.clear();
+        this.pageSections = [];
+
+        super.clearCache();
+    }
+
     protected addWebpageElements(...elements: WebpageElement[]) {
         for (const element of elements) {
             this.webpageElements.add(element);
