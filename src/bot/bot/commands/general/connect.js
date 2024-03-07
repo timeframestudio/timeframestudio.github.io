@@ -6,7 +6,7 @@ export const data = new SlashCommandBuilder()
     .setDescription('Connect your Discord account to your page!')
     .addStringOption(o => o
         .setRequired(true)
-        .setName('Author')
+        .setName('author')
         .setDescription('The author of the page | NOT CASE SENSITIVE'));
 
 export async function execute(interaction) {
