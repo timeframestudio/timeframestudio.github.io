@@ -7,6 +7,6 @@ import { ProjectPage } from "../project-page.js";
  */
 export interface WebpageComponent {
     getWebpageElements(): Iterable<WebpageElement>;
-    createElement(document: Document): HTMLElement;
+    createElement(document: Document): Node;
     setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void>;
 }

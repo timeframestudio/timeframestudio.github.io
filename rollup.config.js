@@ -42,7 +42,7 @@ export default {
             return getChunkName(id);
         }
     },
-    external: [ 'express', 'fs/promises', 'url', 'jsdom', 'path', 'pretty', 'process', 'discord.js' ],
+    external: [ 'express', 'fs/promises', 'url', 'jsdom', 'path', 'pretty', 'process', 'discord.js', 'marked' ],
     plugins: [typescript(), cleandir(), json() ]
 };
 
