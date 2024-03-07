@@ -1,8 +1,6 @@
 import { WebpageElement } from "./webpage-element.js";
 
 interface ScriptOptions {
-    url?: string;
-    raw?: string;
     type?: string;
     location?: string;
     preferred?: boolean;

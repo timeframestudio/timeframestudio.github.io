@@ -2,9 +2,10 @@ import express from 'express';
 import fs from 'fs/promises';
 import url from 'url';
 import { ProjectRouter } from './project/project-router.js';
-import { HomePage } from './pages/home-loader.js';
+import { HomePage } from './pages/home-page.js';
 import { AboutPage } from './pages/about-page.js';
 import { PageContent } from './utils/page-content.js';
+import { startBot } from '../bot/index.js';
 
 export async function startServer() {
     const root = url.fileURLToPath(new URL('..', import.meta.url));
@@ -69,4 +70,6 @@ export async function startServer() {
     function isSafePath(path: string) {
         return typeof path == 'string' && /^[a-zA-Z0-9\-]+$/.test(path);
     }
+
+    startBot();
 }

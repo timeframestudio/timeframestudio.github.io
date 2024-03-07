@@ -5,6 +5,7 @@ import { loadCommands, registerCommands } from './bot/prelude.js';
 import { modalFinished } from './bot/handleForums.js';
 import fs from 'fs/promises';
 import path from 'path';
+import './bot/user-database.js';
 
 export async function startBot() {
     // Load the bot's token
