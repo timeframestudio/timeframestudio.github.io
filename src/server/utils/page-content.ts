@@ -2,18 +2,15 @@ import { ProjectRouter } from "../project/project-router.js";
 import fs from "fs/promises";
 import path from "path";
 
-export class PageContent {
-    private static instance: PageContent;
+export namespace PageContent {
+    let router: ProjectRouter;
 
-    private constructor(private router: ProjectRouter) {
+    export function getProjectIds() {
+        return router.getProjects().keys();
     }
 
-    getProjectIds() {
-        return this.router.getProjects().keys();
-    }
-
-    getPageContent(projectId: string) {
-        const project = this.router.getProjects().get(projectId);
+    export function getPageContent(projectId: string) {
+        const project = router.getProjects().get(projectId);
 
         if (!project) {
             return null;
@@ -22,8 +19,8 @@ export class PageContent {
         return project.getProjectOutline().getPageContent();
     }
 
-    async setPageContent(projectId: string, content: { [key: string]: string }) {
-        const project = this.router.getProjects().get(projectId);
+    export async function setPageContent(projectId: string, content: { [key: string]: string }) {
+        const project = router.getProjects().get(projectId);
 
         if (!project) {
             return;
@@ -38,13 +35,11 @@ export class PageContent {
         await project.clearCache();
     }
     
-    static getInterface() {
-        return this.instance;
-    }
-
-    static setupInterface(router: ProjectRouter) {
-        if (!this.instance) {
-            this.instance = new PageContent(router);
+    export function setupInterface(projectRouter: ProjectRouter) {
+        if (router) {
+            throw new Error('Interface already set up');
         }
+
+        router = projectRouter;
     }
 }
