@@ -9,8 +9,8 @@ export default class MapPoint {
 
     constructor(project, projectPath) {
         this.project = project;
-        this.x = project.position.x;
-        this.y = project.position.y;
+        this.x = project.location[0];
+        this.y = project.location[1];
         this._hoverEffect = 0;
         this._isActivePoint = false;
         this.projectPath = projectPath;

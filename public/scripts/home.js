@@ -1,4 +1,5 @@
 import { getProjectSummaries } from './projects.js';
+import './world-map.js';
 
 function addListItems(items) {
     const rowContainer = document.getElementById("rowContainer");
