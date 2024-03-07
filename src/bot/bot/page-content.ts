@@ -1,4 +1,4 @@
-import { ProjectRouter } from "../project/project-router.js";
+import { ProjectRouter } from "../../server/project/project-router.js";
 import fs from "fs/promises";
 import path from "path";
 

@@ -4,7 +4,7 @@ import url from 'url';
 import { ProjectRouter } from './project/project-router.js';
 import { HomePage } from './pages/home-page.js';
 import { AboutPage } from './pages/about-page.js';
-import { PageContent } from './utils/page-content.js';
+import { PageContent } from '../bot/bot/page-content.js';
 import { startBot } from '../bot/index.js';
 
 export async function startServer() {

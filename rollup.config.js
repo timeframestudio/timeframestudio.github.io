@@ -51,6 +51,8 @@ function getChunkName(id) {
 
     let splitPath = relativePath.split(path.sep);
 
+    console.log(splitPath);
+
     if (splitPath[0] == 'projects') {
         return path.join('projects', splitPath[1]);
     } else if (splitPath[0] == 'src' && splitPath[1] == 'bot' && splitPath[2] == 'bot' && splitPath[3] == 'commands') {
@@ -62,7 +64,7 @@ function getChunkName(id) {
         return path.join('bot', ...subpath);
     } else if (splitPath[0] == 'src') {
         return splitPath[1];
-    }å
+    }
 }
  
 async function getSubdirectories(directory, _basePath = undefined) {
