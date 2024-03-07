@@ -1,0 +1,32 @@
+{
+    "commands": [
+        {
+            "name": "help",
+            "description": "Get help for the bot's commands."
+        },
+        {
+            "name": "ping",
+            "description": "Ping the bot to check if it is still alive."
+        },
+        {
+            "name": "connect-page",
+            "description": "Start the page connection process so you can edit your website."
+        },
+        {
+            "name": "change-page layout",
+            "description": "Let a website team person know that you want to change your page's layout."
+        },
+        {
+            "name": "change-page title",
+            "description": "Change the title of your page."
+        },
+        {
+            "name": "change-page content",
+            "description": "Fill out a form to change the content of your page."
+        },
+        {
+            "name": "request-help",
+            "description": "Request help from one of the departments."
+        }
+    ]
+}
