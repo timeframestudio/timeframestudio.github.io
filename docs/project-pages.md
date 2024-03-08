@@ -81,22 +81,22 @@ class MainPage extends ProjectPage {
         this.addPageSections(new PaddedSection(
             new HeadingComponent('Bob\'s Project'),
             new ParagraphComponent(
-                new PlainTextToken('This projects is about '),
-                new StyledTextToken('bold', new PlainTextToken('cats')),
-                new PlainTextToken(' becuse they are '),
-                new StyledTextToken('italic', new PlainTextToken('cool')),
-                new PlainTextToken('. '),
-                new LinkTextToken('Learn more!', 'https://en.wikipedia.org/wiki/Cat')
+                new PlainTextComponent('This projects is about '),
+                new StyledTextComponent('bold', new PlainTextComponent('cats')),
+                new PlainTextComponent(' becuse they are '),
+                new StyledTextComponent('italic', new PlainTextComponent('cool')),
+                new PlainTextComponent('. '),
+                new LinkTextComponent([ new PlainTextComponent('Learn more!') ], 'https://en.wikipedia.org/wiki/Cat')
             ),
             new HeadingComponent('Tutorial: Befriending a cat'),
             new ParagraphComponent(
-                new PlainTextToken('To befriend a cat, you need to follow these steps:'),
-                new ListTextToken("ordered",
-                    new ListItemTextToken(new PlainTextToken("Find a cat")),
-                    new ListItemTextToken(new PlainTextToken("Approach the cat")),
-                    new ListItemTextToken(new PlainTextToken("Pet the cat")),
-                    new ListItemTextToken(new PlainTextToken("Feed the cat")),
-                    new ListItemTextToken(new PlainTextToken("Adopt the cat"))
+                new PlainTextComponent('To befriend a cat, you need to follow these steps:'),
+                new ListTextComponent("ordered",
+                    new ListItemTextComponent(new PlainTextComponent("Find a cat")),
+                    new ListItemTextComponent(new PlainTextComponent("Approach the cat")),
+                    new ListItemTextComponent(new PlainTextComponent("Pet the cat")),
+                    new ListItemTextComponent(new PlainTextComponent("Feed the cat")),
+                    new ListItemTextComponent(new PlainTextComponent("Adopt the cat"))
                 )
             )
         ));

@@ -1,12 +1,15 @@
 import { Stylesheet } from "../../elements/stylesheet.js";
 import { WebpageElement } from "../../elements/webpage-element.js";
 import { ProjectPage } from "../project-page.js";
+import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 
-export class ItemComponent implements WebpageComponent {
+export class ItemComponent extends BaseWebpageComponent {
     private content: WebpageComponent[];
 
     constructor(private flex: number = 1, content: Iterable<WebpageComponent>) {
+        super();
+
         this.content = [ ...content ];
     }
 

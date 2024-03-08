@@ -42,7 +42,7 @@ export default {
             return getChunkName(id);
         }
     },
-    external: [ 'express', 'fs/promises', 'url', 'jsdom', 'path', 'pretty', 'process', 'discord.js' ],
+    external: [ 'express', 'fs/promises', 'url', 'jsdom', 'path', 'pretty', 'process', 'discord.js', 'marked' ],
     plugins: [typescript(), cleandir(), json() ]
 };
 
@@ -50,8 +50,6 @@ function getChunkName(id) {
     let relativePath = path.relative(path.join(process.cwd()), id);
 
     let splitPath = relativePath.split(path.sep);
-
-    console.log(splitPath);
 
     if (splitPath[0] == 'projects') {
         return path.join('projects', splitPath[1]);

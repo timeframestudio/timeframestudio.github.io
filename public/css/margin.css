@@ -1,3 +1,7 @@
-.margin-section {
+.margin-component {
     height: 32px;
+}
+
+.thin-margin-component {
+    height: 16px;
 }

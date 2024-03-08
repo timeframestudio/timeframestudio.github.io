@@ -1,13 +1,12 @@
 import { Stylesheet } from '../../elements/stylesheet.js';
 import { WebpageComponent } from '../components/webpage-component.js';
 import { ProjectPage } from '../project-page.js';
-import { RichTextToken } from './rich-text-token.js';
 
 export class ParagraphComponent implements WebpageComponent {
-    private tokens: RichTextToken[];
+    private children: WebpageComponent[];
 
-    constructor(...tokens: RichTextToken[]) {
-        this.tokens = tokens;
+    constructor(...tokens: WebpageComponent[]) {
+        this.children = tokens;
     }
 
     *getWebpageElements() {
@@ -21,12 +20,10 @@ export class ParagraphComponent implements WebpageComponent {
         const section = document.createElement('div');
         section.classList.add('rich-text-paragraph-section');
 
-        for (let token of this.tokens) {
-            if (!token) continue;
+        for (let child of this.children) {
+            if (!child) continue;
 
-            for (let component of token.getComponents(document)) {
-                section.appendChild(component);
-            }
+            section.appendChild(child.createElement(document));
         }
 
         return section;

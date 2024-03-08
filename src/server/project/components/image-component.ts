@@ -4,6 +4,7 @@ import { Stylesheet } from '../../elements/stylesheet.js';
 import { WebpageElement } from '../../elements/webpage-element.js';
 import { ProjectPage } from '../project-page.js';
 import { WebpageComponent } from './webpage-component.js';
+import { BaseWebpageComponent } from './base-webpage-component.js';
 
 interface ImageComponentOptions {
     dimensions?: { width: number, height: number };
@@ -11,7 +12,7 @@ interface ImageComponentOptions {
     alt?: string;
 }
 
-export class ImageComponent implements WebpageComponent {
+export class ImageComponent extends BaseWebpageComponent {
     private url: string;
     private dimensions: { width: number, height: number } | null;
     private caption: string | null;
@@ -19,6 +20,8 @@ export class ImageComponent implements WebpageComponent {
     private projectPage?: ProjectPage;
 
     constructor(url: string, { dimensions, caption, alt }: Partial<ImageComponentOptions> = {}) {
+        super();
+        
         this.url = url;
         this.dimensions = dimensions ?? null;
         this.caption = caption ?? null;

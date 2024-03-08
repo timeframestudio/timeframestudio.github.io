@@ -9,9 +9,11 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/marked": "^6.0.0",
     "discord.js": "^14.14.1",
     "express": "^4.18.2",
     "jsdom": "^24.0.0",
+    "marked": "^12.0.1",
     "rollup-plugin-cleandir": "^2.0.0",
     "rollup-plugin-polyfill-node": "^0.13.0"
   },

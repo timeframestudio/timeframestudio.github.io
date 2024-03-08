@@ -2,16 +2,21 @@ import { JSDOM } from 'jsdom';
 import { WebpageComponent } from "./webpage-component.js";
 import { Stylesheet } from '../../elements/stylesheet.js';
 import { ProjectPage } from '../project-page.js';
+import { BaseWebpageComponent } from './base-webpage-component.js';
 
-export class RowComponent implements WebpageComponent {
+export class RowComponent extends BaseWebpageComponent {
     items: WebpageComponent[];
 
     constructor(items: Iterable<WebpageComponent>) {
+        super();
+
         this.items = [ ...items ];
     }
 
-    setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
-        return Promise.resolve();
+    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+        for (const item of this.items) {
+            await item.setupComponent(this, projectPage);
+        }
     }
 
     *getWebpageElements() {

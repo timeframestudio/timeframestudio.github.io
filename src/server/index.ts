@@ -4,8 +4,8 @@ import url from 'url';
 import { ProjectRouter } from './project/project-router.js';
 import { HomePage } from './pages/home-page.js';
 import { AboutPage } from './pages/about-page.js';
-import { PageContent } from '../bot/bot/page-content.js';
 import { startBot } from '../bot/index.js';
+import { setupInterface } from './utils/page-content.js';
 
 export async function startServer() {
     const root = url.fileURLToPath(new URL('..', import.meta.url));
@@ -21,7 +21,7 @@ export async function startServer() {
     const aboutPage = new AboutPage();
     await aboutPage.setupWebpage();
 
-    PageContent.setupInterface(projectRouter);
+    setupInterface(projectRouter);
 
     app.get('/prototypes', (req, res) => {
         res.sendFile('./public/prototypes/index.html', { root }); 

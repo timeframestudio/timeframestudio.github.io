@@ -1,12 +1,11 @@
 import { Stylesheet } from "../../elements/stylesheet.js";
 import { ProjectPage } from "../project-page.js";
+import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 
-export class HeadingComponent implements WebpageComponent {
+export class HeadingComponent extends BaseWebpageComponent {
     constructor(private text: string, private size = 1) {
-    }
-    
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+        super();
     }
 
     *getWebpageElements() {
