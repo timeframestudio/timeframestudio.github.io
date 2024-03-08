@@ -1,5 +1,6 @@
 
-import { logPageContentChangeRequest, EmbedBuilder } from "./logs.js";
+import { logPageContentChangeRequest } from "./logs.js";
+import { EmbedBuilder } from "discord.js";
 
 export async function modalFinished(i) {
     await logPageContentChangeRequest(i.client, i.user);

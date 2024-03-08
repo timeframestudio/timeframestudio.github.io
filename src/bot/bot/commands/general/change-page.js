@@ -2,7 +2,7 @@
 import { ActionRowBuilder, Events, ModalBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } from 'discord.js';
 import config from '../../../config.json' assert { type: 'json' };
 import { logLayoutChangeRequest } from '../../logs.js';
-import { PageContent } from '../../page-content.js';
+import * as PageContent from '../../../../server/utils/page-content.js';
 
 export const data = new SlashCommandBuilder()
     .setName('change-page')
