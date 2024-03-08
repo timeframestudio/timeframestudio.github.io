@@ -1,7 +1,8 @@
 
-import { ActionRowBuilder, Events, ModalBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
+import { ActionRowBuilder, Events, ModalBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } from 'discord.js';
 import config from '../../../config.json' assert { type: 'json' };
 import { logLayoutChangeRequest } from '../../logs.js';
+import { PageContent } from '../../page-content.js';
 
 export const data = new SlashCommandBuilder()
     .setName('change-page')
@@ -25,21 +26,35 @@ async function executeContentSubcommand(i) {
         .setCustomId('changePageContentModal')
         .setTitle("Change Page Content Form");
     
-    const heading1Input = new TextInputBuilder()
-        .setCustomId('heading1-input')
-        .setLabel('Heading 1')
-        .setRequired(false)
-        .setStyle(TextInputStyle.Short);
+    // const heading1Input = new TextInputBuilder()
+    //     .setCustomId('heading1-input')
+    //     .setLabel('Heading 1')
+    //     .setRequired(false)
+    //     .setStyle(TextInputStyle.Short);
     
-    const body1Input = new TextInputBuilder()
-        .setCustomId('body1-input')
-        .setLabel('Body 1')
-        .setRequired(false)
-        .setStyle(TextInputStyle.Paragraph);
+    // const body1Input = new TextInputBuilder()
+    //     .setCustomId('body1-input')
+    //     .setLabel('Body 1')
+    //     .setRequired(false)
+    //     .setStyle(TextInputStyle.Paragraph);
+
+    const data = PageContent.getPageContent('bobs-project');
+    console.log(data);
+
+    for (const m in data) {
+        let text = new TextInputBuilder()
+            .setCustomId(m)
+            .setLabel(m)
+            .setRequired(true)
+            .setValue(data[m])
+            .setStyle(TextInputStyle.Paragraph);
+        let ar = new ActionRowBuilder().addComponents(text);
+        modal.addComponents(ar);
+    }
     
-    const ar0 = new ActionRowBuilder().addComponents(heading1Input);
-    const ar1 = new ActionRowBuilder().addComponents(body1Input);
-    modal.addComponents(ar0, ar1);
+    // const ar0 = new ActionRowBuilder().addComponents(heading1Input);
+    // const ar1 = new ActionRowBuilder().addComponents(body1Input);
+    // modal.addComponents(ar0, ar1);
 
     await i.showModal(modal);
 }
@@ -48,7 +63,14 @@ async function executeTitleSubcommand(i) {
 }
 async function executeLayoutSubcommand(i) {
     logLayoutChangeRequest(i.client, i.user);
-    await i.client.channels.cache.get(config.reqsChannel).send(`Layout change has been requested by <@${i.user.id}>, <@&${config.roles.layouts}>`);
+    const embed = new EmbedBuilder()
+        .setColor(0xddddff)
+        .setTitle('Layout Change Request')
+        .setDescription(`Layout change has been requested by <@${i.user.id}>.`)
+        .setTimestamp()
+        .setFooter({ text: "If anything is wrong, contact @winterscode" });
+    await i.client.channels.cache.get(config.reqsChannel).send({ content: `||<@&${config.roles.web}><@${i.user.id}>||`, embeds: [embed], ephemeral: true });
+    const embed2 = new EmbedBuilder();
     await i.reply('The website team has been notified; please wait for a response.');
 }
 
@@ -59,6 +81,8 @@ export async function execute(interaction) {
         await executeTitleSubcommand(interaction);
     else if (interaction.options.getSubcommand() === 'layout')
         await executeLayoutSubcommand(interaction);
-    else
-        await interaction.reply('Unknown subcommand');
+    else {
+        let e = new EmbedBuilder().setTitle("Unknown Subcommand").setTimestamp().setFooter("If anything is wrong, contact @winterscode");
+        await interaction.reply({ embeds: [e], ephemeral: true });
+    }
 }
