@@ -1,6 +1,7 @@
 
-import { logPageContentChangeRequest } from "./logs.js";
+import { logPageContentChangeRequest, logPageContentChangeSuccessful } from "./logs.js";
 import { EmbedBuilder } from "discord.js";
+import * as PageContent from '../../server/utils/page-content.js';
 
 export async function modalFinished(i) {
     await logPageContentChangeRequest(i.client, i.user);
@@ -12,4 +13,12 @@ export async function modalFinished(i) {
         .setTimestamp()
         .setFooter({text: "Please report any problems to @winterscode"});
     await i.reply({ embeds: [e], ephemeral: true });
+
+    let fields = i.fields.fields;
+    let jsonResult = {};
+    fields.each((j) => {
+        jsonResult[j.customId] = j.value;
+    });
+    await PageContent.setPageContent(i.customId, jsonResult);
+    await logPageContentChangeSuccessful(i.client, i.user);
 }

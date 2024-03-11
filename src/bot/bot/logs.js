@@ -15,7 +15,7 @@ export async function logPageContentChangeRequest(client, user) {
 }
 
 export async function logPageContentChangeSuccessful(client, user) {
-
+    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage content successfully changed:\n* Change requested by: <@${user.id}>\n* Timestamp: ${getTime()}\n*This is a follow-up to the previous page content change request.*`);
 }
 
 export async function logPageConnectedToUser(client, user) {

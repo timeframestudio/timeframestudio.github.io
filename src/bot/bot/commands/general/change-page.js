@@ -3,6 +3,7 @@ import { ActionRowBuilder, Events, ModalBuilder, SlashCommandBuilder, TextInputB
 import config from '../../../config.json' assert { type: 'json' };
 import { logLayoutChangeRequest } from '../../logs.js';
 import * as PageContent from '../../../../server/utils/page-content.js';
+import { UserDatabase } from '../../user-database.js';
 
 export const data = new SlashCommandBuilder()
     .setName('change-page')
@@ -24,22 +25,32 @@ export const data = new SlashCommandBuilder()
 async function executeContentSubcommand(i) {
     const modal = new ModalBuilder()
         .setCustomId('changePageContentModal')
-        .setTitle("Change Page Content Form");
+        .setTitle("Change Page Content | Images Must Be Links!");
     
-    // const heading1Input = new TextInputBuilder()
-    //     .setCustomId('heading1-input')
-    //     .setLabel('Heading 1')
-    //     .setRequired(false)
-    //     .setStyle(TextInputStyle.Short);
-    
-    // const body1Input = new TextInputBuilder()
-    //     .setCustomId('body1-input')
-    //     .setLabel('Body 1')
-    //     .setRequired(false)
-    //     .setStyle(TextInputStyle.Paragraph);
+    const pageId = UserDatabase.getPageId(i.user.id);
+    if (pageId === undefined) {
+        await i.reply({embeds: [new EmbedBuilder()
+            .setTitle("Page Content Change Failed")
+            .setColor(0xddddff)
+            .setDescription("You haven't connected your page yet, please use `/connect` first.")
+            .setTimestamp()
+            .setFooter({ text: "If anything is wrong, contact @winterscode" })], ephemeral: true});
+        return;
+    }
 
-    const data = PageContent.getPageContent('bobs-project');
-    console.log(data);
+    const data = PageContent.getPageContent(pageId);
+    
+    if (data === null || data === undefined) {
+        await i.reply({
+            embeds: [new EmbedBuilder()
+                .setTitle("Page Content Change Failed")
+                .setColor(0xddddff)
+                .setDescription("Your page doesn't exist; please wait a few minutes and try again. If this persists, contact someone in the website department.")
+                .setTimestamp()
+                .setFooter({ text: "If anything is wrong, contact @winterscode" })], ephemeral: true
+        });
+        return;
+    }
 
     for (const m in data) {
         let text = new TextInputBuilder()
@@ -51,10 +62,6 @@ async function executeContentSubcommand(i) {
         let ar = new ActionRowBuilder().addComponents(text);
         modal.addComponents(ar);
     }
-    
-    // const ar0 = new ActionRowBuilder().addComponents(heading1Input);
-    // const ar1 = new ActionRowBuilder().addComponents(body1Input);
-    // modal.addComponents(ar0, ar1);
 
     await i.showModal(modal);
 }
