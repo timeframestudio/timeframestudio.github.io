@@ -71,7 +71,7 @@ export async function startBot() {
     client.once(Events.ClientReady, readyClient => {
         readyClient.user.setPresence({
             activities: [{
-                name: 'bits and bytes',
+                name: '1s and 0s',
                 type: ActivityType.Streaming,
                 url: 'https://www.twitch.tv/discord'
             }],

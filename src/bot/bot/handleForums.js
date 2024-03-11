@@ -10,6 +10,6 @@ export async function modalFinished(i) {
         .setDescription("Thank you for filling out the form, your page should update shortly.")
         .setColor(0xddddff)
         .setTimestamp()
-        .setFooter("Please report any problems to @winterscode");
+        .setFooter({text: "Please report any problems to @winterscode"});
     await i.reply({ embeds: [e], ephemeral: true });
 }
