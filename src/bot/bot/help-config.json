@@ -10,7 +10,7 @@
         },
         {
             "name": "connect-page",
-            "description": "Start the page connection process so you can edit your website."
+            "description": "Start the page connection process so you can edit your website. Use the format \"Firstname Lastname\" when writing your name."
         },
         {
             "name": "change-page layout",
@@ -18,15 +18,15 @@
         },
         {
             "name": "change-page title",
-            "description": "Change the title of your page."
+            "description": "Change the title of your page. The link will stay the same."
         },
         {
             "name": "change-page content",
-            "description": "Fill out a form to change the content of your page."
+            "description": "Fill out a form to change the content of your page. It should quickly update within the minute, but may take a few minutes."
         },
         {
             "name": "request-help",
-            "description": "Request help from one of the departments."
+            "description": "Request help from one of the departments, sent in #request-help"
         }
     ]
 }

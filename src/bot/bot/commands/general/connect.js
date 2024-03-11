@@ -9,7 +9,7 @@ export const data = new SlashCommandBuilder()
     .addStringOption(o => o
         .setRequired(true)
         .setName('author')
-        .setDescription('The author of the page, first name, last initial | NOT CASE SENSITIVE'));
+        .setDescription('The author of the page, in the format "Firstname Lastname" | NOT CASE SENSITIVE'));
 
 export async function execute(interaction) {
 
