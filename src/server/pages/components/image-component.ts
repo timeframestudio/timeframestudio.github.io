@@ -1,10 +1,9 @@
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import { Stylesheet } from '../../elements/stylesheet.js';
-import { WebpageElement } from '../../elements/webpage-element.js';
-import { ProjectPage } from '../project-page.js';
-import { WebpageComponent } from './webpage-component.js';
+import { GeneratedPage } from '../generated-page.js';
 import { BaseWebpageComponent } from './base-webpage-component.js';
+import { WebpageComponent } from './webpage-component.js';
 
 interface ImageComponentOptions {
     dimensions?: { width: number, height: number };
@@ -17,7 +16,7 @@ export class ImageComponent extends BaseWebpageComponent {
     private dimensions: { width: number, height: number } | null;
     private caption: string | null;
     private alt: string | null;
-    private projectPage?: ProjectPage;
+    private projectPage?: GeneratedPage;
 
     constructor(url: string, { dimensions, caption, alt }: Partial<ImageComponentOptions> = {}) {
         super();
@@ -32,7 +31,7 @@ export class ImageComponent extends BaseWebpageComponent {
         yield new Stylesheet('/css/image.css');
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         this.projectPage = projectPage;
     }
 
@@ -47,10 +46,10 @@ export class ImageComponent extends BaseWebpageComponent {
             </div>
         `);
 
-        const projectOutline = this.projectPage.getProjectOutline();
+        const resources = this.projectPage.getResources();
 
         const image = fragment.querySelector('.image-component-image') as HTMLImageElement;
-        image.src = path.resolve(projectOutline.getAssetURL(), this.url);
+        image.src = resources.getAssetURL(this.url);
 
         if (this.alt) image.alt = this.alt || '';
         if (this.dimensions) {

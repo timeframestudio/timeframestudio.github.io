@@ -1,8 +1,8 @@
 import { ProjectPageRouter } from "../../src/server/project/project-page-router.js";
-import { ProjectPage } from "../../src/server/project/project-page.js";
-import { HeaderSection } from "../../src/server/project/sections/header-section.js";
+import { GeneratedPage } from "../../src/server/pages/generated-page.js";
+import { HeaderSection } from "../../src/server/pages/sections/header-section.js";
 
-class MainPage extends ProjectPage {
+class MainPage extends GeneratedPage {
     async setupWebpage() {
         this.addPageSections(new HeaderSection());
 

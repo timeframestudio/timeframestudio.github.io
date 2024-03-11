@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom';
 import { WebpageComponent } from "./webpage-component.js";
 import { Stylesheet } from '../../elements/stylesheet.js';
-import { ProjectPage } from '../project-page.js';
+import { GeneratedPage } from '../generated-page.js';
 import { BaseWebpageComponent } from './base-webpage-component.js';
 
 export class RowComponent extends BaseWebpageComponent {
@@ -13,7 +13,7 @@ export class RowComponent extends BaseWebpageComponent {
         this.items = [ ...items ];
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         for (const item of this.items) {
             await item.setupComponent(this, projectPage);
         }

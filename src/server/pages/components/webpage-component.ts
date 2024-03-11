@@ -1,5 +1,5 @@
 import { WebpageElement } from "../../elements/webpage-element.js";
-import { ProjectPage } from "../project-page.js";
+import { GeneratedPage } from "../generated-page.js";
 
 /**
  * The `WebpageComponent` interface represents an element that can be added to a webpage,
@@ -8,5 +8,5 @@ import { ProjectPage } from "../project-page.js";
 export interface WebpageComponent {
     getWebpageElements(): Iterable<WebpageElement>;
     createElement(document: Document): Node;
-    setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void>;
+    setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void>;
 }

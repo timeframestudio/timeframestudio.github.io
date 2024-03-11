@@ -1,6 +1,6 @@
-import { WebpageElement } from "../elements/webpage-element.js";
-import { WebpageComponent } from "./components/webpage-component.js";
-import { ProjectPage } from "./project-page.js";
+import { WebpageElement } from "../../elements/webpage-element.js";
+import { WebpageComponent } from "../components/webpage-component.js";
+import { GeneratedPage } from "../generated-page.js";
 
 /**
  * The `WebpageSection` class represents a section of a webpage.
@@ -26,7 +26,7 @@ export abstract class WebpageSection implements WebpageComponent {
         return new Set();
     }
 
-    setupComponent(parentComponent: WebpageComponent | null, projectPage: ProjectPage): Promise<void> {
+    setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage): Promise<void> {
         return Promise.resolve();
     }
 }

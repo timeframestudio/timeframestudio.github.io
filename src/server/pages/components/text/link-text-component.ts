@@ -1,7 +1,7 @@
-import { WebpageElement } from "../../elements/webpage-element.js";
-import { BaseWebpageComponent } from "../components/base-webpage-component.js";
-import { WebpageComponent } from "../components/webpage-component.js";
-import { ProjectPage } from "../project-page.js";
+import { WebpageElement } from "../../../elements/webpage-element.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { WebpageComponent } from "../webpage-component.js";
+import { GeneratedPage } from "../../generated-page.js";
 
 /**
  * A `LinkTextComponent` represents a hyperlink, which is rendered into
@@ -12,7 +12,7 @@ export class LinkTextComponent extends BaseWebpageComponent {
         super();
     }
 
-    async setupComponent(parentComponent: WebpageComponent | null, projectPage: ProjectPage) {
+    async setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage) {
         for (let item of this.items) {
             await item.setupComponent(this, projectPage);
         }

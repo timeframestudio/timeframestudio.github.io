@@ -1,22 +1,22 @@
 import express from "express";
 import { ProjectOutline } from "./project-outline.js";
-import { ProjectPage } from "./project-page.js";
+import { GeneratedPage } from "../pages/generated-page.js";
 
 export class ProjectPageRouter {
     private router: express.RequestHandler;
-    private pages: Map<string, ProjectPage>;
+    private pages: Map<string, GeneratedPage>;
 
     constructor() {
         this.pages = new Map();
     }
 
-    async addPage(path: string, page: ProjectPage) {
+    async addPage(path: string, page: GeneratedPage) {
         this.pages.set(path, page);
     }
 
     bindProjectOutline(outline: ProjectOutline) {
         for (let [ path, page ] of this.pages) {
-            page.bindProjectOutline(outline);
+            page.bindResources(outline);
         }
     }
 

@@ -1,5 +1,5 @@
 import { WebpageElement } from "../../elements/webpage-element.js";
-import { ProjectPage } from "../project-page.js";
+import { GeneratedPage } from "../generated-page.js";
 import { WebpageComponent } from "./webpage-component.js";
 
 export abstract class BaseWebpageComponent implements WebpageComponent {
@@ -7,7 +7,7 @@ export abstract class BaseWebpageComponent implements WebpageComponent {
         return new Set();
     }
 
-    setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         return Promise.resolve();
     }
 

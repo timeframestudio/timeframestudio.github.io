@@ -1,18 +1,22 @@
 import { JSDOM } from "jsdom";
 import { StandardLayout } from "../elements/standard-layout.js";
 import { WebpageElement } from "../elements/webpage-element.js";
-import { CachedWebpage } from "../pages/cached-webpage.js";
+import { CachedWebpage } from "./cached-webpage.js";
 import { prettyPrint } from "../utils/pretty-print.js";
-import { ProjectOutline } from "./project-outline.js";
-import { WebpageSection } from "./webpage-section.js";
+import { WebpageSection } from "./sections/webpage-section.js";
+import { PageResources } from "./page-resources.js";
 
-export class ProjectPage extends CachedWebpage {
+export class GeneratedPage extends CachedWebpage {
     private webpageElements: Set<WebpageElement> = new Set();
     private pageSections: WebpageSection[] = [];
-    private projectOutline?: ProjectOutline;
+    private pageResources: PageResources;
 
-    bindProjectOutline(outline: ProjectOutline) {
-        this.projectOutline = outline;
+    bindResources(resources: PageResources) {
+        this.pageResources = resources;
+    }
+
+    getResources() {
+        return this.pageResources;
     }
 
     async generateWebpage() {
@@ -66,11 +70,5 @@ export class ProjectPage extends CachedWebpage {
         for (const section of sections) {
             this.pageSections.push(section);
         }
-    }
-
-    getProjectOutline(): ProjectOutline {
-        if (!this.projectOutline) throw new Error('The project outline has not been bound.');
-
-        return this.projectOutline;
     }
 }
