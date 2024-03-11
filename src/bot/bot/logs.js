@@ -11,9 +11,13 @@ export async function logLayoutChangeRequest(client, user) {
 }
 
 export async function logPageContentChangeRequest(client, user) {
-    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\n Page content form filled:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}\n*Another log will be sent when the page is confirmed to have updated.*`);
+    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage content form filled:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}\n*Another log will be sent when the page is confirmed to have updated.*`);
 }
 
 export async function logPageContentChangeSuccessful(client, user) {
 
+}
+
+export async function logPageConnectedToUser(client, user) {
+    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage connected:\n* Connected to: <@${user.id}>\n* Timestamp: ${getTime()}`);
 }
