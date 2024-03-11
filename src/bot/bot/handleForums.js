@@ -2,6 +2,7 @@
 import { logPageContentChangeRequest, logPageContentChangeSuccessful } from "./logs.js";
 import { EmbedBuilder } from "discord.js";
 import * as PageContent from '../../server/utils/page-content.js';
+import { UserDatabase } from './user-database.js';
 
 export async function modalFinished(i) {
     await logPageContentChangeRequest(i.client, i.user);
@@ -19,6 +20,6 @@ export async function modalFinished(i) {
     fields.each((j) => {
         jsonResult[j.customId] = j.value;
     });
-    await PageContent.setPageContent(i.customId, jsonResult);
+    await PageContent.setPageContent(UserDatabase.getPageId(i.user.id), jsonResult);
     await logPageContentChangeSuccessful(i.client, i.user);
 }
