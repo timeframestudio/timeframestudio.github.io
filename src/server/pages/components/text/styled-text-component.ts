@@ -1,6 +1,6 @@
-import { BaseWebpageComponent } from "../components/base-webpage-component.js";
-import { WebpageComponent } from "../components/webpage-component.js";
-import { ProjectPage } from "../project-page.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { WebpageComponent } from "../webpage-component.js";
+import { GeneratedPage } from "../../generated-page.js";
 
 /**
  * A `StyledTextComponent` represents a piece of text that is formatted either bold or italic.
@@ -15,7 +15,7 @@ export class StyledTextComponent extends BaseWebpageComponent {
         this.contents = contents;
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         for (let content of this.contents) {
             await content.setupComponent(this, projectPage);
         }

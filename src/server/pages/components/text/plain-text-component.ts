@@ -1,4 +1,4 @@
-import { BaseWebpageComponent } from "../components/base-webpage-component.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
 
 /**
  * A `PlainTextComponent` represents a piece of text that is not formatted in any way.

@@ -1,7 +1,7 @@
 import { Stylesheet } from "../../elements/stylesheet.js";
 import { WebpageComponent } from "../components/webpage-component.js";
-import { ProjectPage } from "../project-page.js";
-import { WebpageSection } from "../webpage-section.js";
+import { GeneratedPage } from "../generated-page.js";
+import { WebpageSection } from "./webpage-section.js";
 
 export class PaddedSection extends WebpageSection {
     private components: WebpageComponent[];
@@ -12,7 +12,7 @@ export class PaddedSection extends WebpageSection {
         this.components = components;
     }
 
-    async setupComponent(parentComponent: WebpageComponent | null, projectPage: ProjectPage) {
+    async setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage) {
         for (let component of this.components) {
             await component.setupComponent(this, projectPage);
         }

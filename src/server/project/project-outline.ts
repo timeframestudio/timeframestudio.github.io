@@ -1,7 +1,8 @@
 import path from "path";
 import process from "process";
+import { PageResources } from "../pages/page-resources.js";
 
-export class ProjectOutline {
+export class ProjectOutline implements PageResources {
     private title: string;
     private author: string;
     private description: string;
@@ -11,6 +12,10 @@ export class ProjectOutline {
 
     getTitle() {
         return this.title;
+    }
+
+    getSubtitle() {
+        return this.author;
     }
 
     getAuthor() {

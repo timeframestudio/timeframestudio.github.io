@@ -1,16 +1,16 @@
-import { HeadingComponent } from "../../src/server/project/components/heading-component.js";
+import { HeadingComponent } from "../../src/server/pages/components/heading-component.js";
 import { ProjectPageRouter } from "../../src/server/project/project-page-router.js";
-import { ProjectPage } from "../../src/server/project/project-page.js";
-import { LinkTextComponent } from "../../src/server/project/rich-text/link-text-component.js";
-import { ListItemTextComponent } from "../../src/server/project/rich-text/list-item-text-component.js";
-import { ListTextComponent } from "../../src/server/project/rich-text/list-text-component.js";
-import { ParagraphComponent } from "../../src/server/project/rich-text/paragraph-component.js";
-import { PlainTextComponent } from "../../src/server/project/rich-text/plain-text-component.js";
-import { StyledTextComponent } from "../../src/server/project/rich-text/styled-text-component.js";
-import { HeaderSection } from "../../src/server/project/sections/header-section.js";
-import { PaddedSection } from "../../src/server/project/sections/padded-section.js";
+import { GeneratedPage } from "../../src/server/pages/generated-page.js";
+import { LinkTextComponent } from "../../src/server/pages/components/text/link-text-component.js";
+import { ListItemTextComponent } from "../../src/server/pages/components/text/list-item-text-component.js";
+import { ListTextComponent } from "../../src/server/pages/components/text/list-text-component.js";
+import { ParagraphComponent } from "../../src/server/pages/components/text/paragraph-component.js";
+import { PlainTextComponent } from "../../src/server/pages/components/text/plain-text-component.js";
+import { StyledTextComponent } from "../../src/server/pages/components/text/styled-text-component.js";
+import { HeaderSection } from "../../src/server/pages/sections/header-section.js";
+import { PaddedSection } from "../../src/server/pages/sections/padded-section.js";
 
-class MainPage extends ProjectPage {
+class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.addPageSections(new HeaderSection());
         this.addPageSections(new PaddedSection(

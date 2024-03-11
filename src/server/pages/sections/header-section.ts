@@ -1,18 +1,18 @@
 import { JSDOM } from 'jsdom';
 import path from 'path';
-import { WebpageSection } from '../webpage-section.js';
-import { ProjectPage } from '../project-page.js';
+import { WebpageSection } from './webpage-section.js';
+import { GeneratedPage } from '../generated-page.js';
 import { WebpageComponent } from '../components/webpage-component.js';
 import { WebpageElement } from '../../elements/webpage-element.js';
 import { Stylesheet } from '../../elements/stylesheet.js';
 
 export class HeaderSection extends WebpageSection {
-    projectPage: ProjectPage;
+    projectPage: GeneratedPage;
     backgroundImage: string;
     backgroundPosition: string;
     backgroundTint: string;
 
-    async setupComponent(parentComponent: WebpageComponent | null, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage): Promise<void> {
         this.projectPage = projectPage;
     }
 
@@ -46,15 +46,15 @@ export class HeaderSection extends WebpageSection {
             </div>
         `);
 
-        const projectOutline = this.projectPage.getProjectOutline();
+        const resources = this.projectPage.getResources();
 
-        fragment.querySelector('.header-title')!.textContent = projectOutline.getTitle();
-        fragment.querySelector('.header-description')!.textContent = projectOutline.getAuthor();
+        fragment.querySelector('.header-title')!.textContent = resources.getTitle();
+        fragment.querySelector('.header-description')!.textContent = resources.getSubtitle();
 
         const header = fragment.querySelector('.header') as HTMLDivElement;
 
         if (this.backgroundImage) {
-            const imageUrl = path.resolve(projectOutline.getAssetURL(), this.backgroundImage);
+            const imageUrl = resources.getAssetURL(this.backgroundImage);
             header.style.backgroundImage = `url(${imageUrl})`;
             header.classList.add('header-with-image');
             

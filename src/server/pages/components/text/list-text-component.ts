@@ -1,6 +1,6 @@
-import { BaseWebpageComponent } from "../components/base-webpage-component.js";
-import { WebpageComponent } from "../components/webpage-component.js";
-import { ProjectPage } from "../project-page.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { WebpageComponent } from "../webpage-component.js";
+import { GeneratedPage } from "../../generated-page.js";
 import { ListItemTextComponent } from "./list-item-text-component.js";
 
 /**
@@ -17,7 +17,7 @@ export class ListTextComponent extends BaseWebpageComponent {
         this.items = items;
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         for (let item of this.items) {
             await item.setupComponent(this, projectPage);
         }

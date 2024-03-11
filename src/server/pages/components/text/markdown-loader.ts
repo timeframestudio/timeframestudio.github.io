@@ -1,13 +1,13 @@
 import { marked, Token, Tokens } from "marked";
-import { WebpageComponent } from "../components/webpage-component.js";
-import { HeadingComponent } from "../components/heading-component.js";
+import { WebpageComponent } from "../webpage-component.js";
+import { HeadingComponent } from "../heading-component.js";
 import { ListTextComponent } from "./list-text-component.js";
 import { PlainTextComponent } from "./plain-text-component.js";
 import { StyledTextComponent } from "./styled-text-component.js";
 import { LinkTextComponent } from "./link-text-component.js";
 import { ParagraphComponent } from "./paragraph-component.js";
 import { ListItemTextComponent } from "./list-item-text-component.js";
-import { MarginComponent } from "../components/margin-component.js";
+import { MarginComponent } from "../margin-component.js";
 
 export class MarkdownLoader {
     private first = false;

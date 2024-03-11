@@ -1,6 +1,6 @@
 import { Stylesheet } from "../../elements/stylesheet.js";
 import { WebpageElement } from "../../elements/webpage-element.js";
-import { ProjectPage } from "../project-page.js";
+import { GeneratedPage } from "../generated-page.js";
 import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 
@@ -25,7 +25,7 @@ export class ItemComponent extends BaseWebpageComponent {
         return element;
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
         for (const component of this.content) {
             await component.setupComponent(this, projectPage);
         }

@@ -1,5 +1,5 @@
 import { Stylesheet } from "../../elements/stylesheet.js";
-import { ProjectPage } from "../project-page.js";
+import { GeneratedPage } from "../generated-page.js";
 import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 

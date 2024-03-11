@@ -1,6 +1,6 @@
-import { Stylesheet } from '../../elements/stylesheet.js';
-import { WebpageComponent } from '../components/webpage-component.js';
-import { ProjectPage } from '../project-page.js';
+import { Stylesheet } from '../../../elements/stylesheet.js';
+import { WebpageComponent } from '../webpage-component.js';
+import { GeneratedPage } from '../../generated-page.js';
 
 export class ParagraphComponent implements WebpageComponent {
     private children: WebpageComponent[];
@@ -13,7 +13,7 @@ export class ParagraphComponent implements WebpageComponent {
         yield new Stylesheet('/css/paragraph.css');
     }
 
-    async setupComponent(parentComponent: WebpageComponent, projectPage: ProjectPage): Promise<void> {
+    async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
     }
 
     createElement(document: Document) {
