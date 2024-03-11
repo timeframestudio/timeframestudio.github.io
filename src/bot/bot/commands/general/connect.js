@@ -1,6 +1,7 @@
 
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { UserDatabase } from '../../user-database.js';
+import { logPageConnectedToUser } from '../../logs.js';
 
 export const data = new SlashCommandBuilder()
     .setName('connect-page')
@@ -14,5 +15,19 @@ export async function execute(interaction) {
 
     let pageId = interaction.options.getString('author').toLowerCase().replaceAll(' ', '-');
 
-    await interaction.reply(`Connected <@${interaction.user.id}> to page \`${pageId}\``);
+    UserDatabase.setPageId(interaction.user.id, pageId);
+
+    let text = `Connected <@${interaction.user.id}> to page \`${pageId}\``;
+
+    await logPageConnectedToUser(interaction.client, interaction.user)
+
+    await interaction.reply({
+        embeds: [new EmbedBuilder()
+            .setTitle('Page Connected')
+            .setColor(0xddddff)
+            .setDescription(text)
+            .setTimestamp()
+            .setFooter({ text: "If anything is wrong, contact @winterscode" })],
+        ephemeral: true
+    });
 }
