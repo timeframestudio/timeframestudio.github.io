@@ -2,7 +2,7 @@
     "commands": [
         {
             "name": "help",
-            "description": "Get help for the bot's commands."
+            "description": "Get a description for all of the the bot's commands."
         },
         {
             "name": "ping",
