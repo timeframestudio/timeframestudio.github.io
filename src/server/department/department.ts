@@ -1,20 +1,19 @@
 import express from "express";
 import path from "path";
-import { ProjectOutline } from "./project-outline.js";
 import { PageRouter } from "../pages/page-router.js";
-import fs from "fs/promises";
+import { DepartmentOutline } from "./department-outline.js";
 import { PageResources } from "../pages/page-resources.js";
 
-export class Project {
-    private router: express.RequestHandler;
-    private pageRouter: PageRouter;
-    private outline: ProjectOutline;
+export class Department {
+    private requestHandler: express.RequestHandler;
+    private router: PageRouter;
+    private outline: DepartmentOutline;
 
     constructor(private id: string) {
     }
 
     async setup() {
-        const outline = await ProjectOutline.load(this.id);
+        const outline = await DepartmentOutline.load(this.id);
 
         if (!outline) {
             return;
@@ -22,33 +21,24 @@ export class Project {
 
         this.outline = outline;
 
-        let content: { [key: string]: string } = {};
-        
-        try {
-            content = JSON.parse(await fs.readFile(path.join(this.outline.getFilePath(), 'content.json'), 'utf8'));
-        } catch (err) {
-        }
-
-        this.outline.setPageContent(content);
-
         const script = this.outline.getScriptPath();
 
         try {
             const { default: r } = await import(script);
 
-            this.pageRouter = r;
+            this.router = r;
         } catch (err) {
             this.useInternalServerErrorRouter();
 
-            throw new Error(`Failed to load project script: ${path.relative(process.cwd(), script)}`);
+            throw new Error(`Failed to load page script: ${path.relative(process.cwd(), script)}`);
         }
 
         try {
-            this.pageRouter.bindResources(this.outline);
+            this.router.bindResources(this.outline);
 
-            await this.pageRouter.setup();
+            await this.router.setup();
 
-            this.router = this.pageRouter.getPageRouter();
+            this.requestHandler = this.router.getPageRouter();
         } catch (err) {
             this.useInternalServerErrorRouter();
 
@@ -57,24 +47,24 @@ export class Project {
     }
 
     private useInternalServerErrorRouter() {
-        this.router = (req, res) => {
+        this.requestHandler = (req, res) => {
             res.status(500).send("Error 500: Internal server error");
         };
     }
 
     async clearCache() {
-        await this.pageRouter.clearCache();
+        await this.router.clearCache();
     }
 
     getPageRouter(): express.RequestHandler {
-        return this.router;
+        return this.requestHandler;
     }
 
     getAssetRouter(): express.RequestHandler {
         return express.static(path.join(this.outline.getFilePath(), 'assets'));
     }
 
-    getPageResources(): ProjectOutline {
+    getPageResources(): DepartmentOutline {
         return this.outline;
     }
 }

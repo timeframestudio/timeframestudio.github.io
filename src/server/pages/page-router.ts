@@ -1,8 +1,8 @@
 import express from "express";
-import { ProjectOutline } from "./project-outline.js";
-import { GeneratedPage } from "../pages/generated-page.js";
+import { GeneratedPage } from "./generated-page.js";
+import { PageResources } from "./page-resources.js";
 
-export class ProjectPageRouter {
+export class PageRouter {
     private router: express.RequestHandler;
     private pages: Map<string, GeneratedPage>;
 
@@ -14,9 +14,9 @@ export class ProjectPageRouter {
         this.pages.set(path, page);
     }
 
-    bindProjectOutline(outline: ProjectOutline) {
+    bindResources(resources: PageResources) {
         for (let [ path, page ] of this.pages) {
-            page.bindResources(outline);
+            page.bindResources(resources);
         }
     }
 

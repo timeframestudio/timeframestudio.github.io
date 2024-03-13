@@ -1,43 +1,55 @@
-import { ProjectRouter } from "../project/project-router.js";
+import { PageLoader } from "../project/page-loader.js";
 import fs from "fs/promises";
 import path from "path";
 
-let router: ProjectRouter;
+let loader: PageLoader;
 
 export function getProjectIds() {
-    return router.getProjects().keys();
+    return loader.getProjects().keys();
 }
 
 export function getPageContent(projectId: string) {
-    const project = router.getProjects().get(projectId);
+    const project = loader.getProjects().get(projectId);
 
     if (!project) {
         return null;
     }
 
-    return project.getProjectOutline().getPageContent();
+    return project.getPageResources().getPageContent();
 }
 
 export async function setPageContent(projectId: string, content: { [key: string]: string }) {
-    const project = router.getProjects().get(projectId);
+    const project = loader.getProjects().get(projectId);
 
     if (!project) {
         return;
     }
 
-    const file = path.join(project.getProjectOutline().getFilePath(), 'content.json');
+    const file = path.join(project.getPageResources().getFilePath(), 'content.json');
 
     await fs.writeFile(file, JSON.stringify(content, null, 4));
 
-    project.getProjectOutline().setPageContent(content);
+    project.getPageResources().setPageContent(content);
 
     await project.clearCache();
 }
 
-export function setupInterface(projectRouter: ProjectRouter) {
-    if (router) {
+export function setupInterface(pageLoader: PageLoader) {
+    if (loader) {
         throw new Error('Interface already set up');
     }
 
-    router = projectRouter;
+    loader = pageLoader;
+}
+
+export function validateContent(content: { [key: string]: string }) {
+    if (typeof content != 'object' || Array.isArray(content)) {
+        throw new Error("Root of content.json must be an object");
+    }
+
+    for (let key in content) {
+        if (typeof content[key] != 'string') {
+            throw new Error("Key value pairs in content.json must be of strings");
+        }
+    }
 }

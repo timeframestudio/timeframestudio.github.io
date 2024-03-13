@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'fs/promises';
 import url from 'url';
-import { ProjectRouter } from './project/project-router.js';
+import { PageLoader } from './project/page-loader.js';
 import { HomePage } from './pages/home-page.js';
 import { AboutPage } from './pages/about-page.js';
 import { startBot } from '../bot/index.js';
@@ -12,8 +12,8 @@ export async function startServer() {
 
     const app = express();
 
-    const projectRouter = new ProjectRouter();
-    await projectRouter.loadProjects();
+    const pageLoader = new PageLoader();
+    await pageLoader.load();
 
     const homePage = new HomePage();
     await homePage.setupWebpage();
@@ -21,7 +21,7 @@ export async function startServer() {
     const aboutPage = new AboutPage();
     await aboutPage.setupWebpage();
 
-    setupInterface(projectRouter);
+    setupInterface(pageLoader);
 
     app.get('/prototypes', (req, res) => {
         res.sendFile('./public/prototypes/index.html', { root }); 
@@ -56,12 +56,15 @@ export async function startServer() {
         res.send(aboutPage.getPageHTML());
     });
 
-    app.use('/projects', projectRouter.getProjectPageRouter());
-    app.use('/assets/project', projectRouter.getProjectAssetRouter());
+    app.use('/projects', pageLoader.getProjectPageRouter());
+    app.use('/assets/project', pageLoader.getProjectAssetRouter());
 
     app.get('/api/projects', (req, res) => {
-        res.json(projectRouter.getOutlineSummaries());
+        res.json(pageLoader.getOutlineSummaries());
     });
+
+    app.use('/departments', pageLoader.getDepartmentPageRouter());
+    app.use('/assets/departments', pageLoader.getDepartmentAssetRouter());
 
     app.listen(3000, () => {
         console.log('Server started on http://localhost:3000');

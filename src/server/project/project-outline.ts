@@ -1,6 +1,8 @@
 import path from "path";
 import process from "process";
 import { PageResources } from "../pages/page-resources.js";
+import { validateContent } from "../utils/page-content.js";
+import fs from "fs/promises";
 
 export class ProjectOutline implements PageResources {
     private title: string;
@@ -39,7 +41,7 @@ export class ProjectOutline implements PageResources {
     }
 
     getFilePath(): string {
-        return path.join(process.cwd(), 'projects', this.getProjectId());
+        return path.join(process.cwd(), 'content', 'projects', this.getProjectId());
     }
 
     getScriptPath(): string {
@@ -61,29 +63,9 @@ export class ProjectOutline implements PageResources {
     }
 
     setPageContent(content: { [key: string]: string }) {
-        ProjectOutline.validateContent(content);
+        validateContent(content);
 
         this.content = content;
-    }
-
-    private static validateContent(content: { [key: string]: string }) {
-        if (typeof content != 'object' || Array.isArray(content)) {
-            throw new Error("Root of content.json must be an object");
-        }
-
-        for (let key in content) {
-            if (typeof content[key] != 'string') {
-                throw new Error("Key value pairs in content.json must be of strings");
-            }
-        }
-    }
-
-    static addPageContent(outline: ProjectOutline, content: { [key: string]: string }) {
-        if (outline.content) throw new Error("Project outline already has page content.");
-
-        ProjectOutline.validateContent(content);
-
-        outline.content = content;
     }
 
     static fromProjectData(outlineData: ProjectOutline.OutlineData, id: string) {
@@ -113,6 +95,51 @@ export class ProjectOutline implements PageResources {
         if (outlineData.location.length !== 2) throw new Error("Project outline location does not have two elements.");
         if (typeof outlineData.location[0] !== "number") throw new Error("Project outline location x is not a number.");
         if (typeof outlineData.location[1] !== "number") throw new Error("Project outline location y is not a number.");
+    }
+
+    static summarize(id: string, outline: ProjectOutline): ProjectOutline.Summary {
+        return {
+            title: outline.getTitle(),
+            author: outline.getAuthor(),
+            description: outline.getDescription(),
+            id: id,
+            location: outline.getMapLocation()
+        };
+    }
+
+    static async load(id: string): Promise<ProjectOutline | null> {
+        const outline = new ProjectOutline();
+
+        outline.projectId = id;
+
+        let content: { [key: string]: string; };
+
+        try {
+            content = JSON.parse(await fs.readFile(path.join(outline.getFilePath(), 'content.json'), 'utf8'));
+        } catch (err) {
+            console.warn(`Failed to load project outline for ${id}: ${err}`);
+
+            content = {};
+        }
+
+        outline.content = content;
+
+        let outlineData: ProjectOutline.OutlineData;
+
+        try {
+            outlineData = JSON.parse(await fs.readFile(path.join(outline.getFilePath(), 'project.json'), 'utf8'));
+        } catch (err) {
+            console.warn(`Failed to load project outline for ${id}: ${err}`);
+
+            outlineData = { title: id, author: 'Web Dev', description: 'Missing project.json', location: [ 2560 / 2, 1424 / 2 ] };
+        }
+
+        outline.title = outlineData.title;
+        outline.author = outlineData.author;
+        outline.description = outlineData.description;
+        outline.mapLocation = outlineData.location;
+
+        return outline;        
     }
 }
 

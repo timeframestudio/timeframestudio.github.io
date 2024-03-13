@@ -6,16 +6,28 @@ import json from "@rollup/plugin-json";
 
 let input = [];
 
-const projectDirectories = await getSubdirectories('projects');
+const projectDirectories = await getSubdirectories(path.join('content', 'projects'));
 
 for (const directory of projectDirectories) {
     try {
-        await fs.access(path.join('projects', directory, 'index.ts'));
+        await fs.access(path.join('content', 'projects', directory, 'index.ts'));
     } catch (error) {
         continue;
     }
 
-    input.push(path.join('projects', directory, 'index.ts'));
+    input.push(path.join('content', 'projects', directory, 'index.ts'));
+}
+
+const departmentDirectories = await getSubdirectories(path.join('content', 'departments'));
+
+for (const directory of departmentDirectories) {
+    try {
+        await fs.access(path.join('content', 'departments', directory, 'index.ts'));
+    } catch (error) {
+        continue;
+    }
+
+    input.push(path.join('content', 'departments', directory, 'index.ts'));
 }
 
 input.push('src/server/index.ts');
@@ -51,8 +63,8 @@ function getChunkName(id) {
 
     let splitPath = relativePath.split(path.sep);
 
-    if (splitPath[0] == 'projects') {
-        return path.join('projects', splitPath[1]);
+    if (splitPath[0] == 'content') {
+        return path.join(splitPath[1], splitPath[2]);
     } else if (splitPath[0] == 'src' && splitPath[1] == 'bot' && splitPath[2] == 'bot' && splitPath[3] == 'commands') {
         let subpath = splitPath.slice(3);
         let lastItem = subpath[subpath.length - 1];
