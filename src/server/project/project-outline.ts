@@ -68,6 +68,10 @@ export class ProjectOutline implements PageResources {
         this.content = content;
     }
 
+    getPageTitle() {
+        return this.getTitle() + " | Timeframe";
+    }
+
     static fromProjectData(outlineData: ProjectOutline.OutlineData, id: string) {
         ProjectOutline.validateProjectData(outlineData);
 

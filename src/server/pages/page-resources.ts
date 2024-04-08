@@ -19,4 +19,9 @@ export interface PageResources {
      * Returns the path to the script file for the page in the `dist` directory.
      */
     getScriptPath(): string;
+
+    /**
+     * Returns the title of the page.
+     */
+    getPageTitle(): string;
 }

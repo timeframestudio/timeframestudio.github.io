@@ -46,6 +46,8 @@ export class GeneratedPage extends CachedWebpage {
             element.add(document);
         }
 
+        document.title = this.pageResources.getPageTitle();
+
         let html = prettyPrint(jsdom.serialize());
 
         jsdom.window.close();

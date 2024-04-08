@@ -24,7 +24,7 @@ export class Navigation implements WebpageElement {
                 <div class="column-layout navigation-bar">
                     <div class="column-side"></div>
                     <div class="column-center column-layout">
-                        <a class="navigation-title" href="/">Khan Lab Studios</a>
+                        <a class="navigation-title" href="/">Timeframe Studios</a>
                         <a class="navigation-link search-link" href="#search">Search</a>
                         <a class="navigation-link" href="/about">About</a>
                     </div>

@@ -42,6 +42,10 @@ export class DepartmentOutline implements PageResources {
         this.content = content;
     }
 
+    getPageTitle() {
+        return this.getTitle() + " | Timeframe";
+    }
+
     static async load(id: string): Promise<DepartmentOutline | null> {
         const outline = new DepartmentOutline();
 
