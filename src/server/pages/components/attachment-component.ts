@@ -5,7 +5,7 @@ import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 
 export class AttachmentComponent extends BaseWebpageComponent {
-    constructor(private attachments: AttachmentComponent.Attachment[] = []) {
+    constructor(private attachments: WebpageComponent[] = []) {
         super();
     }
 
@@ -36,21 +36,13 @@ export class AttachmentComponent extends BaseWebpageComponent {
 }
 
 export namespace AttachmentComponent {
-    export class Attachment extends BaseWebpageComponent {
+    export class DownloadAttachment extends BaseWebpageComponent {
         constructor(private title: string, private url: string, private fileName: string = title) {
             super();
         }
 
-        getTitle() {
-            return this.title;
-        }
-
-        getUrl() {
-            return this.url;
-        }
-
-        getFileName() {
-            return this.fileName;
+        async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
+            this.url = projectPage.getResources().getAssetURL(this.url);
         }
 
         createElement(document: Document): HTMLElement {
@@ -64,12 +56,39 @@ export namespace AttachmentComponent {
             element.appendChild(name);
     
             const download = document.createElement('a');
-            download.classList.add('attachment-download');
+            download.classList.add('attachment-button');
             download.href = this.url;
             download.textContent = 'Download';
             download.download = this.fileName;
     
             element.appendChild(download);
+    
+            return element;
+        }
+    }
+
+    export class LinkAttachment extends BaseWebpageComponent {
+        constructor(private title: string, private url: string) {
+            super();
+        }
+
+        createElement(document: Document): HTMLElement {
+            const element = document.createElement('div');
+            element.classList.add('attachment');
+    
+            const name = document.createElement('div');
+            name.classList.add('attachment-name');
+            name.textContent = this.title;
+    
+            element.appendChild(name);
+    
+            const button = document.createElement('a');
+            button.classList.add('attachment-button');
+            button.href = this.url;
+            button.target = "_blank";
+            button.textContent = 'Open';
+    
+            element.appendChild(button);
     
             return element;
         }

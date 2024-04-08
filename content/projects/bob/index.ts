@@ -8,6 +8,8 @@ import { HeadingComponent } from "../../../src/server/pages/components/heading-c
 import { RowComponent } from "../../../src/server/pages/components/row-component.js";
 import { ImageComponent } from "../../../src/server/pages/components/image-component.js";
 import { ItemComponent } from "../../../src/server/pages/components/item-component.js";
+import { MarginComponent } from "../../../src/server/pages/components/margin-component.js";
+import { ParagraphComponent } from "../../../src/server/pages/components/text/paragraph-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
@@ -18,8 +20,13 @@ class MainPage extends GeneratedPage {
         this.addPageSections(new PaddedSection(
             new HeadingComponent('Attachments'),
             new AttachmentComponent([
-                new AttachmentComponent.Attachment('My webpage', '/projects/bob', "bobs-page")
+                new AttachmentComponent.DownloadAttachment('Letter of Bobness', './letter.txt', "letter-of-bobness.txt"),
+                new AttachmentComponent.LinkAttachment('Alien Bobliod Investigation Report', 'https://example.com/bobliod-investigation-report.pdf')
             ]),
+            new MarginComponent(),
+            new HeadingComponent("Images of King Bob III"),
+            ...MarkdownLoader.load("This is a collection of images of **King Bob III**, the greatest king named \"Bob\" alive."),
+            new MarginComponent(),
             new RowComponent([
                 new ItemComponent(1.0, new ImageComponent('./bob1.jpeg', {
                     caption: "This is me, Bob!"
@@ -27,7 +34,8 @@ class MainPage extends GeneratedPage {
                 new ItemComponent(1.0, new ImageComponent('./bob2.webp', {
                     caption: "This is also me, Bob."
                 }))
-            ])
+            ]),
+            new MarginComponent()
         ));
         
         return await super.generateWebpage();

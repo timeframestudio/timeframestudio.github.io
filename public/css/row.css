@@ -2,8 +2,8 @@
     display: flex;
 }
 
-.row-item {
-    margin: 0px 16px;
+.row-component > *:not(:last-child) {
+    margin-right: 32px;
 }
 
 .row-item:first-child {
