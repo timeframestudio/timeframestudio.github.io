@@ -7,10 +7,10 @@ import { WebpageComponent } from "./webpage-component.js";
 export class ItemComponent extends BaseWebpageComponent {
     private content: WebpageComponent[];
 
-    constructor(private flex: number = 1, content: Iterable<WebpageComponent>) {
+    constructor(private flex: number = 1, ...content: WebpageComponent[]) {
         super();
 
-        this.content = [ ...content ];
+        this.content = content;
     }
 
     createElement(document: Document): HTMLElement {

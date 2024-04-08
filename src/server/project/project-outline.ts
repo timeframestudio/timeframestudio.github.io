@@ -36,8 +36,8 @@ export class ProjectOutline implements PageResources {
         return this.mapLocation;
     }
     
-    getAssetURL(): string {
-        return `/assets/project/${this.getProjectId()}/`;
+    getAssetURL(asset: string): string {
+        return path.join(`/assets/project/${this.getProjectId()}/`, asset);
     }
 
     getFilePath(): string {
@@ -117,8 +117,6 @@ export class ProjectOutline implements PageResources {
         try {
             content = JSON.parse(await fs.readFile(path.join(outline.getFilePath(), 'content.json'), 'utf8'));
         } catch (err) {
-            console.warn(`Failed to load project outline for ${id}: ${err}`);
-
             content = {};
         }
 
@@ -129,8 +127,6 @@ export class ProjectOutline implements PageResources {
         try {
             outlineData = JSON.parse(await fs.readFile(path.join(outline.getFilePath(), 'project.json'), 'utf8'));
         } catch (err) {
-            console.warn(`Failed to load project outline for ${id}: ${err}`);
-
             outlineData = { title: id, author: 'Web Dev', description: 'Missing project.json', location: [ 2560 / 2, 1424 / 2 ] };
         }
 

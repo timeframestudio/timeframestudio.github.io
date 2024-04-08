@@ -11,8 +11,8 @@ export class PageLoader {
     departments: Map<string, Department>  = new Map();
 
     async load() {
-        let projectFiles = await getSubdirectories('./content/projects');
-        let departmentFiles = await getSubdirectories('./content/departments');
+        let projectFiles = await getDirectSubdirectories('./content/projects');
+        let departmentFiles = await getDirectSubdirectories('./content/departments');
 
         let progress = 0;
         let total = projectFiles.length + departmentFiles.length;
@@ -116,6 +116,20 @@ export class PageLoader {
     getProjects() {
         return this.projects;
     }
+}
+
+async function getDirectSubdirectories(directory: string): Promise<string[]> {
+    const files = await fs.readdir(directory, { withFileTypes: true });
+
+    let output: string[] = [];
+
+    for (const file of files) {
+        if (file.isDirectory()) {
+            output.push(file.name);
+        }
+    }
+
+    return output;
 }
 
 async function getSubdirectories(directory: string, _basePath?: string): Promise<string[]> {

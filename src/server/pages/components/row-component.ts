@@ -20,7 +20,7 @@ export class RowComponent extends BaseWebpageComponent {
     }
 
     *getWebpageElements() {
-        yield new Stylesheet('css/row.css');
+        yield new Stylesheet('/css/row.css');
 
         for (const item of this.items) {
             yield* item.getWebpageElements();
@@ -28,6 +28,9 @@ export class RowComponent extends BaseWebpageComponent {
     }
     
     createElement(document: Document) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('row-wrapper');
+
         const row = document.createElement('div');
         row.classList.add('row-component');
 
@@ -37,6 +40,8 @@ export class RowComponent extends BaseWebpageComponent {
             row.appendChild(element);
         }
 
-        return row;
+        wrapper.appendChild(row);
+
+        return wrapper;
     }
 }
