@@ -11,23 +11,21 @@ import { ItemComponent } from "../../../src/server/pages/components/item-compone
 import { MarginComponent } from "../../../src/server/pages/components/margin-component.js";
 import { ParagraphComponent } from "../../../src/server/pages/components/text/paragraph-component.js";
 import { DividerComponent } from "../../../src/server/pages/components/divider-component.js";
+import { VideoComponent } from "../../../src/server/pages/components/video-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.addPageSections(new HeaderSection());
         this.addPageSections(new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getPageContent()['Section 1'])
-        ));
-        this.addPageSections(new PaddedSection(
+            ...MarkdownLoader.load(this.getResources().getPageContent()['Section 1']),
             new HeadingComponent('Attachments'),
             new AttachmentComponent([
                 new AttachmentComponent.DownloadAttachment('Letter of Bobness', './letter.txt', "letter-of-bobness.txt"),
                 new AttachmentComponent.LinkAttachment('Alien Bobliod Investigation Report', 'https://example.com/bobliod-investigation-report.pdf')
             ]),
-            new MarginComponent(),
             new HeadingComponent("Images of King Bob III"),
             ...MarkdownLoader.load("This is a collection of images of **King Bob III**, the greatest king named \"Bob\" alive."),
-            new DividerComponent(),
+            new MarginComponent(),
             new RowComponent([
                 new ItemComponent(1.0, new ImageComponent('./bob1.jpeg', {
                     caption: "This is me, Bob!"
@@ -36,6 +34,10 @@ class MainPage extends GeneratedPage {
                     caption: "This is also me, Bob."
                 }))
             ]),
+            new DividerComponent(),
+            ...MarkdownLoader.load("I'm also a fan of the **Bob the Builder** series. Here's one of my favorite videos:"),
+            new MarginComponent(),
+            new VideoComponent("Geec2sfumEo"),
             new MarginComponent()
         ));
         
