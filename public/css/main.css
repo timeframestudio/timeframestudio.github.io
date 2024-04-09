@@ -61,8 +61,7 @@ body {
 
 .plain-link {
     color: #444444;
-    text-decoration: none;
-    border-bottom: 1px solid #444444;
+    text-decoration: underline;
     transition: color 0.1s;
     cursor: pointer;
 }
