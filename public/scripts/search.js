@@ -28,9 +28,13 @@ searchBackground.addEventListener('click', event => {
 searchLink.addEventListener('click', event => {
     event.preventDefault();
 
+    openSearchPopup();
+});
+
+export function openSearchPopup() {
     showSearchPopup();
     updateScroll();
-});
+}
 
 searchResults.addEventListener('scroll', event => {
     updateScroll();

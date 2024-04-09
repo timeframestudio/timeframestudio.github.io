@@ -6,6 +6,7 @@ import { HomePage } from './pages/home-page.js';
 import { AboutPage } from './pages/about-page.js';
 import { startBot } from '../bot/index.js';
 import { setupInterface } from './utils/page-content.js';
+import { ErrorPage } from './pages/error-page.js';
 
 export async function startServer() {
     const root = url.fileURLToPath(new URL('..', import.meta.url));
@@ -20,6 +21,9 @@ export async function startServer() {
 
     const aboutPage = new AboutPage();
     await aboutPage.setupWebpage();
+    
+    const errorPage = new ErrorPage();
+    await errorPage.setupWebpage();
 
     setupInterface(pageLoader);
 
@@ -65,6 +69,10 @@ export async function startServer() {
 
     app.use('/departments', pageLoader.getDepartmentPageRouter());
     app.use('/assets/departments', pageLoader.getDepartmentAssetRouter());
+
+    app.get('/*', (req, res) => {
+        res.status(404).send(errorPage.getPageHTML());
+    });
 
     app.listen(3000, () => {
         console.log('Server started on http://localhost:3000');

@@ -60,7 +60,15 @@ body {
 
 
 .plain-link {
-    color: inherit;
+    color: #444444;
+    text-decoration: none;
+    border-bottom: 1px solid #444444;
+    transition: color 0.1s;
+    cursor: pointer;
+}
+
+.plain-link:hover {
+    color: #666666;
 }
 
 .header-with-home-background {

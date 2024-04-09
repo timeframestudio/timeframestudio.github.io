@@ -4,7 +4,7 @@
     left: 0px;
     right: 0px;
     background: white;
-    padding: 16px;
+    padding: 16px 0px;
     display: flex;
     transition: box-shadow 0.3s;
 }
