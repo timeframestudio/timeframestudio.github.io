@@ -10,6 +10,7 @@ import { ImageComponent } from "../../../src/server/pages/components/image-compo
 import { ItemComponent } from "../../../src/server/pages/components/item-component.js";
 import { MarginComponent } from "../../../src/server/pages/components/margin-component.js";
 import { ParagraphComponent } from "../../../src/server/pages/components/text/paragraph-component.js";
+import { DividerComponent } from "../../../src/server/pages/components/divider-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
@@ -26,7 +27,7 @@ class MainPage extends GeneratedPage {
             new MarginComponent(),
             new HeadingComponent("Images of King Bob III"),
             ...MarkdownLoader.load("This is a collection of images of **King Bob III**, the greatest king named \"Bob\" alive."),
-            new MarginComponent(),
+            new DividerComponent(),
             new RowComponent([
                 new ItemComponent(1.0, new ImageComponent('./bob1.jpeg', {
                     caption: "This is me, Bob!"

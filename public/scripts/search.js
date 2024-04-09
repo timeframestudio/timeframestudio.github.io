@@ -20,7 +20,7 @@ searchBackground.addEventListener('click', event => {
         return;
     }
 
-    if (!searchPopup.contains(event.target) || event.target == searchClose) {
+    if (!searchPopup.contains(event.target) || searchClose == event.target || searchClose.contains(event.target)) {
         hideSearchPopup();
     }
 });
