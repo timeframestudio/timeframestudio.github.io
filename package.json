@@ -2,7 +2,7 @@
   "type": "module",
   "main": "./start.js",
   "scripts": {
-    "start": "npx nodemon -q --watch dist --ext js,html --enable-source-maps",
+    "start": "npx nodemon -q --watch . --ext js,html --enable-source-maps",
     "build": "npx rollup --config --watch"
   },
   "dependencies": {

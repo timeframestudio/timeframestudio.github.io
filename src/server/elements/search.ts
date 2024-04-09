@@ -17,7 +17,9 @@ export class Search implements WebpageElement {
                     <div class="search-popup">
                         <div class="search-header">
                             <input type="text" class="search-bar" placeholder="Search projects...">
-                            <img src="/assets/close.svg" class="search-close-button">
+                            <button class="search-close-button">
+                                <img src="/assets/close.svg" class="search-close-button-image">
+                            </button>
                         </div>
                         <div class="search-results"></div>
                     </div>
