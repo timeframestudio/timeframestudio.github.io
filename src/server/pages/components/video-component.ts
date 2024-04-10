@@ -5,7 +5,7 @@ import { BaseWebpageComponent } from "./base-webpage-component.js";
 import { WebpageComponent } from "./webpage-component.js";
 
 export class VideoComponent extends BaseWebpageComponent {
-    constructor(private videoId: String) {
+    constructor(private videoId: string) {
         super();
     }
 

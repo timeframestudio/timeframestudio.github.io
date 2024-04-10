@@ -12,6 +12,7 @@ import { MarginComponent } from "../../../src/server/pages/components/margin-com
 import { ParagraphComponent } from "../../../src/server/pages/components/text/paragraph-component.js";
 import { DividerComponent } from "../../../src/server/pages/components/divider-component.js";
 import { VideoComponent } from "../../../src/server/pages/components/video-component.js";
+import { AudioComponent } from "../../../src/server/pages/components/audio-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
@@ -38,6 +39,13 @@ class MainPage extends GeneratedPage {
             ...MarkdownLoader.load("I'm also a fan of the **Bob the Builder** series. Here's one of my favorite videos:"),
             new MarginComponent(),
             new VideoComponent("Geec2sfumEo"),
+            new MarginComponent(),
+            new HeadingComponent("Bob's Noise™"),
+            ...MarkdownLoader.load("Bob's Noise™ is a company that I founded. We specialize in creating noise. Here's a sample of our work:"),
+            new MarginComponent(),
+            new AudioComponent('./bobnoise.mp3'),
+            new MarginComponent(),
+            ...MarkdownLoader.load("After listening, please send by $1000 to my PayPal account. Thank you."),
             new MarginComponent()
         ));
         
