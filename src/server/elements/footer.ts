@@ -8,12 +8,14 @@ import { Stylesheet } from "./stylesheet.js";
  */
 export class Footer implements WebpageElement {
     add(document: Document) {
+        if (!Footer.ENABLE_FOOTER) return;
+
         // The HTML code for the footer is defined here:
         const fragment = JSDOM.fragment(`
             <div class="column-layout footer">
                 <div class="column-side"></div>
                 <div class="column-center">
-                    Made by <b>Khan Lab Studios</b>
+                    Made by <b>Timeframe</b>
                 </div>
                 <div class="column-side"></div>
             </div>
@@ -25,4 +27,6 @@ export class Footer implements WebpageElement {
         const stylesheet = new Stylesheet('/css/footer.css');
         stylesheet.add(document);
     }
+
+    private static ENABLE_FOOTER: boolean = false;
 }
