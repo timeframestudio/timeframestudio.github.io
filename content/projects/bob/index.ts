@@ -15,6 +15,7 @@ import { VideoComponent } from "../../../src/server/pages/components/video-compo
 import { AudioComponent } from "../../../src/server/pages/components/audio-component.js";
 import { TabsComponent } from "../../../src/server/pages/components/tabs/tabs-component.js";
 import { Tab } from "../../../src/server/pages/components/tabs/tab.js";
+import { EmbedComponent } from "../../../src/server/pages/components/embed-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
@@ -60,6 +61,12 @@ class MainPage extends GeneratedPage {
                     ...MarkdownLoader.load("Bob the Tomato is the deuteragonist of the VeggieTales series. He is Larry's best friend and the co-host of the show. He's a great Bob!")
                 ])
             ]),
+            new MarginComponent(),
+            new HeadingComponent("BobNet Example"),
+            new MarginComponent(),
+            ...MarkdownLoader.load("Here is an example page on BobNet, a new network for Bobs encryped with BobCrypto by BobCorp™. This page is current broken because it doesn't have any Bob references on it."),
+            new MarginComponent(),
+            new EmbedComponent('http://example.com', { height: 400 }),
             new MarginComponent()
         ));
         
