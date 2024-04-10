@@ -20,7 +20,7 @@ export class Tab extends BaseWebpageComponent {
     }
 
     createTabElement(document: Document) {
-        const tab = document.createElement('div');
+        const tab = document.createElement('button');
         tab.classList.add('tab');
         tab.textContent = this.title;
 

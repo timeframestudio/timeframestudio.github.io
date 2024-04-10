@@ -15,6 +15,9 @@
     padding-bottom: 14px;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
+    border: none;
+    background: transparent;
+    font: inherit;
     border-bottom: 1px solid #eeeeee;
     font-weight: bold;
     color: #666666;
@@ -26,7 +29,7 @@
 
 .tab.tab-selected {
     background-color: #f8f8f8;
-    padding-bottom: 13px;
+    padding-bottom: 11px;
     border-bottom: 4px solid #dddddd;
 }
 
