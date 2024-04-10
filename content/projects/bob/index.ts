@@ -13,6 +13,8 @@ import { ParagraphComponent } from "../../../src/server/pages/components/text/pa
 import { DividerComponent } from "../../../src/server/pages/components/divider-component.js";
 import { VideoComponent } from "../../../src/server/pages/components/video-component.js";
 import { AudioComponent } from "../../../src/server/pages/components/audio-component.js";
+import { TabsComponent } from "../../../src/server/pages/components/tabs/tabs-component.js";
+import { Tab } from "../../../src/server/pages/components/tabs/tab.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
@@ -46,6 +48,18 @@ class MainPage extends GeneratedPage {
             new AudioComponent('./bobnoise.mp3'),
             new MarginComponent(),
             ...MarkdownLoader.load("After listening, please send by $1000 to my PayPal account. Thank you."),
+            new HeadingComponent("Top Bobs"),
+            new TabsComponent([
+                new Tab("Bob the Builder", [
+                    ...MarkdownLoader.load("Bob the Builder is a British children's animated television show created by Keith Chapman. In the original series, Bob appears in a stop motion animated programme as a building contractor, specialising in masonry, along with his colleague Wendy, various neighbours and friends, and their gang of anthropomorphised work-vehicles and equipment. He's a great Bob!"),
+                ]),
+                new Tab("Bob Ross", [
+                    ...MarkdownLoader.load("Bob Ross was an American painter, art instructor and television host. He was the creator and host of The Joy of Painting, an instructional television program that aired from 1983 to 1994 on PBS in the United States, Canada, Latin America, and Europe. He's a great Bob!")
+                ]),
+                new Tab("Bob the Tomato", [
+                    ...MarkdownLoader.load("Bob the Tomato is the deuteragonist of the VeggieTales series. He is Larry's best friend and the co-host of the show. He's a great Bob!")
+                ])
+            ]),
             new MarginComponent()
         ));
         
