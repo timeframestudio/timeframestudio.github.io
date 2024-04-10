@@ -1,8 +1,7 @@
-import { Script } from "../../elements/script.js";
-import { Stylesheet } from "../../elements/stylesheet.js";
-import { WebpageElement } from "../../elements/webpage-element.js";
-import { BaseWebpageComponent } from "./base-webpage-component.js";
-import { WebpageComponent } from "./webpage-component.js";
+import { Script } from "../../../elements/script.js";
+import { Stylesheet } from "../../../elements/stylesheet.js";
+import { WebpageElement } from "../../../elements/webpage-element.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
 
 export class VideoComponent extends BaseWebpageComponent {
     constructor(private videoId: string) {

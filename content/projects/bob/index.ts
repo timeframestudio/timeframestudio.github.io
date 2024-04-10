@@ -3,19 +3,18 @@ import { PageRouter } from "../../../src/server/pages/page-router.js";
 import { GeneratedPage } from "../../../src/server/pages/generated-page.js";
 import { HeaderSection } from "../../../src/server/pages/sections/header-section.js";
 import { PaddedSection } from "../../../src/server/pages/sections/padded-section.js";
-import { AttachmentComponent } from "../../../src/server/pages/components/attachment-component.js";
-import { HeadingComponent } from "../../../src/server/pages/components/heading-component.js";
-import { RowComponent } from "../../../src/server/pages/components/row-component.js";
-import { ImageComponent } from "../../../src/server/pages/components/image-component.js";
-import { ItemComponent } from "../../../src/server/pages/components/item-component.js";
-import { MarginComponent } from "../../../src/server/pages/components/margin-component.js";
-import { ParagraphComponent } from "../../../src/server/pages/components/text/paragraph-component.js";
-import { DividerComponent } from "../../../src/server/pages/components/divider-component.js";
-import { VideoComponent } from "../../../src/server/pages/components/video-component.js";
-import { AudioComponent } from "../../../src/server/pages/components/audio-component.js";
+import { HeadingComponent } from "../../../src/server/pages/components/text/heading-component.js";
+import { RowComponent } from "../../../src/server/pages/components/layout/row-component.js";
+import { ImageComponent } from "../../../src/server/pages/components/media/image-component.js";
+import { ItemComponent } from "../../../src/server/pages/components/layout/item-component.js";
+import { MarginComponent } from "../../../src/server/pages/components/layout/margin-component.js";
+import { DividerComponent } from "../../../src/server/pages/components/layout/divider-component.js";
+import { VideoComponent } from "../../../src/server/pages/components/media/video-component.js";
+import { AudioComponent } from "../../../src/server/pages/components/media/audio-component.js";
 import { TabsComponent } from "../../../src/server/pages/components/tabs/tabs-component.js";
 import { Tab } from "../../../src/server/pages/components/tabs/tab.js";
-import { EmbedComponent } from "../../../src/server/pages/components/embed-component.js";
+import { AttachmentComponent } from "../../../src/server/pages/components/media/attachment-component.js";
+import { EmbedComponent } from "../../../src/server/pages/components/media/embed-component.js";
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {

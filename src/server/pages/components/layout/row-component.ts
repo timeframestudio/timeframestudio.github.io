@@ -1,8 +1,7 @@
-import { JSDOM } from 'jsdom';
-import { WebpageComponent } from "./webpage-component.js";
-import { Stylesheet } from '../../elements/stylesheet.js';
-import { GeneratedPage } from '../generated-page.js';
-import { BaseWebpageComponent } from './base-webpage-component.js';
+import { Stylesheet } from "../../../elements/stylesheet.js";
+import { GeneratedPage } from "../../generated-page.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { WebpageComponent } from "../webpage-component.js";
 
 export class RowComponent extends BaseWebpageComponent {
     items: WebpageComponent[];

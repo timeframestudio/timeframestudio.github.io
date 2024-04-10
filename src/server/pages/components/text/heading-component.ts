@@ -1,7 +1,5 @@
-import { Stylesheet } from "../../elements/stylesheet.js";
-import { GeneratedPage } from "../generated-page.js";
-import { BaseWebpageComponent } from "./base-webpage-component.js";
-import { WebpageComponent } from "./webpage-component.js";
+import { Stylesheet } from "../../../elements/stylesheet.js";
+import { BaseWebpageComponent } from "../base-webpage-component.js";
 
 export class HeadingComponent extends BaseWebpageComponent {
     constructor(private text: string, private size = 1) {

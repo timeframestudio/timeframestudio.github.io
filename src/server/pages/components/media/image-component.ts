@@ -1,9 +1,9 @@
 import { JSDOM } from 'jsdom';
 import path from 'path';
-import { Stylesheet } from '../../elements/stylesheet.js';
-import { GeneratedPage } from '../generated-page.js';
-import { BaseWebpageComponent } from './base-webpage-component.js';
-import { WebpageComponent } from './webpage-component.js';
+import { Stylesheet } from '../../../elements/stylesheet.js';
+import { GeneratedPage } from '../../generated-page.js';
+import { BaseWebpageComponent } from '../base-webpage-component.js';
+import { WebpageComponent } from '../webpage-component.js';
 
 interface ImageComponentOptions {
     dimensions?: { width: number, height: number };
