@@ -15,3 +15,11 @@
 .rich-text-link:hover {
     color: #666666;
 }
+
+.rich-text-blockquote {
+    border-left: 4px solid #e8e8e8;
+    padding: 16px;
+    margin: 16px 0px;
+    color: #666666;
+    background: #f8f8f8;
+}

@@ -41,7 +41,7 @@ class MainPage extends GeneratedPage {
             new VideoComponent("Geec2sfumEo"),
             new MarginComponent(),
             new HeadingComponent("Bob's Noise™"),
-            ...MarkdownLoader.load("Bob's Noise™ is a company that I founded. We specialize in creating noise. Here's a sample of our work:"),
+            ...MarkdownLoader.load("Bob's Noise™ is a company that I founded. We specialize in creating noise. Here's a sample of our work:\n> **Bob's Noise™**\n>\n> *\"The sound of a thousand Bobs\"* \n\n"),
             new MarginComponent(),
             new AudioComponent('./bobnoise.mp3'),
             new MarginComponent(),

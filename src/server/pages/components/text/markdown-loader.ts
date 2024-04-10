@@ -8,6 +8,7 @@ import { LinkTextComponent } from "./link-text-component.js";
 import { ParagraphComponent } from "./paragraph-component.js";
 import { ListItemTextComponent } from "./list-item-text-component.js";
 import { MarginComponent } from "../margin-component.js";
+import { BlockquoteComponent } from "./blockquote-component.js";
 
 export class MarkdownLoader {
     private first = false;
@@ -42,8 +43,18 @@ export class MarkdownLoader {
                 yield* this.createStyledComponent(token as Tokens.Strong);
             } else if (token.type === 'em') {
                 yield* this.createStyledComponent(token as Tokens.Em);
+            } else if (token.type == 'blockquote') {
+                yield* this.createBlockquoteComponent(token as Tokens.Blockquote);
             }
         }
+    }
+
+    private *createBlockquoteComponent(blockquote: Tokens.Blockquote): Iterable<WebpageComponent> {
+        this.first = true;
+
+        yield new BlockquoteComponent(...this.createComponents(blockquote.tokens));
+
+        this.first = false;
     }
 
     private *createHeadingComponent(heading: Tokens.Heading): Iterable<WebpageComponent> {
