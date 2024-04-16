@@ -1,6 +1,7 @@
 .attachment-component {
     border: 1px solid #e8e8e8;
     border-radius: 8px;
+    background: #fcfcfc;
 }
 
 .attachment {

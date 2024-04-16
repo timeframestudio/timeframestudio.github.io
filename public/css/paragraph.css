@@ -7,19 +7,25 @@
 }
 
 .rich-text-link {
-    color: #444444;
+    color: var(--text-color);
     text-decoration: underline;
     transition: color 0.1s;
 }
 
 .rich-text-link:hover {
-    color: #666666;
+    color: var(--text-pale-color);
 }
 
 .rich-text-blockquote {
-    border-left: 4px solid #e8e8e8;
+    border-left: 4px solid var(--border-color);
     padding: 16px;
     margin: 16px 0px;
-    color: #666666;
-    background: #f8f8f8;
+    background: var(--background-dim-color);
+
+    --text-color: var(--text-pale-color);
+    color: var(--text-color);
+}
+
+.rich-text-line-break {
+    margin-bottom: 4px;
 }

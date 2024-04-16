@@ -4,8 +4,10 @@
     box-shadow: 0px 1px 5px #00000033;
     border-radius: 8px;
     overflow: hidden;
-    flex: 2;
-    max-height: 100%;
+    flex: 1;
+    max-width: 600px;
+    max-height: 600px;
+    margin: auto;
     display: flex;
     background: #f8f8f8;
     flex-direction: column;
@@ -29,6 +31,7 @@
     display: none;
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 2;
 }
 
 .search-popup-background.visible {
@@ -41,7 +44,7 @@
 }
 
 .search-popup-padding-top {
-    flex: 1;
+    height: 32px;
     margin-top: -64px;
     transition: margin-top 0.3s;
 }
@@ -51,11 +54,11 @@
 }
 
 .search-popup-padding-bottom {
-    flex: 1;
+    height: 32px;
 }
 
 .search-popup-padding-side {
-    flex: 1;
+    width: 32px;
 }
 
 .search-header {
@@ -82,11 +85,11 @@
     background: #f8f8f8;
     border-radius: 4px;
     transition: background-color 0.3s;
+    min-width: 0px;
 }
 
 .search-bar:focus {
     background: #f0f0f0;
-
 }
 
 .search-close-button {

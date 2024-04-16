@@ -1,7 +1,8 @@
 import { Stylesheet } from "../../../elements/stylesheet.js";
-import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { WebpageSection } from "../../sections/webpage-section.js";
+import { WebpageComponent } from "../webpage-component.js";
 
-export class MarginComponent extends BaseWebpageComponent {
+export class MarginComponent extends WebpageSection implements WebpageComponent {
     constructor(private size: MarginComponent.MarginSize = MarginComponent.MarginSize.Normal) {
         super();
     }

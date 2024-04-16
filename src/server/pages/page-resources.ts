@@ -2,6 +2,7 @@ export interface PageResources {
     getTitle(): string;
     getSubtitle(): string;
 
+    getContent(key: string): string;
     getPageContent(): { [key: string]: string };
     setPageContent(content: { [key: string]: string }): void;
 

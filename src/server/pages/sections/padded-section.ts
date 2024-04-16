@@ -30,9 +30,7 @@ export class PaddedSection extends WebpageSection {
         const columnLayout = document.createElement('div');
         columnLayout.classList.add('column-layout');
 
-        const sectionTheme = this.getSectionTheme();
-        columnLayout.style.backgroundColor = sectionTheme.getBackgroundColor();
-        columnLayout.style.color = sectionTheme.getTextColor();
+        this.addTheme(columnLayout);
 
         const columnSide1 = document.createElement('div');
         columnSide1.classList.add('column-side');

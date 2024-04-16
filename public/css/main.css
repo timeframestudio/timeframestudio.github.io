@@ -70,10 +70,25 @@ body {
     color: #666666;
 }
 
-.header-with-home-background {
-    background-image: url(/assets/mountains.jpeg);
+.home-header {
+    background-image: url('/assets/starry.jpg');
     background-size: cover;
-    background-position: top center;
-    background-blend-mode: lighten;
-    background-color: #ffffff66;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    padding: 128px;
+}
+
+.home-header-icon {
+    width: 96px;
+    height: 96px;
+    margin: auto;
+    margin-bottom: 32px;
+}
+
+.home-header-title {
+    color: #eeeeee;
+    font-weight: bold;
+    font-size: 2em;
+    margin: auto;
 }

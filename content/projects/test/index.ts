@@ -18,9 +18,9 @@ import { EmbedComponent } from "../../../src/server/pages/components/media/embed
 
 class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
-        this.addPageSections(new HeaderSection());
-        this.addPageSections(new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getPageContent()['Section 1']),
+        this.add(new HeaderSection());
+        this.add(new PaddedSection(
+            ...MarkdownLoader.load(this.getResources().getContent('Section 1')),
             new HeadingComponent('Attachments'),
             new AttachmentComponent([
                 new AttachmentComponent.DownloadAttachment('Letter of Bobness', './letter.txt', "letter-of-bobness.txt"),

@@ -4,7 +4,7 @@ import { HeaderSection } from "../../../src/server/pages/sections/header-section
 
 class WebsiteDepartmentPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
-        this.addPageSections(new HeaderSection());
+        this.add(new HeaderSection());
 
         return await super.generateWebpage();
     }

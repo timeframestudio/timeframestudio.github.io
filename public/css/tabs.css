@@ -1,7 +1,6 @@
 .tabs-component {
     display: flex;
     flex-direction: column;
-    border: 1px solid #eeeeee;
 }
 
 .tab-bar {
@@ -18,21 +17,17 @@
     border: none;
     background: transparent;
     font: inherit;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid var(--border-color);
     font-weight: bold;
-    color: #666666;
+    color: var(--text-pale-color);
 }
 
 .tab:hover {
-    background-color: #fbfbfb;
+    background-color: var(--background-hover-color);
 }
 
 .tab.tab-selected {
-    background-color: #f8f8f8;
+    background-color: var(--background-dim-color);
     padding-bottom: 11px;
-    border-bottom: 4px solid #dddddd;
-}
-
-.tab-content {
-    padding: 16px;
+    border-bottom: 4px solid var(--border-dim-color);
 }

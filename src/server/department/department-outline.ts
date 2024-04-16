@@ -32,6 +32,10 @@ export class DepartmentOutline implements PageResources {
         return this.subtitle;
     }
 
+    getContent(key: string): string {
+        return this.content[key].replace(/\$title/g, this.title);
+    }
+
     getPageContent(): { [key: string]: string; } {
         return this.content;
     }

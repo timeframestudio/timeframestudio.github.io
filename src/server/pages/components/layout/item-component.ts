@@ -6,7 +6,7 @@ import { WebpageComponent } from "../webpage-component.js";
 export class ItemComponent extends BaseWebpageComponent {
     private content: WebpageComponent[];
 
-    constructor(private flex: number = 1, ...content: WebpageComponent[]) {
+    constructor(private flex: number | null, ...content: WebpageComponent[]) {
         super();
 
         this.content = content;
@@ -15,7 +15,7 @@ export class ItemComponent extends BaseWebpageComponent {
     createElement(document: Document): HTMLElement {
         const element = document.createElement('div');
         element.classList.add('item-component');
-        element.style.flex = this.flex.toString();
+        if (this.flex !== null) element.style.flex = this.flex.toString();
 
         for (const component of this.content) {
             element.appendChild(component.createElement(document));

@@ -12,12 +12,13 @@ export abstract class WebpageSection implements WebpageComponent {
         this.theme = sectionTheme;
     }
 
-    /**
-     * Gets the theme for this section.
-     * @returns {WebpageSectionTheme}
-     */
-    getSectionTheme() {
+    getSectionTheme(): WebpageSection.Theme {
         return this.theme;
+    }
+
+    protected addTheme(element: HTMLElement) {
+        element.classList.add('themed-section');
+        element.classList.add(this.theme.getClass());
     }
 
     abstract createElement(document: Document): HTMLElement;
@@ -33,46 +34,18 @@ export abstract class WebpageSection implements WebpageComponent {
 
 export namespace WebpageSection {
     class WebpageSectionTheme {
-        backgroundColor: string;
-        textColor: string;
+        constructor(private name: string) {
+        }
 
-        constructor(backgroundColor: string, textColor: string) {
-            this.backgroundColor = backgroundColor;
-            this.textColor = textColor;
-        }
-    
-        getBackgroundColor() {
-            return this.backgroundColor;
-        }
-    
-        getTextColor(opacity = 1) {
-            return WebpageSectionTheme.mixColors(this.backgroundColor, this.textColor, opacity);
-        }
-    
-        static mixColors(color1: string, color2: string, weight: number) {
-            const a = WebpageSectionTheme.hexToRgb(color1);
-            const b = WebpageSectionTheme.hexToRgb(color2);
-    
-            const rgb = [0, 1, 2].map(i => {
-                return a[i] * (1 - weight) + b[i] * weight;
-            });
-    
-            return WebpageSectionTheme.rgbToHex(rgb);
-        }
-    
-        static hexToRgb(hex: string): number[] {
-            return hex.slice(1).match(/[A-Za-z0-9]{2}/g)!.map(v => parseInt(v, 16));
-        }
-    
-        static rgbToHex(rgb: number[]): string {
-            return '#' + rgb.map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+        getClass(): string {
+            return 'theme-' + this.name;
         }
     };
 
     export const Theme = {
-        Light: new WebpageSectionTheme('#ffffff', '#444444'),
-        AltLight: new WebpageSectionTheme('#f8f8f8', '#444444'),
-        Dark: new WebpageSectionTheme('#444444', '#dddddd')
+        Light: new WebpageSectionTheme('light'),
+        AltLight: new WebpageSectionTheme('alt-light'),
+        Dark: new WebpageSectionTheme('dark')
     };
 
     export type Theme = WebpageSectionTheme;

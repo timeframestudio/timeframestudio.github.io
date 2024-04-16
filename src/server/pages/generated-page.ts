@@ -20,9 +20,9 @@ export class GeneratedPage extends CachedWebpage {
     }
 
     async generateWebpage() {
-        this.addWebpageElements(new StandardLayout());
+        this.add(new StandardLayout());
 
-        const jsdom = new JSDOM();
+        const jsdom = new JSDOM('<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body></body></html>');
         const document = jsdom.window.document;
 
         let sectionElements: Set<WebpageElement> = new Set();
@@ -62,15 +62,10 @@ export class GeneratedPage extends CachedWebpage {
         super.clearCache();
     }
 
-    protected addWebpageElements(...elements: WebpageElement[]) {
+    protected add(...elements: (WebpageElement | WebpageSection)[]) {
         for (const element of elements) {
-            this.webpageElements.add(element);
-        }
-    }
-
-    protected addPageSections(...sections: WebpageSection[]) {
-        for (const section of sections) {
-            this.pageSections.push(section);
+            if (element instanceof WebpageSection) this.pageSections.push(element);
+            else this.webpageElements.add(element);
         }
     }
 }

@@ -11,9 +11,14 @@ export class ProjectOutline implements PageResources {
     private projectId: string;
     private mapLocation: [ number, number ];
     private content: { [key: string]: string };
+    private example: boolean;
 
     getTitle() {
         return this.title;
+    }
+
+    isExample() {
+        return this.example;
     }
 
     getSubtitle() {
@@ -57,6 +62,10 @@ export class ProjectOutline implements PageResources {
             location: this.getMapLocation()
         };
     }
+
+    getContent(key: string): string {
+        return this.content[key].replace(/\$title/g, this.title).replace(/\$author/g, this.author);
+    }
     
     getPageContent() {
         return this.content;
@@ -81,6 +90,7 @@ export class ProjectOutline implements PageResources {
         outline.author = outlineData.author;
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
+        outline.example = outlineData.example === true;
 
         outline.projectId = id;
 
@@ -101,7 +111,9 @@ export class ProjectOutline implements PageResources {
         if (typeof outlineData.location[1] !== "number") throw new Error("Project outline location y is not a number.");
     }
 
-    static summarize(id: string, outline: ProjectOutline): ProjectOutline.Summary {
+    static summarize(id: string, outline: ProjectOutline): ProjectOutline.Summary | null {
+        if (outline.isExample()) return null;
+
         return {
             title: outline.getTitle(),
             author: outline.getAuthor(),
@@ -138,6 +150,7 @@ export class ProjectOutline implements PageResources {
         outline.author = outlineData.author;
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
+        outline.example = outlineData.example === true;
 
         return outline;        
     }
@@ -151,10 +164,14 @@ export namespace ProjectOutline {
         location: [ number, number ];
     }
 
+    interface Example {
+        example?: boolean;
+    }
+
     interface Id {
         id: string;
     }
 
     export type Summary = ProjectOutlineData & Id;
-    export type OutlineData = ProjectOutlineData;
+    export type OutlineData = ProjectOutlineData & Example;
 }

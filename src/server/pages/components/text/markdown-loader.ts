@@ -9,6 +9,8 @@ import { ParagraphComponent } from "./paragraph-component.js";
 import { ListItemTextComponent } from "./list-item-text-component.js";
 import { MarginComponent } from "../layout/margin-component.js";
 import { BlockquoteComponent } from "./blockquote-component.js";
+import { DividerComponent } from "../layout/divider-component.js";
+import { LineBreakComponent } from "./line-break-component.js";
 
 export class MarkdownLoader {
     private first = false;
@@ -45,7 +47,17 @@ export class MarkdownLoader {
                 yield* this.createStyledComponent(token as Tokens.Em);
             } else if (token.type == 'blockquote') {
                 yield* this.createBlockquoteComponent(token as Tokens.Blockquote);
+            } else if (token.type == 'hr') {
+                yield* this.createDividerComponent(token as Tokens.Hr);
+            } else if (token.type == 'html') {
+                yield* this.createHTMLComponent(token as Tokens.HTML);
             }
+        }
+    }
+
+    private *createHTMLComponent(html: Tokens.HTML): Iterable<WebpageComponent> {
+        if (html.raw == '<br>') {
+            yield new LineBreakComponent();
         }
     }
 
@@ -55,6 +67,10 @@ export class MarkdownLoader {
         yield new BlockquoteComponent(...this.createComponents(blockquote.tokens));
 
         this.first = false;
+    }
+
+    private *createDividerComponent(hr: Tokens.Hr): Iterable<WebpageComponent> {
+        yield new DividerComponent();
     }
 
     private *createHeadingComponent(heading: Tokens.Heading): Iterable<WebpageComponent> {

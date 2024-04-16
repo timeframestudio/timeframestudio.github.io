@@ -2,5 +2,6 @@
     "title": "King Bob III",
     "description": "I declare this rounded rectangular land to be mine!",
     "author": "Example Project",
-    "location": [ 1500, 600 ]
+    "location": [ 1500, 600 ],
+    "example": true
 }

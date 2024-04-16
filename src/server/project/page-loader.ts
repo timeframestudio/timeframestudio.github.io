@@ -107,7 +107,9 @@ export class PageLoader {
         let data: ProjectOutline.Summary[] = [];
 
         for (let [id, project] of this.projects) {
-            data.push(ProjectOutline.summarize(id, project.getPageResources()));
+            const summary = ProjectOutline.summarize(id, project.getPageResources());
+
+            if (summary) data.push(summary);
         }
 
         return data;
