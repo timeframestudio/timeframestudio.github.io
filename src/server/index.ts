@@ -67,7 +67,7 @@ export async function startServer() {
         res.json(pageLoader.getOutlineSummaries());
     });
 
-    app.use('/departments', pageLoader.getDepartmentPageRouter());
+    app.use('/about', pageLoader.getDepartmentPageRouter());
     app.use('/assets/departments', pageLoader.getDepartmentAssetRouter());
 
     app.get('/*', (req, res) => {

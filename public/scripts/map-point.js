@@ -1,11 +1,11 @@
 import { canvas, ctx, mouse } from './world-map.js';
 
 const pinImg = new Image();
-pinImg.src = "/assets/pin-icon.jpeg"
+pinImg.src = "/assets/pin.svg";
 
 export default class MapPoint {
     static ALL = [];
-    static PIN_SIZE = 40;
+    static PIN_SIZE = 50;
 
     constructor(project, projectPath) {
         this.project = project;
@@ -32,11 +32,13 @@ export default class MapPoint {
         ctx.fillStyle = "#00000022";
         ctx.globalAlpha = this._hoverEffect;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, MapPoint.PIN_SIZE, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, MapPoint.PIN_SIZE * 0.8, 0, Math.PI * 2);
         ctx.fill();
         ctx.globalAlpha = 1;
         
         ctx.drawImage(pinImg, this.x - MapPoint.PIN_SIZE / 2, this.y - MapPoint.PIN_SIZE / 2, MapPoint.PIN_SIZE, MapPoint.PIN_SIZE);
+
+        ctx.fillStyle = "#00000022";
     }
 
     getMouseDistance() {

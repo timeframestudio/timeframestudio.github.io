@@ -8,6 +8,7 @@ import { Tab } from "../../../src/server/pages/components/tabs/tab.js";
 import { TabsComponent } from "../../../src/server/pages/components/tabs/tabs-component.js";
 import { HeadingComponent } from "../../../src/server/pages/components/text/heading-component.js";
 import { MarkdownLoader } from "../../../src/server/pages/components/text/markdown-loader.js";
+import { WebpageComponent } from "../../../src/server/pages/components/webpage-component.js";
 import { GeneratedPage } from "../../../src/server/pages/generated-page.js";
 import { PageRouter } from "../../../src/server/pages/page-router.js";
 import { HeaderSection } from "../../../src/server/pages/sections/header-section.js";
@@ -61,7 +62,7 @@ class MainPage extends GeneratedPage {
             new VideoComponent('9xwazD5SyVg'),
             new MarginComponent(),
             ...MarkdownLoader.load(this.getResources().getContent('Pitch Slides Link')),
-            new HeadingComponent('Example Storyboard'),
+            new HeadingComponent('Storyboards'),
             ...MarkdownLoader.load(this.getResources().getContent('Storyboard Info')),
             new MarginComponent(),
             new RowComponent([
@@ -70,15 +71,29 @@ class MainPage extends GeneratedPage {
                 new ItemComponent(1.0, new ImageComponent('./storyboard.jpeg', { caption: "Final Draft" })),
             ]),
             new MarginComponent(),
-            new HeadingComponent("Characters in Depth"),
+            new HeadingComponent("Characters"),
             new TabsComponent([
                 new Tab('James VI and I', [
                     new MarginComponent(),
-                    ...MarkdownLoader.load(this.getResources().getContent('Characters in Depth / James VI and I'))
+                    ...MarkdownLoader.load(this.getResources().getContent('Characters / James VI and I')),
+                    new RowComponent([
+                        new ItemComponent(1, ...MarkdownLoader.load(this.getResources().getContent('Story Circle / James VI and I'))),
+                        new ItemComponent(0.5,
+                            new HeadingComponent('Character Art', 2),
+                            new ImageComponent('./james-vi-and-i-art.jpeg')
+                        )
+                    ])
                 ]),
                 new Tab('Robert Catesby', [
                     new MarginComponent(),
-                    ...MarkdownLoader.load(this.getResources().getContent('Characters in Depth / Robert Catesby'))
+                    ...MarkdownLoader.load(this.getResources().getContent('Characters / Robert Catesby')),
+                    new RowComponent([
+                        new ItemComponent(1, ...MarkdownLoader.load(this.getResources().getContent('Story Circle / Robert Catesby'))),
+                        new ItemComponent(0.5,
+                            new HeadingComponent('Character Art', 2),
+                            new ImageComponent('./robert-catesby.jpeg')
+                        )
+                    ])
                 ])
             ]),
             new MarginComponent()
@@ -87,6 +102,29 @@ class MainPage extends GeneratedPage {
         pitch.setSectionTheme(WebpageSection.Theme.Dark);
 
         this.add(pitch);
+
+        const timeline = new PaddedSection(
+            ...MarkdownLoader.load(this.getResources().getContent('Timeline')),
+            new MarginComponent()
+        );
+
+        timeline.setSectionTheme(WebpageSection.Theme.AltLight);
+
+        this.add(timeline);
+
+        this.add(new PaddedSection(
+            ...MarkdownLoader.load(this.getResources().getContent('Historical Bonus Content')),
+            new MarginComponent()
+        ));
+
+        const resources = new PaddedSection(
+            ...MarkdownLoader.load(this.getResources().getContent('Resources')),
+            new MarginComponent()
+        );
+
+        resources.setSectionTheme(WebpageSection.Theme.AltLight);
+
+        this.add(resources);
         
         return await super.generateWebpage();
     }

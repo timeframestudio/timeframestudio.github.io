@@ -100,8 +100,14 @@
     transition: background-color 0.3s;
     background-color: #f8f8f800;
     height: 43px;
+    width: 43px;
     margin-left: 16px;
+    display: flex;
     box-sizing: border-box;
+}
+
+.search-close-button img {
+    margin: auto;
 }
 
 .search-close-button:active {

@@ -21,7 +21,7 @@ export class DepartmentOutline implements PageResources {
     }
 
     getAssetURL(path: string): string {
-        return `/assets/department/${this.id}/${path}`;
+        return `/assets/departments/${this.id}/${path}`;
     }
 
     getTitle(): string {
