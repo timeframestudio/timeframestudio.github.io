@@ -33,6 +33,9 @@ export async function execute(interaction) {
     let pageId = interaction.options.getString('author').toLowerCase().replaceAll(' ', '-');
     let user = interaction.options.getUser('user');
 
+    console.log(pageId);
+    console.log(user);
+
     UserDatabase.setPageId(user.id, pageId);
 
     let text = `Connected <@${user.id}> to page \`${pageId}\``;

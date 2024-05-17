@@ -6,6 +6,7 @@ import { modalFinished } from './bot/handleForums.js';
 import fs from 'fs/promises';
 import path from 'path';
 import './bot/user-database.js';
+// import { handleDirectMessage } from './bot/message.js'
 
 // Function to start the bot
 export async function startBot() {
@@ -42,7 +43,7 @@ export async function startBot() {
     }
 
     // Create the client
-    const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+    const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages] });
 
     // Create command getter
     client.commands = new Collection();
@@ -84,7 +85,14 @@ export async function startBot() {
         } else if (interaction.isModalSubmit()) {
             await modalFinished(interaction);
         }
-    })
+    });
+
+    // Message create
+    // client.on('messageCreate', async(message) => {
+    //     if(!message.guild) {
+    //         handleDirectMessage(client, message);
+    //     }
+    // });
 
     // When the bot is ready
     client.once(Events.ClientReady, readyClient => {
