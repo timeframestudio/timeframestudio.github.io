@@ -1,6 +1,6 @@
 
 import { logPageContentChangeRequest, logPageContentChangeSuccessful } from "./logs.js";
-import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } from 'discord.js';
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import * as PageContent from '../../server/utils/page-content.js';
 import { UserDatabase } from './user-database.js';
 
@@ -20,6 +20,7 @@ export async function showModal(i, id) {
     }
 
     const data = PageContent.getPageContent(pageId);
+    console.log(pageId);
 
     if (data === null || data === undefined) {
         await i.reply({
@@ -66,6 +67,9 @@ export async function modalFinished(i) {
         .setColor(0xddddff)
         .setTimestamp()
         .setFooter({text: "Please report any problems to @winterscode"});
+    let nextFive = parseInt(i.customId.split('-')[0]);
+    console.log(nextFive);
+
     await i.reply({ embeds: [e], ephemeral: true });
 
     let fields = i.fields.fields;
