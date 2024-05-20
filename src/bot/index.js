@@ -2,7 +2,7 @@
 // Load all the needed modules to start the bot
 import { ActivityType, Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import { loadCommands, registerCommands } from './bot/prelude.js';
-import { modalFinished } from './bot/handleForums.js';
+import { modalFinished, buttonFinished } from './bot/handleForums.js';
 import fs from 'fs/promises';
 import path from 'path';
 import './bot/user-database.js';
@@ -84,6 +84,8 @@ export async function startBot() {
         // If you are submitting a fomr, then recieve the inputs
         } else if (interaction.isModalSubmit()) {
             await modalFinished(interaction);
+        } else if (interaction.isButton()) {
+            await buttonFinished(interaction);
         }
     });
 
