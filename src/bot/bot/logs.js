@@ -7,17 +7,17 @@ function getTime() {
 }
 
 export async function logLayoutChangeRequest(client, user) {
-    await client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nLayout change request:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}`);
+    await client.channels.cache.get(config.logsChannel).send(`-- UNUSED --\nLayout change request:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}`);
 }
 
 export async function logPageContentChangeRequest(client, user) {
-    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage content form filled:\n* Sender: <@${user.id}>\n* Timestamp: ${getTime()}\n*Another log will be sent when the page is confirmed to have updated.*`);
+    client.channels.cache.get(config.logsChannel).send(`<@${user.id}>'s page content form filled at ${getTime()}`);
 }
 
 export async function logPageContentChangeSuccessful(client, user) {
-    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage content successfully changed:\n* Change requested by: <@${user.id}>\n* Timestamp: ${getTime()}\n*This is a follow-up to the previous page content change request.*`);
+    client.channels.cache.get(config.logsChannel).send(`<@${user.id}>'s page content successfully changed at ${getTime()}`);
 }
 
 export async function logPageConnectedToUser(client, user) {
-    client.channels.cache.get(config.logsChannel).send(`-- BOT LOG --\nPage connected:\n* Connected to: <@${user.id}>\n* Timestamp: ${getTime()}`);
+    client.channels.cache.get(config.logsChannel).send(`Page connected to <@${user.id}> at ${getTime()}`);
 }
