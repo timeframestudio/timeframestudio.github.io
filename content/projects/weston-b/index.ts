@@ -31,7 +31,7 @@ class MainPage extends GeneratedPage {
             ...MarkdownLoader.load(this.getResources().getContent('Overview')),
             new MarginComponent()
         ));
-        
+
         const history = new PaddedSection(
             new MarginComponent(),
             ...MarkdownLoader.load(this.getResources().getContent('Historical Background')),

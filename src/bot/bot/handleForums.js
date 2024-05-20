@@ -68,11 +68,24 @@ export async function modalFinished(i) {
         .setFooter({text: "Please report any problems to @winterscode"});
     await i.reply({ embeds: [e], ephemeral: true });
 
+    const pageId = UserDatabase.getPageId(i.user.id);
+    if (pageId === undefined) {
+        await i.reply({
+            embeds: [new EmbedBuilder()
+                .setTitle("Page Content Change Failed")
+                .setColor(0xddddff)
+                .setDescription("You haven't connected your page yet, please use `/connect` first.")
+                .setTimestamp()
+                .setFooter({ text: "If anything is wrong, contact @winterscode" })], ephemeral: true
+        });
+        return;
+    }
+
     let fields = i.fields.fields;
-    let jsonResult = {};
+    let jsonResult = PageContent.getPageContent(pageId);
     fields.each((j) => {
         jsonResult[j.customId] = j.value;
     });
-    await PageContent.setPageContent(UserDatabase.getPageId(i.user.id), jsonResult);
+    await PageContent.setPageContent(pageId, jsonResult);
     await logPageContentChangeSuccessful(i.client, i.user);
 }
