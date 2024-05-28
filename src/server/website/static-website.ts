@@ -96,6 +96,5 @@ export class StaticWebsite implements Website {
 
         console.log(`Static website built to ${this._output}`);
         console.log(` * Run 'npx serve ${this._output}' to view the website`);
-        console.log(` * Static building is experimental, and is currently missing most parts of the website`);
     }
 }

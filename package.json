@@ -1,9 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "start": "npx nodemon ./live.js -q --watch . --ext js,html,json --enable-source-maps",
+    "start": "npm run live",
     "build": "npx rollup --config --watch",
-    "static": "node ./static.js"
+    "live": "npx nodemon ./bin/live.js -q --watch . --ext js,html,json --enable-source-maps",
+    "static": "node ./bin/static.js",
+    "clean-output": "node ./bin/clean-output.js"
   },
   "dependencies": {
     "@rollup/plugin-json": "^6.1.0",
