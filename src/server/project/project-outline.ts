@@ -64,7 +64,7 @@ export class ProjectOutline implements PageResources {
     }
 
     getContent(key: string): string {
-        return this.content[key].replace(/\$title/g, this.title).replace(/\$author/g, this.author);
+        return this.content[key]?.replace(/\$title/g, this.title).replace(/\$author/g, this.author) || "";
     }
     
     getPageContent() {

@@ -9,7 +9,7 @@ export async function getProjectSummaries() {
 }
 
 async function fetchProjectSummaries() {
-    const response = await fetch("/api/projects");
+    const response = await fetch("/projects.json");
     const data = await response.json();
 
     return data;

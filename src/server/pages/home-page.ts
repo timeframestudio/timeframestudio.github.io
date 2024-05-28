@@ -14,7 +14,8 @@ export class HomePage extends CachedWebpage {
         const layout = new StandardLayout({
             header: true,
             headings: true,
-            margins: true
+            margins: true,
+            padded: true
         });
         layout.add(dom.window.document);
 

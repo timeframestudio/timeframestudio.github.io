@@ -8,6 +8,7 @@ interface EnabledFeatures {
     header: boolean;
     margins: boolean;
     headings: boolean;
+    padded: boolean;
 }
 
 /**
@@ -22,7 +23,8 @@ export class StandardLayout implements WebpageElement {
         this.enabledFeatures = {
             header: features.header ?? true,
             margins: features.margins ?? true,
-            headings: features.headings ?? true
+            headings: features.headings ?? true,
+            padded: features.padded ?? true
         };
     }
 
@@ -54,6 +56,11 @@ export class StandardLayout implements WebpageElement {
 
         if (this.enabledFeatures.headings) {
             const headings = new Stylesheet('/css/heading.css');
+            headings.add(document);
+        }
+
+        if (this.enabledFeatures.padded) {
+            const headings = new Stylesheet('/css/padded.css');
             headings.add(document);
         }
     }

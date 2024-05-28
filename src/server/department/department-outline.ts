@@ -33,7 +33,7 @@ export class DepartmentOutline implements PageResources {
     }
 
     getContent(key: string): string {
-        return this.content[key].replace(/\$title/g, this.title);
+        return this.content[key]?.replace(/\$title/g, this.title) || "";
     }
 
     getPageContent(): { [key: string]: string; } {

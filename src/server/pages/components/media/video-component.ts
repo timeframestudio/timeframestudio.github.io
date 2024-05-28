@@ -1,31 +1,21 @@
-import { Script } from "../../../elements/script.js";
-import { Stylesheet } from "../../../elements/stylesheet.js";
-import { WebpageElement } from "../../../elements/webpage-element.js";
-import { BaseWebpageComponent } from "../base-webpage-component.js";
+import { EmbedComponent } from "./embed-component.js";
 
-export class VideoComponent extends BaseWebpageComponent {
-    constructor(private videoId: string) {
-        super();
-    }
-
-    *getWebpageElements(): Iterable<WebpageElement> {
-        yield new Script('/scripts/video.js');
-        yield new Stylesheet('/css/video.css');
+export class VideoComponent extends EmbedComponent {
+    constructor(videoId: string) {
+        super(`https://www.youtube.com/embed/${videoId}`, {
+            aspect: 966 / 543
+        });
     }
 
     createElement(document: Document): Node {
-        const video = document.createElement('div');
-        video.classList.add('video-component');
+        const video = super.createElement(document) as HTMLDivElement;
+        const iframe = video.querySelector('iframe') as HTMLIFrameElement;
 
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${this.videoId}`;
         iframe.title = "Embedded video";
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
         iframe.setAttribute('referrerpolicy', 'access-control-allow-origin');
         iframe.setAttribute('allowfullscreen', '');
-
-        video.appendChild(iframe);
 
         return video;
     }
