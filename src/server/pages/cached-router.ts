@@ -1,10 +1,11 @@
 import express from "express";
+import { Router } from "../website/router.js";
 import { GeneratedPage } from "./generated-page.js";
-import { PageResources } from "./page-resources.js";
 
-export class PageRouter {
-    private router: express.RequestHandler;
+export class CachedRouter implements Router {
+    private requestHandler: express.RequestHandler;
     private pages: Map<string, GeneratedPage>;
+    private staticFiles: Map<string, string>;
 
     constructor() {
         this.pages = new Map();
@@ -12,12 +13,6 @@ export class PageRouter {
 
     async addPage(path: string, page: GeneratedPage) {
         this.pages.set(path, page);
-    }
-
-    bindResources(resources: PageResources) {
-        for (let [ path, page ] of this.pages) {
-            page.bindResources(resources);
-        }
     }
 
     async clearCache() {
@@ -28,21 +23,24 @@ export class PageRouter {
 
     async setup() {
         let router = express.Router();
+        let staticFiles = new Map<string, string>();
 
         for (let [ routePath, page ] of this.pages) {
             await page.setupWebpage();
 
             router.get(routePath, page.getRouteHandler());
+            staticFiles.set(routePath, page.getPageHTML());
         }
 
-        this.router = router;
+        this.requestHandler = router;
+        this.staticFiles = staticFiles;
     }
 
-    getPages(): Map<string, GeneratedPage> {
-        return this.pages;
+    getStaticFiles(): Map<string, string> {
+        return this.staticFiles;
     }
 
-    getPageRouter(): express.RequestHandler {
-        return this.router;
+    getRouteHandler(): express.RequestHandler {
+        return this.requestHandler;
     }
 }

@@ -6,9 +6,9 @@ import { ErrorPage } from '../pages/error-page.js';
 import { HomePage } from '../pages/home-page.js';
 import { PageLoader } from '../project/page-loader.js';
 import { setupInterface } from '../utils/page-content.js';
-import { Website } from './website.js';
+import { Output } from './output.js';
 
-export class StaticWebsite implements Website {
+export class StaticOutput implements Output {
     private _root = url.fileURLToPath(new URL('..', import.meta.url));
     
     set root(value: string) {

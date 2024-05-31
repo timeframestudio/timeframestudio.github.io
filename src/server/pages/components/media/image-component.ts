@@ -46,7 +46,7 @@ export class ImageComponent extends BaseWebpageComponent {
             </div>
         `);
 
-        const resources = this.projectPage.getResources();
+        const resources = this.projectPage.getCollectionEntry();
 
         const image = fragment.querySelector('.image-component-image') as HTMLImageElement;
         image.src = resources.getAssetURL(this.url);

@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
-import { LiveWebsite } from "../dist/server.js";
+import { LiveOutput, Website } from "../dist/server.js";
 
-const website = new LiveWebsite();
+const website = new Website();
 
 website.setup();
+
+const output = new LiveOutput();
+
+output.setup();

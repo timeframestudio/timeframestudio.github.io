@@ -24,7 +24,7 @@ export class AudioComponent extends BaseWebpageComponent {
         audio.classList.add('audio-component');
 
         const player = document.createElement('audio');
-        player.src = this.projectPage.getResources().getAssetURL(this.audioPath);
+        player.src = this.projectPage.getCollectionEntry().getAssetURL(this.audioPath);
         player.controls = true;
 
         audio.appendChild(player);

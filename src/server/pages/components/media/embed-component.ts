@@ -26,7 +26,7 @@ export class EmbedComponent extends BaseWebpageComponent {
         embed.classList.add('embed-component');
 
         const iframe = document.createElement('iframe');
-        iframe.src = this.source.startsWith('./') ? this.projectPage.getResources().getAssetURL(this.source) : this.source;
+        iframe.src = this.source.startsWith('./') ? this.projectPage.getCollectionEntry().getAssetURL(this.source) : this.source;
         iframe.title = "Embedded content";
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allowfullscreen', '');

@@ -1,84 +1,101 @@
 import express from "express";
-import path from "path";
-import { ProjectOutline } from "./project-outline.js";
-import { PageRouter } from "../pages/page-router.js";
 import fs from "fs/promises";
-import { PageResources } from "../pages/page-resources.js";
+import path from "path";
+import { CollectionEntry } from "../collection/collection-entry.js";
+import { CachedRouter } from "../pages/cached-router.js";
 
-export class Project {
-    private router: express.RequestHandler;
-    private pageRouter: PageRouter;
-    private outline: ProjectOutline;
+interface ProjectOutlineData {
+    title: string;
+    author: string;
+    description: string;
+    location: [ number, number ];
+}
 
-    constructor(private id: string) {
+interface ServerSideProjectOutlineData extends ProjectOutlineData {
+    unlisted: boolean;
+}
+
+interface ClientSideProjectOutlineData extends ProjectOutlineData {
+    id: string;
+}
+
+export class Project implements CollectionEntry {
+    private router: CachedRouter;
+
+    private outlineData: ServerSideProjectOutlineData;
+    private contentData: { [key: string]: string };
+
+    constructor(private id: string, private path: string, private script: string) {
+    }
+
+    getTitle(): string { return this.outlineData.title; }
+    getAuthor(): string { return this.outlineData.author; }
+    getSubtitle(): string { return this.outlineData.author; }
+    getDescription(): string { return this.outlineData.description; }
+    getMapLocation(): [ number, number ] { return this.outlineData.location; }
+    getProjectId(): string { return this.id; }
+    isUnlisted(): boolean { return this.outlineData.unlisted; }
+    getContent(): { [key: string]: string } { return this.contentData; }
+    getPath(): string { return this.path; }
+
+    getAssetURL(asset?: string | undefined): string {
+        if (asset) {
+            if (asset.startsWith('./')) asset = asset.slice(2);
+
+            return `/projects/${this.id}/assets/${asset}`;
+        } else return `/projects/${this.id}`;
+    }
+
+    async writeContent(content: { [key: string]: string }): Promise<void> {
+        this.contentData = content;
+
+        await fs.writeFile(path.join(this.path, 'content.json'), JSON.stringify(content, null, 4));
     }
 
     async setup() {
-        const outline = await ProjectOutline.load(this.id);
-
-        if (!outline) {
-            return;
-        }
-
-        this.outline = outline;
+        this.outlineData = JSON.parse(await fs.readFile(path.join(this.path, 'project.json'), 'utf8'));
 
         let content: { [key: string]: string } = {};
         
         try {
-            content = JSON.parse(await fs.readFile(path.join(this.outline.getFilePath(), 'content.json'), 'utf8'));
+            content = JSON.parse(await fs.readFile(path.join(this.path, 'content.json'), 'utf8'));
         } catch (err) {
         }
 
-        this.outline.setPageContent(content);
-
-        const script = this.outline.getScriptPath();
+        this.contentData = content;
 
         try {
-            const { default: r } = await import(script);
+            const { default: r } = await import(await fs.readFile(this.script, 'utf8'));
 
-            this.pageRouter = r;
+            this.router = r;
         } catch (err) {
-            this.useInternalServerErrorRouter();
-
-            throw new Error(`Failed to load project script: ${path.relative(process.cwd(), script)}. Try restarting \`npm run build\` to build the project scripts.`);
+            throw new Error(`Failed to load project script from ${this.script}. Try restarting \`npm run build\` to build the project scripts.`);
         }
-
-        try {
-            this.pageRouter.bindResources(this.outline);
-
-            await this.pageRouter.setup();
-
-            this.router = this.pageRouter.getPageRouter();
-        } catch (err) {
-            this.useInternalServerErrorRouter();
-
-            throw err;
-        }
-    }
-
-    private useInternalServerErrorRouter() {
-        this.router = (req, res) => {
-            res.status(500).send("Error 500: Internal server error");
-        };
     }
 
     async clearCache() {
-        await this.pageRouter.clearCache();
+        await this.router.clearCache();
     }
 
-    getPageRequestHandler(): express.RequestHandler {
-        return this.router;
+    getPreviewData(): ClientSideProjectOutlineData {
+        return {
+            title: this.outlineData.title,
+            author: this.outlineData.author,
+            description: this.outlineData.description,
+            location: this.outlineData.location,
+            id: this.id
+        };
     }
 
-    getPageRouter(): PageRouter {
-        return this.pageRouter;
+    getStaticFiles(): Map<string, string> {
+        return this.router.getStaticFiles();
     }
 
-    getAssetRequestHandler(): express.RequestHandler {
-        return express.static(path.join(this.outline.getFilePath(), 'assets'));
+    getRouteHandler(): express.RequestHandler {
+        return this.router.getRouteHandler();
     }
 
-    getPageResources(): ProjectOutline {
-        return this.outline;
+    getURL(): string {
+        return `/projects/${this.id}`;
     }
 }

@@ -1,45 +1,40 @@
-import { PageLoader } from "../project/page-loader.js";
 import fs from "fs/promises";
 import path from "path";
+import { ProjectCollection } from "../project/project-collection.js";
 
-let loader: PageLoader;
+let collection: ProjectCollection;
 
 export function getProjectIds() {
-    return loader.getProjects().keys();
+    return collection.getEntries().keys();
 }
 
 export function getPageContent(projectId: string) {
-    const project = loader.getProjects().get(projectId);
+    const project = collection.getEntries().get(projectId);
 
     if (!project) {
         return null;
     }
 
-    return project.getPageResources().getPageContent();
+    return project.getContent();
 }
 
 export async function setPageContent(projectId: string, content: { [key: string]: string }) {
-    const project = loader.getProjects().get(projectId);
+    const project = collection.getEntries().get(projectId);
 
     if (!project) {
         return;
     }
 
-    const file = path.join(project.getPageResources().getFilePath(), 'content.json');
-
-    await fs.writeFile(file, JSON.stringify(content, null, 4));
-
-    project.getPageResources().setPageContent(content);
-
+    await project.writeContent(content);
     await project.clearCache();
 }
 
-export function setupInterface(pageLoader: PageLoader) {
-    if (loader) {
+export function setupInterface(projectCollection: ProjectCollection) {
+    if (collection) {
         throw new Error('Interface already set up');
     }
 
-    loader = pageLoader;
+    collection = projectCollection;
 }
 
 export function validateContent(content: { [key: string]: string }) {

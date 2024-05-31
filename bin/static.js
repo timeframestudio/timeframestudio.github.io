@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
-import { StaticWebsite } from "../dist/server.js";
+import { StaticOutput, Website } from "../dist/server.js";
 
-const website = new StaticWebsite();
+const website = new Website();
 
 website.setup();
+
+const output = new StaticOutput();
+
+output.setup();

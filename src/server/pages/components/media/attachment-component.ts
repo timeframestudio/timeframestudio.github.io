@@ -41,7 +41,7 @@ export namespace AttachmentComponent {
         }
 
         async setupComponent(parentComponent: WebpageComponent, projectPage: GeneratedPage): Promise<void> {
-            this.url = projectPage.getResources().getAssetURL(this.url);
+            this.url = projectPage.getCollectionEntry()!.getAssetURL(this.url);
         }
 
         createElement(document: Document): HTMLElement {

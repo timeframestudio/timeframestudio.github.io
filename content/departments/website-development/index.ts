@@ -1,4 +1,4 @@
-import { PageRouter } from "../../../src/server/pages/page-router.js";
+import { CachedRouter } from "../../../src/server/pages/cached-router.js";
 import { GeneratedPage } from "../../../src/server/pages/generated-page.js";
 import { HeaderSection } from "../../../src/server/pages/sections/header-section.js";
 import { PaddedSection } from "../../../src/server/pages/sections/padded-section.js";
@@ -13,12 +13,12 @@ import { customize } from "../../../src/server/pages/components/customize.js";
 class WebsiteDepartmentPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.add(new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getContent('Overview')),
+            ...MarkdownLoader.load(this.getCollectionEntry().getContent('Overview')),
             new MarginComponent()
         ));
 
         const development = new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getContent('Development')),
+            ...MarkdownLoader.load(this.getCollectionEntry().getContent('Development')),
             new MarginComponent(),
             new ImageComponent('diagram.svg'),
             new MarginComponent()
@@ -49,7 +49,7 @@ class WebsiteDepartmentPage extends GeneratedPage {
     }
 }
 
-const router = new PageRouter();
+const router = new CachedRouter();
 
 router.addPage('/', new WebsiteDepartmentPage());
 

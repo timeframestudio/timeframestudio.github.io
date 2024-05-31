@@ -26,12 +26,12 @@ const fields = {
 };
 
 export class SimplePage extends GeneratedPage {
-    constructor(private options: Partial<{ artwork: string[] }> = {}) {
+    constructor(private options: Partial<{ title: string, artwork: string[] }> = {}) {
         super();
     }
 
     async generateWebpage(): Promise<string> {
-        const resources = this.getResources();
+        const resources = this.getCollectionEntry();
 
         const header = new HeaderSection();
 

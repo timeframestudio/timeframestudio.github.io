@@ -4,19 +4,28 @@ import { WebpageElement } from "../elements/webpage-element.js";
 import { CachedWebpage } from "./cached-webpage.js";
 import { prettyPrint } from "../utils/pretty-print.js";
 import { WebpageSection } from "./sections/webpage-section.js";
-import { PageResources } from "./page-resources.js";
+import { CollectionEntry } from "../collection/collection-entry.js";
 
 export class GeneratedPage extends CachedWebpage {
     private webpageElements: Set<WebpageElement> = new Set();
     private pageSections: WebpageSection[] = [];
-    private pageResources: PageResources;
+    private collectionEntry: CollectionEntry | null = null;
+    private title: string;
 
-    bindResources(resources: PageResources) {
-        this.pageResources = resources;
+    bindCollectionEntry(resources: CollectionEntry) {
+        this.collectionEntry = resources;
     }
 
-    getResources() {
-        return this.pageResources;
+    getCollectionEntry() {
+        return this.collectionEntry;
+    }
+
+    getTitle() {
+        return this.title;
+    }
+
+    setTitle(title: string) {
+        this.title = title;
     }
 
     async generateWebpage() {
@@ -46,7 +55,7 @@ export class GeneratedPage extends CachedWebpage {
             element.add(document);
         }
 
-        document.title = this.pageResources.getPageTitle();
+        document.title = this.title;
 
         let html = prettyPrint(jsdom.serialize());
 

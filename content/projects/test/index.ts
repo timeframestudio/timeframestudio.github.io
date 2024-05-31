@@ -1,5 +1,5 @@
 import { MarkdownLoader } from "../../../src/server/pages/components/text/markdown-loader.js";
-import { PageRouter } from "../../../src/server/pages/page-router.js";
+import { CachedRouter } from "../../../src/server/pages/cached-router.js";
 import { GeneratedPage } from "../../../src/server/pages/generated-page.js";
 import { HeaderSection } from "../../../src/server/pages/sections/header-section.js";
 import { PaddedSection } from "../../../src/server/pages/sections/padded-section.js";
@@ -20,7 +20,7 @@ class MainPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.add(new HeaderSection());
         this.add(new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getContent('Section 1')),
+            ...MarkdownLoader.load(this.getCollectionEntry().getContent('Section 1')),
             new HeadingComponent('Attachments'),
             new AttachmentComponent([
                 new AttachmentComponent.DownloadAttachment('Letter of Bobness', './letter.txt', "letter-of-bobness.txt"),
@@ -73,7 +73,7 @@ class MainPage extends GeneratedPage {
     }
 }
 
-const router = new PageRouter();
+const router = new CachedRouter();
 
 router.addPage('/', new MainPage());
 

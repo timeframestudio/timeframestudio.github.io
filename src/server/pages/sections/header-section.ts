@@ -12,6 +12,10 @@ export class HeaderSection extends WebpageSection {
     backgroundPosition: string;
     backgroundTint: string;
 
+    constructor(private title: string, private subtitle?: string) {
+        super();
+    }
+
     async setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage): Promise<void> {
         this.projectPage = projectPage;
     }
@@ -45,16 +49,14 @@ export class HeaderSection extends WebpageSection {
                 </div>
             </div>
         `);
-
-        const resources = this.projectPage.getResources();
-
-        fragment.querySelector('.header-title')!.textContent = resources.getTitle();
-        fragment.querySelector('.header-description')!.textContent = resources.getSubtitle();
+        
+        fragment.querySelector('.header-title')!.textContent = this.title;
+        fragment.querySelector('.header-description')!.textContent = this.subtitle || '';
 
         const header = fragment.querySelector('.header') as HTMLDivElement;
 
         if (this.backgroundImage) {
-            const imageUrl = resources.getAssetURL(this.backgroundImage);
+            const imageUrl = this.projectPage.getCollectionEntry()?.getPath() + '/' + this.backgroundImage;
             header.style.backgroundImage = `url(${imageUrl})`;
             header.classList.add('header-with-image');
             

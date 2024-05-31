@@ -1,15 +1,14 @@
 import express from 'express';
 import fs from 'fs/promises';
 import url from 'url';
-import { PageLoader } from '../project/page-loader.js';
 import { HomePage } from '../pages/home-page.js';
 import { AboutPage } from '../pages/about-page.js';
 import { startBot } from '../../bot/index.js';
 import { setupInterface } from '../utils/page-content.js';
 import { ErrorPage } from '../pages/error-page.js';
-import { Website } from './website.js';
+import { Output } from './output.js';
 
-export class LiveWebsite implements Website {
+export class LiveOutput implements Output {
     private _root = url.fileURLToPath(new URL('..', import.meta.url));
     
     set root(value: string) {

@@ -1,74 +1,64 @@
 import express from "express";
+import { CollectionEntry } from "../collection/collection-entry.js";
+import { CachedRouter } from "../pages/cached-router.js";
+import fs from "fs/promises";
 import path from "path";
-import { PageRouter } from "../pages/page-router.js";
-import { DepartmentOutline } from "./department-outline.js";
-import { PageResources } from "../pages/page-resources.js";
 
-export class Department {
-    private requestHandler: express.RequestHandler;
-    private router: PageRouter;
-    private outline: DepartmentOutline;
+export class Department implements CollectionEntry {
+    private router: CachedRouter;
+    private contentData: { [key: string]: string };
 
-    constructor(private id: string) {
+    constructor(private id: string, private path: string, private script: string) {
+    }
+
+    getContent(): { [key: string]: string } {
+        return this.contentData;
     }
 
     async setup() {
-        const outline = await DepartmentOutline.load(this.id);
-
-        if (!outline) {
-            return;
+        let content: { [key: string]: string } = {};
+        
+        try {
+            content = JSON.parse(await fs.readFile(path.join(this.path, 'content.json'), 'utf8'));
+        } catch (err) {
         }
 
-        this.outline = outline;
-
-        const script = this.outline.getScriptPath();
+        this.contentData = content;
 
         try {
-            const { default: r } = await import(script);
+            const { default: r } = await import(await fs.readFile(this.script, 'utf8'));
 
             this.router = r;
         } catch (err) {
-            this.useInternalServerErrorRouter();
-
-            throw new Error(`Failed to load page script: ${path.relative(process.cwd(), script)}`);
-        }
-
-        try {
-            this.router.bindResources(this.outline);
-
-            await this.router.setup();
-
-            this.requestHandler = this.router.getPageRouter();
-        } catch (err) {
-            this.useInternalServerErrorRouter();
-
-            throw err;
+            throw new Error(`Failed to load project script from ${this.script}. Try restarting \`npm run build\` to build the project scripts.`);
         }
     }
 
-    private useInternalServerErrorRouter() {
-        this.requestHandler = (req, res) => {
-            res.status(500).send("Error 500: Internal server error");
-        };
+    getStaticFiles(): Map<string, string> {
+        return this.router.getStaticFiles();
+    }
+
+    getRouteHandler(): express.RequestHandler {
+        return this.router.getRouteHandler();
     }
 
     async clearCache() {
         await this.router.clearCache();
     }
 
-    getPageRequestHandler(): express.RequestHandler {
-        return this.requestHandler;
+    getPath(): string {
+        return this.path;
     }
 
-    getAssetRequestHandler(): express.RequestHandler {
-        return express.static(path.join(this.outline.getFilePath(), 'assets'));
+    getPreviewData() {
     }
 
-    getPageRouter(): PageRouter {
-        return this.router;
+    getURL(): string {
+        return `/departments/${this.id}`;
     }
 
-    getPageResources(): DepartmentOutline {
-        return this.outline;
+    getAssetURL(asset?: string): string {
+        if (asset) return `/departments/${this.id}/assets/${asset}`;
+        else return `/departments/${this.id}/assets`;
     }
 }
