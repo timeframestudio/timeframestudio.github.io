@@ -40,7 +40,7 @@ export class Project {
         } catch (err) {
             this.useInternalServerErrorRouter();
 
-            throw new Error(`Failed to load project script: ${path.relative(process.cwd(), script)}`);
+            throw new Error(`Failed to load project script: ${path.relative(process.cwd(), script)}. Try restarting \`npm run build\` to build the project scripts.`);
         }
 
         try {
@@ -66,11 +66,15 @@ export class Project {
         await this.pageRouter.clearCache();
     }
 
-    getPageRouter(): express.RequestHandler {
+    getPageRequestHandler(): express.RequestHandler {
         return this.router;
     }
 
-    getAssetRouter(): express.RequestHandler {
+    getPageRouter(): PageRouter {
+        return this.pageRouter;
+    }
+
+    getAssetRequestHandler(): express.RequestHandler {
         return express.static(path.join(this.outline.getFilePath(), 'assets'));
     }
 

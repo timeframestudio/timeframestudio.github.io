@@ -103,7 +103,7 @@ export class SimplePage extends GeneratedPage {
         );
 
         resourcesSection.setSectionTheme(WebpageSection.Theme.AltLight);
-
+      
         this.add(resourcesSection);
         
         return await super.generateWebpage();

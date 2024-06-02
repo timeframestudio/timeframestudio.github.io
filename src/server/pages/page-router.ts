@@ -38,6 +38,10 @@ export class PageRouter {
         this.router = router;
     }
 
+    getPages(): Map<string, GeneratedPage> {
+        return this.pages;
+    }
+
     getPageRouter(): express.RequestHandler {
         return this.router;
     }

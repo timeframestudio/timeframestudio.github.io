@@ -30,6 +30,10 @@ export class PaddedSection extends WebpageSection {
         }
     }
 
+    add(...components: WebpageComponent[]) {
+        this.components.push(...components);
+    }
+
     createElement(document: Document) {
         const columnLayout = document.createElement('div');
         columnLayout.classList.add('column-layout');

@@ -67,7 +67,7 @@ export class PageLoader {
         const router = express.Router();
 
         for (let [id, project] of this.projects) {
-            router.use(`/${id}`, project.getPageRouter());
+            router.use(`/${id}`, project.getPageRequestHandler());
         }
 
         return router;
@@ -77,7 +77,7 @@ export class PageLoader {
         const router = express.Router();
 
         for (let [id, project] of this.projects) {
-            router.use(`/${id}`, project.getAssetRouter());
+            router.use(`/${id}`, project.getAssetRequestHandler());
         }
 
         return router;
@@ -87,7 +87,7 @@ export class PageLoader {
         const router = express.Router();
 
         for (let [id, department] of this.departments) {
-            router.use(`/${id}`, department.getPageRouter());
+            router.use(`/${id}`, department.getPageRequestHandler());
         }
 
         return router;
@@ -97,7 +97,7 @@ export class PageLoader {
         const router = express.Router();
 
         for (let [id, department] of this.departments) {
-            router.use(`/${id}`, department.getAssetRouter());
+            router.use(`/${id}`, department.getAssetRequestHandler());
         }
 
         return router;
@@ -117,6 +117,10 @@ export class PageLoader {
 
     getProjects() {
         return this.projects;
+    }
+
+    getDepartments() {
+        return this.departments;
     }
 }
 

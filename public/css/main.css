@@ -151,24 +151,14 @@ body {
 }
 
 .home-header {
-    background-image: url('/assets/starry.jpg');
-    background-size: cover;
-    background-position: center;
+    background: #b7ccbd;
     display: flex;
     flex-direction: column;
-    padding: 128px;
+    padding: 64px;
 }
 
 .home-header-icon {
-    width: 96px;
-    height: 96px;
+    height: 128px;
     margin: auto;
     margin-bottom: 32px;
-}
-
-.home-header-title {
-    color: #eeeeee;
-    font-weight: bold;
-    font-size: 2em;
-    margin: auto;
 }

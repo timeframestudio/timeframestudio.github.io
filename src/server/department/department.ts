@@ -56,12 +56,16 @@ export class Department {
         await this.router.clearCache();
     }
 
-    getPageRouter(): express.RequestHandler {
+    getPageRequestHandler(): express.RequestHandler {
         return this.requestHandler;
     }
 
-    getAssetRouter(): express.RequestHandler {
+    getAssetRequestHandler(): express.RequestHandler {
         return express.static(path.join(this.outline.getFilePath(), 'assets'));
+    }
+
+    getPageRouter(): PageRouter {
+        return this.router;
     }
 
     getPageResources(): DepartmentOutline {
