@@ -1,0 +1,33 @@
+.tabs-component {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-bar {
+    display: flex;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+    padding-bottom: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    border: none;
+    background: transparent;
+    font: inherit;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: bold;
+    color: var(--text-pale-color);
+}
+
+.tab:hover {
+    background-color: var(--background-hover-color);
+}
+
+.tab.tab-selected {
+    background-color: var(--background-dim-color);
+    padding-bottom: 11px;
+    border-bottom: 4px solid var(--border-dim-color);
+}

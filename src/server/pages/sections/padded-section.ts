@@ -12,6 +12,10 @@ export class PaddedSection extends WebpageSection {
         this.components = components;
     }
 
+    add(...components: WebpageComponent[]) {
+        this.components.push(...components);
+    }
+
     async setupComponent(parentComponent: WebpageComponent | null, projectPage: GeneratedPage) {
         for (let component of this.components) {
             await component.setupComponent(this, projectPage);

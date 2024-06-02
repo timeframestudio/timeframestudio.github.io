@@ -1,0 +1,15 @@
+.header {
+    text-align: center;
+    padding: 64px 128px;
+}
+
+.header-title {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    color: #333333;
+}
+
+.header-with-image {
+    padding: 128px;
+}

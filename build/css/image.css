@@ -1,0 +1,27 @@
+.image-component {
+    display: flex;
+}
+
+.image-component-column {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    flex: 1;
+}
+
+.image-component-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: top left;
+    flex: 1;
+    min-height: 0;
+}
+
+.image-component-caption {
+    padding: 8px 0px;
+    color: var(--text-pale-color);
+    font-size: 0.8em;
+    text-align: center;
+    min-height: 0;
+}

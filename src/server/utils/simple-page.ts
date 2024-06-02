@@ -15,13 +15,11 @@ import { PaddedSection } from "../pages/sections/padded-section.js";
 import { WebpageSection } from "../pages/sections/webpage-section.js";
 
 const fields = {
-    overview: 'Overview',
     resources: 'Resources',
     essay: 'Research Essay',
-    timeline: 'Timeline',
     video: 'Video Pitch',
     scriptLink: 'Pitch Script',
-    artwork: 'Project Artwork Description',
+    artwork: 'Artwork Description',
     creatorStatement: 'Creator Statement'
 };
 
@@ -39,23 +37,10 @@ export class SimplePage extends GeneratedPage {
 
         this.add(new PaddedSection(
             new MarginComponent(),
-            ...MarkdownLoader.load(resources.getContent(fields.overview || "*Missing overview*")),
+            ...MarkdownLoader.load(resources.getContent(fields.creatorStatement) || `*Missing overview: Add property '${fields.creatorStatement}' in content.json*`),
             new MarginComponent()
         ));
         
-        if (resources.getContent(fields.creatorStatement)) {
-            const history = new PaddedSection(
-                new MarginComponent(),
-                new HeadingComponent("Creator Statement"),
-                ...MarkdownLoader.load(resources.getContent(fields.creatorStatement) || "*Missing creator statement*"),
-                new MarginComponent()
-            );
-
-            history.setSectionTheme(WebpageSection.Theme.AltLight);
-
-            this.add(history);
-        }
-
         const pitch = new PaddedSection();
 
         pitch.add(
@@ -93,7 +78,7 @@ export class SimplePage extends GeneratedPage {
 
         pitch.add(
             new HeadingComponent('Project Artwork'),
-            ...MarkdownLoader.load(resources.getContent(fields.artwork)  || "*Missing artwork description*"),
+            ...MarkdownLoader.load(resources.getContent(fields.artwork)  || `*Missing artwork description: Add property '${fields.artwork}' in content.json*`),
             new MarginComponent(),
             ...images,
             new MarginComponent()
@@ -103,42 +88,22 @@ export class SimplePage extends GeneratedPage {
 
         this.add(pitch);
 
-        let alt = true;
-
-        if (resources.getContent(fields.timeline)) {
-            const timeline = new PaddedSection(
-                new HeadingComponent("Timeline"),
-                ...MarkdownLoader.load(resources.getContent(fields.timeline) || "*Missing timeline*"),
-                new MarginComponent()
-            );
-
-            if (alt) timeline.setSectionTheme(WebpageSection.Theme.AltLight);
-
-            this.add(timeline);
-
-            alt = !alt;
-        }
-
         const essay = new PaddedSection(
             new HeadingComponent("Research Essay"),
-            ...MarkdownLoader.load(resources.getContent(fields.essay) || "*Missing essay*"),
+            ...MarkdownLoader.load(resources.getContent(fields.essay) || `*Missing research essay: Add property '${fields.essay}' in content.json*`),
             new MarginComponent()
         );
-
-        if (alt) essay.setSectionTheme(WebpageSection.Theme.AltLight);
 
         this.add(essay);
 
-        alt = !alt;
-
         const resourcesSection = new PaddedSection(
             new HeadingComponent("Resources"),
-            ...MarkdownLoader.load(resources.getContent(fields.resources) || "*Missing resources*"),
+            ...MarkdownLoader.load(resources.getContent(fields.resources) || `*Missing resources: Add property '${fields.resources}' in content.json*`),
             new MarginComponent()
         );
 
-        if (alt) resourcesSection.setSectionTheme(WebpageSection.Theme.AltLight);
-
+        resourcesSection.setSectionTheme(WebpageSection.Theme.AltLight);
+      
         this.add(resourcesSection);
         
         return await super.generateWebpage();

@@ -1,0 +1,19 @@
+.row-component {
+    display: flex;
+}
+
+.row-component > *:not(:last-child) {
+    margin-right: 32px;
+}
+
+.row-item:first-child {
+    margin-left: 0px;
+}
+
+.row-item:last-child {
+    margin-right: 0px;
+}
+
+.row-item-flex {
+    flex: 1;
+}

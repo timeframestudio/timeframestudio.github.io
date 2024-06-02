@@ -12,6 +12,7 @@ export class ProjectOutline implements PageResources {
     private mapLocation: [ number, number ];
     private content: { [key: string]: string };
     private example: boolean;
+    private poster: string | undefined;
 
     getTitle() {
         return this.title;
@@ -91,6 +92,7 @@ export class ProjectOutline implements PageResources {
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
         outline.example = outlineData.example === true;
+        outline.poster = outlineData.poster;
 
         outline.projectId = id;
 
@@ -109,18 +111,24 @@ export class ProjectOutline implements PageResources {
         if (outlineData.location.length !== 2) throw new Error("Project outline location does not have two elements.");
         if (typeof outlineData.location[0] !== "number") throw new Error("Project outline location x is not a number.");
         if (typeof outlineData.location[1] !== "number") throw new Error("Project outline location y is not a number.");
+        if (outlineData.example !== undefined && typeof outlineData.example !== "boolean") throw new Error("Project outline example is not a boolean.");
+        if (outlineData.poster !== undefined && typeof outlineData.poster !== "string") throw new Error("Project outline poster is not a string.");
     }
 
     static summarize(id: string, outline: ProjectOutline): ProjectOutline.Summary | null {
         if (outline.isExample()) return null;
 
-        return {
+        const summary: ProjectOutline.Summary = {
             title: outline.getTitle(),
             author: outline.getAuthor(),
             description: outline.getDescription(),
             id: id,
             location: outline.getMapLocation()
         };
+
+        if (outline.poster) summary.poster = outline.getAssetURL(outline.poster);
+
+        return summary;
     }
 
     static async load(id: string): Promise<ProjectOutline | null> {
@@ -151,6 +159,7 @@ export class ProjectOutline implements PageResources {
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
         outline.example = outlineData.example === true;
+        outline.poster = outlineData.poster;
 
         return outline;        
     }
@@ -162,6 +171,7 @@ export namespace ProjectOutline {
         author: string;
         description: string;
         location: [ number, number ];
+        poster?: string;
     }
 
     interface Example {
