@@ -1,0 +1,44 @@
+.attachment-component {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fcfcfc;
+}
+
+.attachment {
+    display: flex;
+    padding: 8px;
+}
+
+.attachment:not(:last-child) {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.attachment-button {
+    margin-left: auto;
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: bold;
+    background-color: #f8f8f8;
+}
+
+.attachment-button:hover {
+    background-color: #f0f0f0;
+    color: #888888;
+}
+
+.attachment-button:active {
+    background-color: #eeeeee;
+    color: #666666;
+}
+
+.attachment-name {
+    margin: 6px;
+    color: #666666;
+}

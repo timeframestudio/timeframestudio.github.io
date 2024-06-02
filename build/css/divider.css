@@ -1,0 +1,5 @@
+.divider-component {
+    height: 1px;
+    background: var(--border-color);
+    margin: 32px 0px;
+}

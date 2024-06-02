@@ -1,0 +1,8 @@
+.item-component > *:first-child:last-child {
+    margin: auto;
+    height: 100%;
+}
+
+.item-component {
+    height: inherit;
+}
