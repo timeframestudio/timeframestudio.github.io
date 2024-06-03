@@ -4,10 +4,6 @@
     grid-template-columns: auto auto auto;
 }
 
-.project-poster-padding {
-    flex: 1;
-}
-
 .project-poster-wrapper {
     aspect-ratio: 2 / 3;
     position: relative;

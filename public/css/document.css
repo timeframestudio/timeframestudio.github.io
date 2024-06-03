@@ -1,0 +1,25 @@
+.document-component {
+    border: 1px solid #b7ccbd;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.document-link {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 8px;
+    font-weight: bold;
+    background-color: #b7ccbd;
+    color: #f0f6f1;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    border-radius: 8px 0px 0px 0px;
+    cursor: pointer;
+}
+
+.document-link-icon {
+    height: 16px;
+    display: block;
+}

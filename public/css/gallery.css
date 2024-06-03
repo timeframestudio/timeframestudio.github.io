@@ -1,0 +1,42 @@
+.image-gallery {
+    display: flex;
+    flex-direction: row;
+}
+
+.image-gallery-contents {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: auto auto auto;
+}
+
+.image-gallery-contents > :empty {
+    display: none;
+}
+
+.image-gallery-image-wrapper {
+    display: block;
+    position: relative;
+    max-height: 50vh;
+    height: fit-content;
+}
+
+.image-gallery-image {
+    max-height: 50vh;
+}
+
+/*
+
+const gallery = document.createElement('div');
+        gallery.classList.add('image-gallery');
+
+        const contents = document.createElement('div');
+        contents.classList.add('image-gallery-contents');
+
+        for (const image of this.images) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('image-gallery-image-wrapper');
+
+            const imageElement = document.createElement('img');
+            imageElement.classList.add('image-gallery-image');
+
+*/
