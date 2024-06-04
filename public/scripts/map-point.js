@@ -41,7 +41,9 @@ export default class MapPoint {
         ctx.globalAlpha = 1;
         
         ctx.drawImage(pinImg, this.x - MapPoint.PIN_SIZE / 2, this.y - MapPoint.PIN_SIZE / 2, MapPoint.PIN_SIZE, MapPoint.PIN_SIZE);
+    }
 
+    drawTooltip() {
         ctx.globalAlpha = this._hoverEffect;
 
         ctx.font = "600 " + MapPoint.FONT_SIZE + "px Roboto";

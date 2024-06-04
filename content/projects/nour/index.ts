@@ -6,7 +6,7 @@ const router = new PageRouter();
 router.addPage('/', new SimplePage({
     artwork: [ 'poster.png' ],
     header: {
-        image: 'header.jpeg',
+        image: 'header.png',
         position: 'center',
         tint: '#ffffff88'
     }

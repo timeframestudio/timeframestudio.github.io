@@ -6,7 +6,7 @@ export const mouse = { x: 0, y: 0 };
 export const canvas = getCanvasElement();
 export const ctx = canvas.getContext('2d');
 
-const worldMapImg = await loadImage("/assets/world-map.png");
+const worldMapImg = await loadImage("/assets/world-map-no-outline.png");
 
 canvas.width = worldMapImg.width;
 canvas.height = worldMapImg.height;
@@ -51,7 +51,7 @@ canvas.addEventListener('mousemove', event => {
     mouse.x = event.offsetX / canvas.clientWidth * canvas.width;
     mouse.y = event.offsetY / canvas.clientHeight * canvas.height;
 
-    canvas.style.cursor = 'default';
+    let cursor = 'default';
 
     for (const point of MapPoint.ALL) {
         point._isActivePoint = false;
@@ -59,8 +59,10 @@ canvas.addEventListener('mousemove', event => {
 
     let points = MapPoint.ALL.filter(point => point.isInMouseRange());
 
+    console.log(points);
+
     if (points.length > 0) {
-        canvas.style.cursor = 'pointer';
+        cursor = 'pointer';
 
         points = points.sort((a, b) => a.getMouseDistance() - b.getMouseDistance());
 
@@ -68,6 +70,8 @@ canvas.addEventListener('mousemove', event => {
             points[0]._isActivePoint = true;
         }
     }
+
+    canvas.style.cursor = cursor;
 });
 
 canvas.addEventListener('click', event => {
@@ -83,6 +87,10 @@ function render() {
 
     for (const point of MapPoint.ALL) {
         point.draw();
+    }
+
+    for (const point of MapPoint.ALL) {
+        point.drawTooltip();
     }
 
     requestAnimationFrame(render);

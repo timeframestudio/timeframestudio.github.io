@@ -10,8 +10,11 @@ export function createPoster(projectSummary) {
         poster.style.backgroundImage = `url(${projectSummary.poster})`;
         poster.style.backgroundSize = 'cover';
         poster.style.backgroundPosition = 'center';
-    } else {
-        poster.classList.add('project-poster-title-only');
+    }
+    
+    if (!projectSummary.poster || projectSummary.posterText) {
+        if (projectSummary.poster) poster.classList.add('project-poster-titled');
+        else poster.classList.add('project-poster-title-only');
 
         const title = document.createElement('div');
         title.classList.add('project-poster-title');

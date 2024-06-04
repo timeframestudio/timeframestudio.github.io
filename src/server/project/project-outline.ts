@@ -13,6 +13,7 @@ export class ProjectOutline implements PageResources {
     private content: { [key: string]: string };
     private example: boolean;
     private poster: string | undefined;
+    private text: boolean;
 
     getTitle() {
         return this.title;
@@ -82,6 +83,10 @@ export class ProjectOutline implements PageResources {
         return this.getTitle() + " | Timeframe";
     }
 
+    hasTextOnPoster(): boolean {
+        return this.text;
+    }
+
     static fromProjectData(outlineData: ProjectOutline.OutlineData, id: string) {
         ProjectOutline.validateProjectData(outlineData);
 
@@ -92,7 +97,13 @@ export class ProjectOutline implements PageResources {
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
         outline.example = outlineData.example === true;
-        outline.poster = outlineData.poster;
+
+        if (typeof outlineData.poster == 'object') {
+            outline.poster = outlineData.poster.background;
+            outline.text = outlineData.poster.text === true;
+        } else {
+            outline.poster = outlineData.poster;
+        }
 
         outline.projectId = id;
 
@@ -127,6 +138,7 @@ export class ProjectOutline implements PageResources {
         };
 
         if (outline.poster) summary.poster = outline.getAssetURL(outline.poster);
+        if (outline.text) summary.posterText = true;
 
         return summary;
     }
@@ -159,19 +171,24 @@ export class ProjectOutline implements PageResources {
         outline.description = outlineData.description;
         outline.mapLocation = outlineData.location;
         outline.example = outlineData.example === true;
-        outline.poster = outlineData.poster;
+
+        if (typeof outlineData.poster == 'object') {
+            outline.poster = outlineData.poster.background;
+            outline.text = outlineData.poster.text === true;
+        } else {
+            outline.poster = outlineData.poster;
+        }
 
         return outline;        
     }
 }
 
 export namespace ProjectOutline {
-    interface ProjectOutlineData {
+    interface ProjectOutlineBase {
         title: string;
         author: string;
         description: string;
         location: [ number, number ];
-        poster?: string;
     }
 
     interface Example {
@@ -182,6 +199,6 @@ export namespace ProjectOutline {
         id: string;
     }
 
-    export type Summary = ProjectOutlineData & Id;
-    export type OutlineData = ProjectOutlineData & Example;
+    export type Summary = ProjectOutlineBase & Id & { poster?: string, posterText?: boolean };
+    export type OutlineData = ProjectOutlineBase & Example & { poster?: string | { background: string, text?: boolean } };
 }
