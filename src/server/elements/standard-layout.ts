@@ -3,6 +3,7 @@ import { Navigation } from "./navigation.js";
 import { Search } from "./search.js";
 import { Footer } from "./footer.js";
 import { Stylesheet } from "./stylesheet.js";
+import { Favicon } from "./favicon.js";
 
 interface EnabledFeatures {
     header: boolean;
@@ -29,6 +30,9 @@ export class StandardLayout implements WebpageElement {
     }
 
     add(document: Document) {
+        const favicon = new Favicon();
+        favicon.add(document);
+
         const navigation = new Navigation();
         navigation.add(document);
 
