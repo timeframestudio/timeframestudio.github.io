@@ -4,10 +4,16 @@
 }
 
 .header-title {
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
     font-weight: bold;
+    font-size: 1.5em;
     color: #333333;
+    margin-bottom: 4px;
+}
+
+.header-description {
+    font-size: 1.2em;
+    color: #444444;
 }
 
 .header-with-image {
