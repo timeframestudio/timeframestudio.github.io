@@ -16,7 +16,7 @@ export class Script implements WebpageElement {
     private location: string;
     private preferred: boolean;
     
-    constructor(private url: string, { type = 'module', location = 'head', preferred = false }: ScriptOptions = {}) {
+    constructor(private url: string, { type = 'module', location = 'head', preferred = false }: ScriptOptions = { type: 'module', location: 'head', preferred: false }) {
         this.type = type;
         this.location = location;
         this.preferred = preferred;
@@ -25,7 +25,9 @@ export class Script implements WebpageElement {
     add(document: Document) {
         // Check if the script is already added
         for (const script of document.querySelectorAll('script')) {
-            if (script.src == this.url) return;
+            if (script.src == this.url) {
+                return;
+            }
         }
 
         // Create the script element
@@ -37,7 +39,7 @@ export class Script implements WebpageElement {
         let target = this.location == 'head' ? document.head : document.body;
 
         // Add the script to the target location
-        if (this.preferred) {
+        if (this.preferred && target.querySelector('script')) {
             target.insertBefore(scriptElement, target.querySelector('script'));
         } else {
             target.appendChild(scriptElement);

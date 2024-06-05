@@ -5,22 +5,26 @@ import { EmbedComponent } from "../pages/components/media/embed-component.js";
 import { GalleryComponent } from "../pages/components/media/gallery-component.js";
 import { ImageComponent } from "../pages/components/media/image-component.js";
 import { VideoComponent } from "../pages/components/media/video-component.js";
+import { BlockquoteComponent } from "../pages/components/text/blockquote-component.js";
 import { HeadingComponent } from "../pages/components/text/heading-component.js";
+import { LinkTextComponent } from "../pages/components/text/link-text-component.js";
 import { MarkdownLoader } from "../pages/components/text/markdown-loader.js";
 import { ParagraphComponent } from "../pages/components/text/paragraph-component.js";
 import { PlainTextComponent } from "../pages/components/text/plain-text-component.js";
 import { StyledTextComponent } from "../pages/components/text/styled-text-component.js";
+import { WebpageComponent } from "../pages/components/webpage-component.js";
 import { GeneratedPage } from "../pages/generated-page.js";
 import { HeaderSection } from "../pages/sections/header-section.js";
 import { PaddedSection } from "../pages/sections/padded-section.js";
 import { WebpageSection } from "../pages/sections/webpage-section.js";
 import { WebsiteOptions } from "../website-options.js";
 
-const fields = {
+export const SimplePageFields = {
     resources: 'Resources',
     essayEmbed: 'Research Essay Embed',
     essayLink: 'Research Essay Link',
     video: 'Video Pitch',
+    videoNote: 'Video Note',
     artwork: 'Artwork Description',
     creatorStatement: 'Creator Statement'
 };
@@ -28,6 +32,28 @@ const fields = {
 export class SimplePage extends GeneratedPage {
     constructor(private options: Partial<{ artwork: string[], header: { image: string, position: string, tint: string } }> = {}) {
         super();
+    }
+
+    protected async *generateArtwork(): AsyncIterable<WebpageComponent> {
+        const resources = this.getResources();
+
+        const images: string[] = [];
+
+        for (const file of this.options.artwork || []) {
+            images.push(file);
+        }
+
+        if (this.options.artwork) {
+            yield new HeadingComponent('Project Artwork');
+
+            if (resources.getContent(SimplePageFields.artwork)) {
+                yield* MarkdownLoader.load(resources.getContent(SimplePageFields.artwork));
+            }
+
+            yield new MarginComponent();
+            yield new GalleryComponent(images);
+            yield new MarginComponent();
+        }
     }
 
     async generateWebpage(): Promise<string> {
@@ -53,7 +79,7 @@ export class SimplePage extends GeneratedPage {
         }
         
         overview.add(
-            ...MarkdownLoader.load(resources.getContent(fields.creatorStatement) || `*Missing overview: Add property '${fields.creatorStatement}' in content.json*`),
+            ...MarkdownLoader.load(resources.getContent(SimplePageFields.creatorStatement) || `*Missing overview: Add property '${SimplePageFields.creatorStatement}' in content.json*`),
             new MarginComponent()
         );
 
@@ -66,30 +92,16 @@ export class SimplePage extends GeneratedPage {
         pitch.add(
             new MarginComponent(),
             new HeadingComponent('Video Pitch'),
-            new VideoComponent(resources.getContent(fields.video) || "9xwazD5SyVg"),
+            new VideoComponent(resources.getContent(SimplePageFields.video) || "9xwazD5SyVg"),
             new MarginComponent()
         );
 
-        const images: string[] = [];
-
-        for (const file of this.options.artwork || []) {
-            images.push(file);
+        if (resources.getContent(SimplePageFields.videoNote)) {
+            pitch.add(...MarkdownLoader.load(resources.getContent(SimplePageFields.videoNote)));
         }
 
-        if (this.options.artwork) {
-            pitch.add(
-                new HeadingComponent('Project Artwork')
-            );
-
-            if (resources.getContent(fields.artwork)) {
-                pitch.add(...MarkdownLoader.load(resources.getContent(fields.artwork)));
-            }
-
-            pitch.add(
-                new MarginComponent(),
-                new GalleryComponent(images),
-                new MarginComponent()
-            );
+        for await (const component of this.generateArtwork()) {
+            pitch.add(component);
         }
 
         pitch.setSectionTheme(WebpageSection.Theme.Dark);
@@ -98,20 +110,20 @@ export class SimplePage extends GeneratedPage {
 
         const essay = new PaddedSection(new HeadingComponent("Research Essay"));
 
-        if (resources.getContent(fields.essayEmbed)) {
-            essay.add(new DocumentComponent(resources.getContent(fields.essayEmbed), resources.getContent(fields.essayLink)));
+        if (resources.getContent(SimplePageFields.essayEmbed)) {
+            essay.add(new DocumentComponent(resources.getContent(SimplePageFields.essayEmbed), resources.getContent(SimplePageFields.essayLink)));
         } else {
-            essay.add(new ParagraphComponent(new StyledTextComponent("italic", new PlainTextComponent(`Missing essay: Add property '${fields.essayEmbed}' in content.json`))));
+            essay.add(new ParagraphComponent(new StyledTextComponent("italic", new PlainTextComponent(`Missing essay: Add property '${SimplePageFields.essayEmbed}' in content.json`))));
         }
 
         essay.add(new MarginComponent());
 
         this.add(essay);
 
-        if (resources.getContent(fields.resources)) {
+        if (resources.getContent(SimplePageFields.resources)) {
             const resourcesSection = new PaddedSection(
                 new HeadingComponent("Resources"),
-                ...MarkdownLoader.load(resources.getContent(fields.resources)),
+                ...MarkdownLoader.load(resources.getContent(SimplePageFields.resources)),
                 new MarginComponent()
             );
 

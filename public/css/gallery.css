@@ -22,21 +22,43 @@
 
 .image-gallery-image {
     max-height: 50vh;
+    cursor: pointer; /* Maybe should be zoom-in */
 }
 
-/*
+.image-gallery-overlay-container {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 2;
+    display: flex;
+}
 
-const gallery = document.createElement('div');
-        gallery.classList.add('image-gallery');
+.image-gallery-overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #000000cc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
-        const contents = document.createElement('div');
-        contents.classList.add('image-gallery-contents');
+.image-gallery-overlay-image {
+    max-width: calc(100% - 32px);
+    max-height: calc(100% - 32px);
+    margin: auto;
+    z-index: 3;
+    box-shadow: 0px 4px 10px #000000cc;
+}
 
-        for (const image of this.images) {
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('image-gallery-image-wrapper');
-
-            const imageElement = document.createElement('img');
-            imageElement.classList.add('image-gallery-image');
-
-*/
+.image-gallery-overlay-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+}
