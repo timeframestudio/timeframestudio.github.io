@@ -5,7 +5,8 @@
     "build": "npx rollup --config --watch",
     "live": "npx nodemon ./bin/live.js -q --watch . --ext js,html,json --enable-source-maps",
     "static": "node ./bin/static.js",
-    "clean-output": "node ./bin/clean-output.js"
+    "clean-output": "node ./bin/clean-output.js",
+    "publish-build": "npm run clean-output && npx rollup --config && npm run static"
   },
   "dependencies": {
     "@rollup/plugin-json": "^6.1.0",
