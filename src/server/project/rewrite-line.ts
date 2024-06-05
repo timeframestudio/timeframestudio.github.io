@@ -1,3 +1,5 @@
+import { cursorTo } from "readline";
+
 export function rewriteLine(text: string) {
     clearLine();
     process.stdout.write(text);
@@ -18,6 +20,5 @@ export function blankLine() {
 }
 
 export function clearLine() {
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
+    cursorTo(process.stdout, 0);
 }
