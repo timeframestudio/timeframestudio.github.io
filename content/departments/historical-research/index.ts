@@ -21,9 +21,9 @@ class WebsiteDepartmentPage extends GeneratedPage {
             new MarginComponent(),
             new RowComponent([
                 new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Ishaan" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Liam M." })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Mikey" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Jack" }))
+                new ItemComponent(1, new ImageComponent('liam-m.jpg', { caption: "Liam M." })),
+                new ItemComponent(1, new ImageComponent('mikey.jpg', { caption: "Mikey" })),
+                new ItemComponent(1, new ImageComponent('jack.jpg', { caption: "Jack" }))
             ]),
             new MarginComponent()
         );

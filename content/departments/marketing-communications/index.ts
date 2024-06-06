@@ -7,20 +7,30 @@ import { MarkdownLoader } from "../../../src/server/pages/components/text/markdo
 import { VideoComponent } from "../../../src/server/pages/components/media/video-component.js";
 import { GalleryComponent } from "../../../src/server/pages/components/media/gallery-component.js";
 import { MarginComponent } from "../../../src/server/pages/components/layout/margin-component.js";
+import { RowComponent } from "../../../src/server/pages/components/layout/row-component.js";
+import { ItemComponent } from "../../../src/server/pages/components/layout/item-component.js";
+import { ImageComponent } from "../../../src/server/pages/components/media/image-component.js";
 
 class WebsiteDepartmentPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.add(new PaddedSection(
             new HeadingComponent("Marketing & Communications Department"),
             ...MarkdownLoader.load(this.getResources().getContent('Department Statement')),
-            new HeadingComponent("Logo Showcase"),
+            new HeadingComponent("Logo Showcase", 2),
             ...MarkdownLoader.load(this.getResources().getContent('Showcase Description')),
             new MarginComponent(),
             new VideoComponent(this.getResources().getContent('Showcase Video')),
-            new HeadingComponent("Flyers"),
+            new HeadingComponent("Flyers", 2),
             ...MarkdownLoader.load(this.getResources().getContent('Flyer Description')),
             new MarginComponent(),
             new GalleryComponent([ 'flyer1.png', 'flyer2.png' ]),
+            new HeadingComponent("Team Members", 2),
+            new MarginComponent(),
+            new RowComponent([
+                new ItemComponent(1, new ImageComponent('paul.jpg', { caption: "Paul" })),
+                new ItemComponent(1, new ImageComponent('roham.jpg', { caption: "Roham" })),
+                new ItemComponent(1, new ImageComponent('tima.jpg', { caption: "Tima" }))
+            ]),
             new MarginComponent()
         ));
 

@@ -21,6 +21,8 @@ class WebsiteDepartmentPage extends GeneratedPage {
             ...MarkdownLoader.load(this.getResources().getContent('Development')),
             new MarginComponent(),
             new ImageComponent('diagram.svg'),
+            new MarginComponent(),
+            ...MarkdownLoader.load(this.getResources().getContent('Development (2)')),
             new MarginComponent()
         );
 
@@ -29,19 +31,17 @@ class WebsiteDepartmentPage extends GeneratedPage {
         this.add(development);
 
         const team = new PaddedSection(
-            customize(new HeadingComponent("Team Members", 2), customize.centerText()),
+            new HeadingComponent("Team Members", 2),
             new MarginComponent(),
             new RowComponent([
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Brian" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Cayo" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Henry" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Imran" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Weston" }))
+                new ItemComponent(1, new ImageComponent('brian.jpg', { caption: "Brian" })),
+                new ItemComponent(1, new ImageComponent('cayo.jpg', { caption: "Cayo" })),
+                new ItemComponent(1, new ImageComponent('henry.jpg', { caption: "Henry" })),
+                new ItemComponent(1, new ImageComponent('imran.jpg', { caption: "Imran" })),
+                new ItemComponent(1, new ImageComponent('weston.jpg', { caption: "Weston" }))
             ]),
             new MarginComponent()
         );
-
-        team.setSectionTheme(PaddedSection.Theme.Dark);
 
         this.add(team);
 

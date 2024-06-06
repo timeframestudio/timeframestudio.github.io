@@ -17,13 +17,13 @@ class WebsiteDepartmentPage extends GeneratedPage {
             customize(new HeadingComponent("Team Members", 2), customize.centerText()),
             new MarginComponent(),
             new RowComponent([
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Nour" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Rhiannon" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Tyler" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Liam B" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Sophia" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Ella" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Dylan" }))
+                new ItemComponent(1, new ItemComponent(1, new ImageComponent('nour.png', { caption: "Nour" }))),
+                new ItemComponent(1, new ImageComponent('rhiannon.png', { caption: "Rhiannon" })),
+                new ItemComponent(1, new ImageComponent('tyler.png', { caption: "Tyler" })),
+                new ItemComponent(1, new ImageComponent('liam-b.png', { caption: "Liam B" })),
+                new ItemComponent(1, new ImageComponent('sophia.png', { caption: "Sophia" })),
+                new ItemComponent(1, new ImageComponent('ella.png', { caption: "Ella" })),
+                new ItemComponent(1, new ImageComponent('dylan.png', { caption: "Dylan" }))
             ]),
             new MarginComponent()
         ));
