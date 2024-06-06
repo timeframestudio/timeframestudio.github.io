@@ -4,12 +4,29 @@ import { HeaderSection } from "../../../src/server/pages/sections/header-section
 import { PaddedSection } from "../../../src/server/pages/sections/padded-section.js";
 import { HeadingComponent } from "../../../src/server/pages/components/text/heading-component.js";
 import { MarkdownLoader } from "../../../src/server/pages/components/text/markdown-loader.js";
+import { MarginComponent } from "../../../src/server/pages/components/layout/margin-component.js";
+import { customize } from "../../../src/server/pages/components/customize.js";
+import { RowComponent } from "../../../src/server/pages/components/layout/row-component.js";
+import { ItemComponent } from "../../../src/server/pages/components/layout/item-component.js";
+import { ImageComponent } from "../../../src/server/pages/components/media/image-component.js";
 
 class WebsiteDepartmentPage extends GeneratedPage {
     async generateWebpage(): Promise<string> {
         this.add(new PaddedSection(
-            ...MarkdownLoader.load(this.getResources().getContent('Overview')
-        )));
+            ...MarkdownLoader.load(this.getResources().getContent('Overview')),
+            customize(new HeadingComponent("Team Members", 2), customize.centerText()),
+            new MarginComponent(),
+            new RowComponent([
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Nour" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Rhiannon" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Tyler" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Liam B" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Sophia" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Ella" })),
+                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Dylan" }))
+            ]),
+            new MarginComponent()
+        ));
 
         return await super.generateWebpage();
     }
