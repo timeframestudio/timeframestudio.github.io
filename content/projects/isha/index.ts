@@ -4,7 +4,7 @@ import { SimplePage } from "../../../src/server/utils/simple-page.js";
 const router = new PageRouter();
 
 router.addPage('/', new SimplePage({
-    artwork: [ 'poster.png', 'storyboard0.png', 'storyboard1.png' ]
+    artwork: [ 'storyboard1.png', 'poster.png', 'scraficetorebel.png', 'scraficetorebel2.png']
 }));
 
 export default router;
