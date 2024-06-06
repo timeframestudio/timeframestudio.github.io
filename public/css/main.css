@@ -121,6 +121,26 @@
 
 .column-center {
     flex: 4;
+    word-wrap: break-word;
+    width: 66.6666666667%;
+}
+
+@media (max-width: 800px) {
+    .column-side {
+        flex: 0;
+        margin-right: 32px;
+    }
+
+    .column-center {
+        flex: unset;
+        word-wrap: break-word;
+        width: calc(100% - 64px);
+    }
+
+    .header {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
 }
 
 body {
