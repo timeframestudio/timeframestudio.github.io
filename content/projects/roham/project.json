@@ -3,8 +3,5 @@
     "description": "An animated miniseries on the 1979 Iranian Revolution.",
     "author": "Roham Arbabi",
     "location": [ 1572, 405 ],
-    "poster": {
-        "background": "poster.png",
-        "text": true
-    }
+    "poster": "poster.png"
 }

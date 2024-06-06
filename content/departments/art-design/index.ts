@@ -20,11 +20,11 @@ class WebsiteDepartmentPage extends GeneratedPage {
             customize(new HeadingComponent("Team Members", 2), customize.centerText()),
             new MarginComponent(),
             new RowComponent([
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Alena" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Bo" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Dora" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Isha" })),
-                new ItemComponent(1, new ImageComponent('example-person.jpeg', { caption: "Mehr" }))
+                new ItemComponent(1, new ImageComponent('alena.png', { caption: "Alena" })),
+                new ItemComponent(1, new ImageComponent('bo.jpeg', { caption: "Bo" })),
+                new ItemComponent(1, new ImageComponent('dora.png', { caption: "Dora" })),
+                new ItemComponent(1, new ImageComponent('isha.png', { caption: "Isha" })),
+                new ItemComponent(1, new ImageComponent('mehr.png', { caption: "Mehr" }))
             ]),
             new MarginComponent()
         );
